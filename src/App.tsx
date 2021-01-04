@@ -1,13 +1,12 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { Box, Button } from "@material-ui/core";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Hello World!
-      </header>
-    </div>
+    <Box display="flex" width="100vw" height="100vh" alignItems="center" justifyContent="center">
+      <Button color="primary">Hello World</Button>
+    </Box>
   );
 }
 
