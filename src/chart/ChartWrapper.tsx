@@ -7,7 +7,6 @@ const ChartWrapper = function<T extends D3Chart>(type: { new(el: any): T ;}) {
 
 	useEffect(() => {
 		if (!chart) {
-			console.log(chartArea.current);
 			setChart(new type(chartArea.current))
 		}
 		else {

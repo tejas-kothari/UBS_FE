@@ -1,9 +1,5 @@
 import * as d3 from "d3";
-import { DSVParsedArray } from "d3";
 import { D3Chart } from "./D3Chart";
-
-const url = "https://udemy-react-d3.firebaseio.com/ages.json";
-
 export default class TestChart extends D3Chart {
   constructor(element) {
     super(element);
