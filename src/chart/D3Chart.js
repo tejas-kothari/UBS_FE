@@ -10,7 +10,7 @@ export default class D3Chart {
             height = 400 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
-        var svg = d3.select("#my_dataviz")
+        var svg = d3.select(element)
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -18,9 +18,12 @@ export default class D3Chart {
             .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
 
-        // get the data
+        // // get the data
         d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", function (data) {
-
+            return {
+                ...data
+            };
+        }).then(function(data) {
             // X axis: scale and draw:
             var x = d3.scaleLinear()
                 .domain([0, 1000])     // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
