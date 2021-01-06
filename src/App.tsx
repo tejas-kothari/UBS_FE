@@ -1,24 +1,20 @@
-import React from "react";
-import { Box, Typography } from "@material-ui/core";
-import "./App.css";
-import ChartWrapper from "./chart/ChartWrapper";
-import TestChart from "./chart/TestChart";
-import TestChart2 from "./chart/TestChart2";
-import TestChart3 from "./chart/TestChart3";
-import TestChart4 from "./chart/TestChart4";
+import { ThemeProvider } from '@material-ui/core';
+import React from 'react';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useRoutes } from 'react-router-dom';
+import GlobalStyles from './components/GlobalStyles';
+import routes from './routes';
+import theme from './theme';
 
-function App() {
+const App = () => {
+  const routing = useRoutes(routes);
+
   return (
-    <Box display="flex" width="100vw" alignItems="center" justifyContent="center" flexWrap="wrap">
-      {ChartWrapper<TestChart>(TestChart)}
-      {ChartWrapper<TestChart2>(TestChart2)}
-      {ChartWrapper<TestChart3>(TestChart3)}
-      {ChartWrapper<TestChart4>(TestChart4)}
-      {/* <Typography variant="h2" gutterBottom>
-        Funding by Year
-      </Typography> */}
-    </Box>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      {routing}
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
