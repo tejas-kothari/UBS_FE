@@ -1,6 +1,8 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
 import Page from '../../components/Page';
+import Typography from '@material-ui/core/Typography';
+import 'fontsource-roboto';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,10 +15,15 @@ const useStyles = makeStyles((theme) => ({
 
 function PortfolioView() {
   const classes = useStyles();
-  
+
   return (
     <Page title="Portfolio" className={classes.root}>
-      Hello World!
+      
+      <Typography variant="h1" >
+      Portfolio Allocation
+      </Typography>
+      
+
     </Page>
   );
 }

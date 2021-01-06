@@ -31,6 +31,11 @@ const items = [
     href: '/portfolio',
     icon: PieChartIcon,
     title: 'Portfolio Allocation'
+  },
+  {
+    href: '/subsectors',
+    icon: PieChartIcon,
+    title: 'Subsectors'
   }
 ];
 
