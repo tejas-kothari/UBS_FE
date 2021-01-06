@@ -1,17 +1,20 @@
 import {
   Avatar,
   Box,
-
   Divider,
   Drawer,
   Hidden,
   List,
+
   makeStyles,
   Typography
 } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { BarChart as BarChartIcon, PieChart as PieChartIcon } from 'react-feather';
+import {
+  BarChart as BarChartIcon,
+  PieChart as PieChartIcon,
+  Star as StarIcon
+} from 'react-feather';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
@@ -21,21 +24,41 @@ const user = {
   name: 'Katarina Smith'
 };
 
-const items = [
+const navData = [
   {
-    href: '/chart',
-    icon: BarChartIcon,
-    title: 'Chart'
+    name: 'Companies',
+    items: [
+      {
+        href: '/companies/featured',
+        icon: StarIcon,
+        title: 'Featured'
+      },
+      {
+        href: '/portfolio',
+        icon: PieChartIcon,
+        title: 'Portfolio Allocation'
+      }
+    ]
   },
   {
-    href: '/portfolio',
-    icon: PieChartIcon,
-    title: 'Portfolio Allocation'
+    name: 'Trends',
+    items: [
+      {
+        href: '/subsectors',
+        icon: PieChartIcon,
+        title: 'Subsectors'
+      }
+    ]
   },
   {
-    href: '/subsectors',
-    icon: PieChartIcon,
-    title: 'Subsectors'
+    name: 'Demo',
+    items: [
+      {
+        href: '/chart',
+        icon: BarChartIcon,
+        title: 'Chart Demo'
+      }
+    ]
   }
 ];
 
@@ -93,13 +116,20 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map(item => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-            />
+          {navData.map(nav => (
+            <>
+              <Typography component="div">{nav.name}</Typography>
+              <List>
+                {nav.items.map(item => (
+                  <NavItem
+                    href={item.href}
+                    key={item.title}
+                    title={item.title}
+                    icon={item.icon}
+                  />
+                ))}
+              </List>
+            </>
           ))}
         </List>
       </Box>
@@ -131,11 +161,6 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
       </Hidden>
     </>
   );
-};
-
-NavBar.propTypes = {
-  onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
 };
 
 NavBar.defaultProps = {

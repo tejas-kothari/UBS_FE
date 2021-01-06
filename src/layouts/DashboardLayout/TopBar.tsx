@@ -5,19 +5,19 @@ import {
   Hidden,
   IconButton,
   makeStyles,
-  Toolbar,
-  Typography
+  Toolbar
 } from '@material-ui/core';
 import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-const useStyles = makeStyles(() => ({
-  root: {},
+const useStyles = makeStyles(theme => ({
+  root: {
+    zIndex: theme.zIndex.drawer + 1
+  },
   avatar: {
     width: 60,
     height: 60
@@ -25,8 +25,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 type TopBarProps = {
-  className: any;
-  onMobileNavOpen: any;
+  className: string;
+  onMobileNavOpen:
+    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+    | undefined;
   [x: string]: any;
 };
 
@@ -35,10 +37,15 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
   const [notifications] = useState([]);
 
   return (
-    <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
+    <AppBar
+      className={clsx(classes.root, className)}
+      elevation={2}
+      {...rest}
+      color="transparent"
+    >
       <Toolbar>
         <RouterLink to="/">
-          <Typography>Blah</Typography>
+          <img src="static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
@@ -63,11 +70,6 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
       </Toolbar>
     </AppBar>
   );
-};
-
-TopBar.propTypes = {
-  className: PropTypes.string,
-  onMobileNavOpen: PropTypes.func
 };
 
 export default TopBar;
