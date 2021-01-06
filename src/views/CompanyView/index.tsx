@@ -3,6 +3,7 @@ import React from 'react';
 import Page from '../../components/Page';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
+import { useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,14 +13,15 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PortfolioView() {
+function CompanyView() {
   const classes = useStyles();
+  const { companyId } = useParams();
 
   return (
     <Page title="Portfolio" className={classes.root}>
       
       <Typography variant="h1" >
-      Portfolio Allocation
+        Company: {companyId}
       </Typography>
       
 
@@ -27,4 +29,4 @@ function PortfolioView() {
   );
 }
 
-export default PortfolioView;
+export default CompanyView;

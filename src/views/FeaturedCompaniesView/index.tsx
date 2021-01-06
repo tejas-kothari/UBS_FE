@@ -12,14 +12,14 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PortfolioView() {
+function FeaturedCompaniesView() {
   const classes = useStyles();
 
   return (
-    <Page title="Portfolio" className={classes.root}>
+    <Page title="Featured Companies" className={classes.root}>
       
       <Typography variant="h1" >
-      Portfolio Allocation
+      Featured Companies
       </Typography>
       
 
@@ -27,4 +27,4 @@ function PortfolioView() {
   );
 }
 
-export default PortfolioView;
+export default FeaturedCompaniesView;
