@@ -117,7 +117,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
       <Box p={2}>
         <List>
           {navData.map(nav => (
-            <>
+            <React.Fragment key={nav.name}>
               <Typography component="div">{nav.name}</Typography>
               <List>
                 {nav.items.map(item => (
@@ -129,7 +129,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
                   />
                 ))}
               </List>
-            </>
+            </React.Fragment>
           ))}
         </List>
       </Box>
