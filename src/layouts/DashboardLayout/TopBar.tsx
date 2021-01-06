@@ -45,7 +45,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
     >
       <Toolbar>
         <RouterLink to="/">
-          <img src="static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
+          <img src="/static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
