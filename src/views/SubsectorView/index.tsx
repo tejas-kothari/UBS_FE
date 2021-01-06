@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       
     },
     paper: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
@@ -44,55 +44,67 @@ function FullWidthGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={5}
+      <Grid container spacing={3}
         direction="row"
         justify="flex-start"
         alignItems="flex-start">
 
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
-
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
             <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
           </Paper>
         </Grid>
-
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
-
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
             <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
           </Paper>
         </Grid>
-
-        <Grid item xs={6}>
+        <Grid item xs={6}/>
+        
+        <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
-
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
             <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
           </Paper>
         </Grid>
-
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
-
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
             <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
           </Paper>
         </Grid>
+        <Grid item xs={6}/>
 
-        <Grid item xs={6}>
+        <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
-
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
             <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
           </Paper>
         </Grid>
+        <Grid item xs={3}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Subsectors</Typography>
+            <Typography variant="body1" gutterBottom>&nbsp;</Typography>
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={6}/>
+          
+        
+        
 
       </Grid>
 
