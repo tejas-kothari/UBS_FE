@@ -1,6 +1,7 @@
 import { PartialRouteObject } from 'react-router';
 import DashboardLayout from './layouts/DashboardLayout';
 import ChartView from './views/ChartView';
+import PortfolioView from './views/PortfolioView';
 
 const routes = [
   {
@@ -10,6 +11,10 @@ const routes = [
       {
         path: 'chart',
         element: <ChartView />
+      },
+      {
+        path: 'portfolio',
+        element: <PortfolioView />
       }
     ]
   }

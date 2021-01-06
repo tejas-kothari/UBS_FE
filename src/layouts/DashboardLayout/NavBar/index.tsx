@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { BarChart as BarChartIcon } from 'react-feather';
+import { BarChart as BarChartIcon, PieChart as PieChartIcon } from 'react-feather';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
@@ -26,6 +26,11 @@ const items = [
     href: '/chart',
     icon: BarChartIcon,
     title: 'Chart'
+  },
+  {
+    href: '/portfolio',
+    icon: PieChartIcon,
+    title: 'Portfolio Allocation'
   }
 ];
 
