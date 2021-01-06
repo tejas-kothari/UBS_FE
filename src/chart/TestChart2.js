@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import { D3Chart } from './D3Chart';
 // import * as d3Cloud from "d3-cloud";
 import cloud from 'd3-cloud';
-import data from './crunchbase_tmp.json';
+import data from '../tmp_data/crunchbase_tmp.json';
 
 export default class TestChart extends D3Chart {
   constructor(element) {
