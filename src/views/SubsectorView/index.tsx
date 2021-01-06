@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      minHeight: '100%',
+      padding: theme.spacing(3)
+      
     },
     paper: {
       padding: theme.spacing(2),
@@ -40,42 +44,60 @@ function FullWidthGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}
-      direction="row"
-      justify="flex-start"
-      alignItems="flex-start">
-        
-        <Grid item xs={12} sm={6}>
-          <Paper>Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-        </Grid>       
-        <Grid item xs={12} sm={6}>
-          <Paper>Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
+      <Grid container spacing={5}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start">
+
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
+
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Paper>Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
+
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Paper>Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
+
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Paper>Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
-          <Paper>Subsectors Subsectors</Paper>
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
+
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={6}>
+          <Paper>
+            <Typography variant="body1" gutterBottom>Digital Payments</Typography>
+
+            <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
+            <Typography variant="body2" gutterBottom>Total Investments  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY Increase</Typography>
+          </Paper>
         </Grid>
 
       </Grid>
-    </div>
+
+      
+    </div >
   );
 }
 
@@ -85,20 +107,20 @@ function SubsectorView() {
   return (
     <Page title="Subsectors" className={classes.root}>
 
-          <Typography variant="h1" >
-            Subsectors
+      <Typography variant="h1" >
+        Subsectors
       </Typography>
-          {/*<Grid
+      {/*<Grid
         container
         direction="row"
         justify="flex-start"
         alignItems="flex-start"
       />*/}
-          <FullWidthGrid />
+      <FullWidthGrid />
 
 
 
-        </Page>
+    </Page>
   );
 }
 
