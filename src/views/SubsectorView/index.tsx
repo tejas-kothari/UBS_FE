@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
+import { csvFormatRow } from 'd3';
 
 /*
 const useStyles = makeStyles((theme) => ({
@@ -39,36 +40,38 @@ function FullWidthGrid() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3}>
+      <Grid container spacing={3}
+      direction="row"
+      justify="flex-start"
+      alignItems="flex-start">
         
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" >Subsectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-        </Grid>
-        
+          <Paper>Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+        </Grid>       
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" >Subsectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" >Subsectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
+          <Paper>Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" >Subsectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
+          <Paper>Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Typography variant="h6" >Subsectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
-          <Typography variant="h6" >Subsectors   subectors</Typography>
+          <Paper>Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <Paper>Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
+          <Paper>Subsectors Subsectors</Paper>
         </Grid>
 
       </Grid>
