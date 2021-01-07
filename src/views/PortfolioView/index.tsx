@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import { csvFormatRow } from 'd3';
 import TestChart3 from '../../chart/TestChart3';
 import ChartWrapper from '../../chart/ChartWrapper';
+import { shadows } from '@material-ui/system';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    
   },
 }));
 
@@ -39,9 +41,9 @@ function FullWidthGrid() {
 
 
         <Grid item xs={6}>
-          <Paper>
+          <Paper >
             <Typography variant="body1" gutterBottom align='left'>&nbsp;&nbsp;&nbsp;Series-wise Investment</Typography>
-          <Box
+          <Box boxShadow={0}
             display="flex"
             alignItems="center"
             justifyContent="center"
@@ -59,7 +61,7 @@ function FullWidthGrid() {
 
         <Grid item xs={6}>
           <Paper>
-            <Typography variant="body1" gutterBottom align='left'>Portfolio Growth</Typography>
+            <Typography variant="body1" gutterBottom align='left'>&nbsp;&nbsp;&nbsp;Portfolio Growth</Typography>
           <Box
             display="flex"
             alignItems="center"

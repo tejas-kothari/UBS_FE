@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       
     },
     paper: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(3),
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
@@ -50,7 +50,7 @@ function FullWidthGrid() {
         alignItems="flex-start">
 
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
@@ -58,7 +58,7 @@ function FullWidthGrid() {
           </Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
@@ -68,7 +68,7 @@ function FullWidthGrid() {
         <Grid item xs={6}/>
         
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
@@ -76,7 +76,7 @@ function FullWidthGrid() {
           </Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
@@ -86,7 +86,7 @@ function FullWidthGrid() {
         <Grid item xs={6}/>
 
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
@@ -94,7 +94,7 @@ function FullWidthGrid() {
           </Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper>
+          <Paper elevation={5}>
             <Typography variant="body1" gutterBottom>Subsectors</Typography>
             <Typography variant="body1" gutterBottom>&nbsp;</Typography>
             <Typography variant="h5" gutterBottom>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$$</Typography>
