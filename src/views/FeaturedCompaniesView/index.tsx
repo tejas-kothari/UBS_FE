@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Page from '../../components/Page';
 import CompanyCard from './CompanyCard';
 import CustomSelect from './CustomSelect';
+import companiesData from '../../tmp_data/companies_data.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,19 +30,18 @@ function FeaturedCompaniesView() {
   const classes = useStyles();
 
   const selects = {
-    category: ["Test"],
-    country: ["Test"],
-    phase: ["Test"],
-    size: ["Test"],
-    investor: ["Test"],
-  }
+    category: ['Test'],
+    country: ['Test'],
+    phase: ['Test'],
+    size: ['Test'],
+    investor: ['Test']
+  };
 
   const [category, setCategory] = useState<string>('');
   const [country, setCountry] = useState<string>('');
   const [phase, setPhase] = useState<string>('');
   const [size, setSize] = useState<string>('');
   const [investor, setInvestor] = useState<string>('');
-
 
   return (
     <Page title="Featured Companies" className={classes.root}>
@@ -91,9 +91,9 @@ function FeaturedCompaniesView() {
         direction="column"
         className={classes.companyCards}
       >
-        <CompanyCard />
-        <CompanyCard />
-        <CompanyCard />
+        {companiesData.map(company => (
+          <CompanyCard company={company} />
+        ))}
       </Grid>
     </Page>
   );

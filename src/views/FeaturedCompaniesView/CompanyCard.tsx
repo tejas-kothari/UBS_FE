@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { Divide } from 'react-feather';
+import { Company } from '../../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,10 +28,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type CompanyCardProps = {
-  //   label: string;
+  company: Company;
 };
 
-function CompanyCard({}: CompanyCardProps) {
+function CompanyCard({ company }: CompanyCardProps) {
   const classes = useStyles();
 
   return (
@@ -42,7 +43,7 @@ function CompanyCard({}: CompanyCardProps) {
             color="textSecondary"
             gutterBottom
           >
-            Word of the Day
+            {company.name}
           </Typography>
           <Typography variant="body2" component="p">
             well meaning and kindly.
@@ -52,7 +53,7 @@ function CompanyCard({}: CompanyCardProps) {
         </CardContent>
         <div className={classes.spacer}></div>
         <CardActions>
-          <Button size="small">Learn More</Button>
+          <Button href={company.uuid} size="small">Learn More</Button>
         </CardActions>
       </Card>
     </Grid>
