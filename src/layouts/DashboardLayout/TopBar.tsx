@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     zIndex: theme.zIndex.drawer + 1
   },
+  toolbar: {
+    minHeight: 64
+  },
   avatar: {
     width: 60,
     height: 60
@@ -43,7 +46,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
       {...rest}
       color="transparent"
     >
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <RouterLink to="/">
           <img src="/static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
         </RouterLink>
