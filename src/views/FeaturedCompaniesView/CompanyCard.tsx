@@ -1,18 +1,14 @@
 import {
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  makeStyles,
   Button,
   Card,
   CardActions,
   CardContent,
+  Grid,
+  makeStyles,
   Typography
 } from '@material-ui/core';
 import React from 'react';
-import { Divide } from 'react-feather';
+import { NavLink } from 'react-router-dom';
 import { Company } from '../../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
@@ -53,7 +49,13 @@ function CompanyCard({ company }: CompanyCardProps) {
         </CardContent>
         <div className={classes.spacer}></div>
         <CardActions>
-          <Button href={company.uuid} size="small">Learn More</Button>
+          <Button
+            component={NavLink}
+            to={`/companies/${company.uuid}`}
+            size="small"
+          >
+            Learn More
+          </Button>
         </CardActions>
       </Card>
     </Grid>
