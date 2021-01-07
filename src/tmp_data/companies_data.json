@@ -1,10 +1,10 @@
 [
     {
         "uuid": "abc",
-        "name": "ABC"
+        "name": "ABC Company"
     }, 
     {
         "uuid": "def",
-        "name": "DEF"
+        "name": "DEF Company"
     }
 ]
