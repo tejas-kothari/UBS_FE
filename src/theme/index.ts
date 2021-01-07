@@ -20,7 +20,16 @@ const theme = createMuiTheme({
     }
   },
   shadows: ShadowTheme,
-  typography: TypgoraphyTheme
+  typography: TypgoraphyTheme,
+  overrides: {
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: colors.common.white
+        }
+      }
+    }
+  }
 });
 
 export default theme;

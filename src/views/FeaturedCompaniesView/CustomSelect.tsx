@@ -11,15 +11,24 @@ import React from 'react';
 const useStyles = makeStyles(theme => ({
   formControl: {
     minWidth: 150,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: `${theme.palette.background.paper} !important`
+  },
+  select: {
+      "&:focus": {
+        backgroundColor: `${theme.palette.background.paper} !important`
+      }
   }
 }));
 
 type CustomSelectProps = {
   label: string;
+  id: string;
+  values: string[],
+  value: string,
+  handleChange: React.Dispatch<React.SetStateAction<string>>
 };
 
-function CustomSelect({ label }: CustomSelectProps) {
+function CustomSelect({ label, id, values, value, handleChange }: CustomSelectProps) {
   const classes = useStyles();
 
   return (
@@ -29,17 +38,18 @@ function CustomSelect({ label }: CustomSelectProps) {
           {label}
         </InputLabel>
         <Select
-          labelId="featured-companies-category-select-label"
-          value=""
-          // onChange={handleChange}
+          labelId={`featured-companies-${id}-select-label`}
+          value={value}
+          onChange={(event) => handleChange(event.target.value as string)}
           label={label}
+          className={classes.select}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {values.map(value => (
+            <MenuItem value={value} key={value}>{value}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Grid>
