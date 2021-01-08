@@ -79,6 +79,6 @@ export default class TestChart extends D3Chart {
   }
 
   update() {
-    let vis = this;
+    // let vis = this;
   }
 }

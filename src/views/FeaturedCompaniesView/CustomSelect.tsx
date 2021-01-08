@@ -14,21 +14,29 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: `${theme.palette.background.paper} !important`
   },
   select: {
-      "&:focus": {
-        backgroundColor: `${theme.palette.background.paper} !important`
-      }
+    '&:focus': {
+      backgroundColor: `${theme.palette.background.paper} !important`
+    }
   }
 }));
 
 type CustomSelectProps = {
   label: string;
   id: string;
-  values: string[],
-  value: string,
-  handleChange: React.Dispatch<React.SetStateAction<string>>
+  values: string[];
+  value: string;
+  handleChange: React.Dispatch<React.SetStateAction<string>>;
+  updateCompanies: () => void;
 };
 
-function CustomSelect({ label, id, values, value, handleChange }: CustomSelectProps) {
+function CustomSelect({
+  label,
+  id,
+  values,
+  value,
+  handleChange,
+  updateCompanies
+}: CustomSelectProps) {
   const classes = useStyles();
 
   return (
@@ -40,7 +48,10 @@ function CustomSelect({ label, id, values, value, handleChange }: CustomSelectPr
         <Select
           labelId={`featured-companies-${id}-select-label`}
           value={value}
-          onChange={(event) => handleChange(event.target.value as string)}
+          onChange={event => {
+            handleChange(event.target.value as string);
+            updateCompanies();
+          }}
           label={label}
           className={classes.select}
         >
@@ -48,7 +59,9 @@ function CustomSelect({ label, id, values, value, handleChange }: CustomSelectPr
             <em>None</em>
           </MenuItem>
           {values.map(value => (
-            <MenuItem value={value} key={value}>{value}</MenuItem>
+            <MenuItem value={value} key={value}>
+              {value}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

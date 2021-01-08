@@ -1,11 +1,8 @@
 import {
-  Avatar,
   Box,
-  Divider,
   Drawer,
   Hidden,
   List,
-
   makeStyles,
   Typography
 } from '@material-ui/core';
@@ -15,14 +12,14 @@ import {
   PieChart as PieChartIcon,
   Star as StarIcon
 } from 'react-feather';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
-};
+// const user = {
+//   avatar: '/static/images/avatars/avatar_6.png',
+//   jobTitle: 'Senior Developer',
+//   name: 'Katarina Smith'
+// };
 
 const navData = [
   {
@@ -99,7 +96,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
-      <Box alignItems="center" display="flex" flexDirection="column" p={2}>
+      {/* <Box alignItems="center" display="flex" flexDirection="column" p={2}>
         <Avatar
           className={classes.avatar}
           component={RouterLink}
@@ -113,7 +110,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
           {user.jobTitle}
         </Typography>
       </Box>
-      <Divider />
+      <Divider /> */}
       <Box p={2}>
         <List>
           {navData.map(nav => (
