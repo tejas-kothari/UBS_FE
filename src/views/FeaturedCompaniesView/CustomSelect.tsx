@@ -1,11 +1,5 @@
-import {
-  Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  makeStyles
-} from '@material-ui/core';
+import { Grid, makeStyles, TextField } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 import React from 'react';
 
 const useStyles = makeStyles(theme => ({
@@ -24,8 +18,8 @@ type CustomSelectProps = {
   label: string;
   id: string;
   values: string[];
-  value: string;
-  handleChange: React.Dispatch<React.SetStateAction<string>>;
+  value: string[];
+  handleChange: React.Dispatch<React.SetStateAction<string[]>>;
   updateCompanies: () => void;
 };
 
@@ -41,7 +35,32 @@ function CustomSelect({
 
   return (
     <Grid item>
-      <FormControl variant="outlined" className={classes.formControl}>
+      <Autocomplete
+        id={`featured-companies-${id}-autocomplete`}
+        style={{ width: 300 }}
+        options={values}
+        className={classes.formControl}
+        autoHighlight
+        multiple
+        renderInput={params => (
+          <TextField
+            {...params}
+            label={label}
+            variant="outlined"
+            inputProps={{
+              ...params.inputProps,
+              autoComplete: 'new-password' // disable autocomplete and autofill
+            }}
+          />
+        )}
+        value={value}
+        onChange={(event, value) => {
+          handleChange(value);
+          updateCompanies();
+        }}
+        limitTags={1}
+      />
+      {/* <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="featured-companies-category-select-label">
           {label}
         </InputLabel>
@@ -64,7 +83,7 @@ function CustomSelect({
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
     </Grid>
   );
 }

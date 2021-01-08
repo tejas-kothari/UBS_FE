@@ -29,6 +29,10 @@ const useStyles = makeStyles(theme => ({
   companyCards: {}
 }));
 
+const elementInArray = (el: string, arr : string[]) : boolean => {
+  return arr.some(str => str === el);
+};
+
 function FeaturedCompaniesView() {
   const classes = useStyles();
 
@@ -42,11 +46,11 @@ function FeaturedCompaniesView() {
 
   const allCompanies = companiesData as Company[];
 
-  const [category, setCategory] = useState<string>('');
-  const [country, setCountry] = useState<string>('');
-  const [phase, setPhase] = useState<string>('');
-  const [size, setSize] = useState<string>('');
-  const [investor, setInvestor] = useState<string>('');
+  const [filterCategory, setFilterCategory] = useState<string[]>([]);
+  const [filterCountry, setFilterCountry] = useState<string[]>([]);
+  const [filterPhase, setFilterPhase] = useState<string[]>([]);
+  const [filterSize, setFilterSize] = useState<string[]>([]);
+  const [filterInvestor, setFilterInvestor] = useState<string[]>([]);
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -70,35 +74,35 @@ function FeaturedCompaniesView() {
   function updateCompanies() {
     setPage(0);
   }
-  
+
+  console.log("filtering")
   companies = allCompanies.filter(company => {
     if (
-      category &&
+      filterCategory.length &&
       !company.category_list
         .split(',')
-        .find(companyCategory => category === companyCategory)
+        .some(companyCategory => elementInArray(companyCategory, filterCategory))
     ) {
       return false;
     }
 
-    if (country && company.country_code !== country) {
+    if (filterCountry.length && !elementInArray(company.country_code, filterCountry)) {
       return false;
     }
 
-    if (phase && company.last_funding_type !== phase) {
+    if (filterPhase.length && !elementInArray(company.last_funding_type, filterPhase)) {
       return false;
     }
 
-    if (size && company.employee_count !== size) {
+    if (filterSize.length && !elementInArray(company.employee_count, filterSize)) {
       return false;
     }
+    console.log(!elementInArray(company.employee_count, sizes));
 
     // Filter investors later
 
     return true;
   });
-
-  console.log('hi');
 
   return (
     <Page title="Featured Companies" className={classes.root}>
@@ -109,40 +113,40 @@ function FeaturedCompaniesView() {
         <CustomSelect
           label="Category"
           id="category"
-          value={category}
-          handleChange={setCategory}
+          value={filterCategory}
+          handleChange={setFilterCategory}
           updateCompanies={updateCompanies}
           values={selects.categories}
         />
         <CustomSelect
           label="Country"
           id="country"
-          value={country}
-          handleChange={setCountry}
+          value={filterCountry}
+          handleChange={setFilterCountry}
           updateCompanies={updateCompanies}
           values={selects.countries}
         />
         <CustomSelect
           label="Phase"
           id="phase"
-          value={phase}
-          handleChange={setPhase}
+          value={filterPhase}
+          handleChange={setFilterPhase}
           updateCompanies={updateCompanies}
           values={selects.phases}
         />
         <CustomSelect
           label="Size"
           id="size"
-          value={size}
-          handleChange={setSize}
+          value={filterSize}
+          handleChange={setFilterSize}
           updateCompanies={updateCompanies}
           values={selects.sizes}
         />
         <CustomSelect
           label="Investors"
           id="investors"
-          value={investor}
-          handleChange={setInvestor}
+          value={filterInvestor}
+          handleChange={setFilterInvestor}
           updateCompanies={updateCompanies}
           values={selects.investor}
         />
