@@ -7,6 +7,7 @@ import CompanyCard from './CompanyCard';
 import CustomSelect from './CustomSelect';
 import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.json';
 import { Company } from '../../interfaces/company';
+import { phases, categories, sizes, countries } from "./CompanyFilters"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,11 +32,11 @@ function FeaturedCompaniesView() {
   const classes = useStyles();
 
   const selects = {
-    category: ['Test'],
-    country: ['Test'],
-    phase: ['Test'],
-    size: ['1-10', '11-50', '101-250'],
-    investor: ['Test']
+    phases,
+    sizes,
+    categories,
+    countries,
+    investor: ['Investor A']
   };
 
   const allCompanies = companiesData as Company[];
@@ -110,7 +111,7 @@ function FeaturedCompaniesView() {
           value={category}
           handleChange={setCategory}
           updateCompanies={updateCompanies}
-          values={selects.category}
+          values={selects.categories}
         />
         <CustomSelect
           label="Country"
@@ -118,7 +119,7 @@ function FeaturedCompaniesView() {
           value={country}
           handleChange={setCountry}
           updateCompanies={updateCompanies}
-          values={selects.country}
+          values={selects.countries}
         />
         <CustomSelect
           label="Phase"
@@ -126,7 +127,7 @@ function FeaturedCompaniesView() {
           value={phase}
           handleChange={setPhase}
           updateCompanies={updateCompanies}
-          values={selects.phase}
+          values={selects.phases}
         />
         <CustomSelect
           label="Size"
@@ -134,7 +135,7 @@ function FeaturedCompaniesView() {
           value={size}
           handleChange={setSize}
           updateCompanies={updateCompanies}
-          values={selects.size}
+          values={selects.sizes}
         />
         <CustomSelect
           label="Investors"
