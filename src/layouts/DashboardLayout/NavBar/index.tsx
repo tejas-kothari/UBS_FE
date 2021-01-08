@@ -99,7 +99,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
-      <Box alignItems="center" display="flex" flexDirection="column" p={2}>
+      {/* <Box alignItems="center" display="flex" flexDirection="column" p={2}>
         <Avatar
           className={classes.avatar}
           component={RouterLink}
@@ -113,7 +113,7 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
           {user.jobTitle}
         </Typography>
       </Box>
-      <Divider />
+      <Divider /> */}
       <Box p={2}>
         <List>
           {navData.map(nav => (

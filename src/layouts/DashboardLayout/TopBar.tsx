@@ -51,7 +51,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
           <img src="/static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
         </RouterLink>
         <Box flexGrow={1} />
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
@@ -64,7 +64,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
           <IconButton color="inherit">
             <InputIcon />
           </IconButton>
-        </Hidden>
+        </Hidden> */}
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
