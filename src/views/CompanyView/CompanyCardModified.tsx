@@ -62,7 +62,8 @@ import {
               <Grid item>
                 <Typography
                   className={classes.title}
-                  color="textSecondary"
+                  color="textPrimary"
+                  variant="h1"
                   gutterBottom
                 >
                   {company.name}
