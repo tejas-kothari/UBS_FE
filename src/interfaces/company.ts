@@ -27,6 +27,7 @@ export interface Company {
   total_funding_currency_code: string;
   founded_on: string;
   last_funding_on: string;
+  last_funding_type: string;
   closed_on: string;
   employee_count: string;
   email: string;
