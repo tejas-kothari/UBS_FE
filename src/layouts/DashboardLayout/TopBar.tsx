@@ -1,17 +1,14 @@
 import {
   AppBar,
-  Badge,
   Box,
   Hidden,
   IconButton,
   makeStyles,
   Toolbar
 } from '@material-ui/core';
-import InputIcon from '@material-ui/icons/Input';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +34,7 @@ type TopBarProps = {
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
   const classes = useStyles();
-  const [notifications] = useState([]);
+  // const [notifications] = useState([]);
 
   return (
     <AppBar

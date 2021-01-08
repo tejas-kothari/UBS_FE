@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Page from '../../components/Page';
 import CompanyCard from './CompanyCard';
 import CustomSelect from './CustomSelect';
-import companiesData from '../../tmp_data/companies_data.json';
+import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,7 +92,7 @@ function FeaturedCompaniesView() {
         className={classes.companyCards}
       >
         {companiesData.map(company => (
-          <CompanyCard company={company} />
+          <CompanyCard company={company} key={company.uuid} />
         ))}
       </Grid>
     </Page>
