@@ -75,7 +75,6 @@ function FeaturedCompaniesView() {
     setPage(0);
   }
 
-  console.log("filtering")
   companies = allCompanies.filter(company => {
     if (
       filterCategory.length &&
@@ -97,7 +96,6 @@ function FeaturedCompaniesView() {
     if (filterSize.length && !elementInArray(company.employee_count, filterSize)) {
       return false;
     }
-    console.log(!elementInArray(company.employee_count, sizes));
 
     // Filter investors later
 
