@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   title: {
-    fontSize: 14
+    fontSize: "1.25rem",
+    fontWeight: "bold"
   },
   spacer: {
     flexGrow: 1
@@ -66,44 +67,43 @@ function CompanyCard({ company }: CompanyCardProps) {
             <Grid item>
               <Typography
                 className={classes.title}
-                color="textSecondary"
                 gutterBottom
               >
                 {company.name}
               </Typography>
               <Grid container spacing={1} className={classes.details}>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <CategoryIcon className={classes.icon} />
                     {company.category_list.split(',')[0] || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <LocationOnIcon className={classes.icon} />
                     {company.country_code || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <PeopleIcon className={classes.icon} />
                     {company.employee_count || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <ShowChartIcon className={classes.icon} />
                     {company.num_funding_rounds || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <AttachMoneyIcon className={classes.icon} />
                     USD {company.total_funding_usd || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography noWrap={true}>
+                  <Typography noWrap={true} color="textSecondary">
                     <LanguageIcon className={classes.icon} />
                     {company.homepage_url || 'unknown'}
                   </Typography>
