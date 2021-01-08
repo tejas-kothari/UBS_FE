@@ -10,15 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import 'fontsource-roboto';
 import CompanyCardModified from '../CompanyView/CompanyCardModified';
-import { withStyles } from '@material-ui/core/styles';
+/*import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'; */
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox, {/* CheckboxProps */} from '@material-ui/core/Checkbox';
 import ChartWrapper from '../../chart/ChartWrapper';
 import TestChart3 from '../../chart/TestChart3';
 
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const GreenCheckbox = withStyles({
+/*const GreenCheckbox = withStyles({
   root: {
     color: green[400],
     '&$checked': {
@@ -44,7 +44,7 @@ const GreenCheckbox = withStyles({
   },
   checked: {},
 })((props: CheckboxProps) => <Checkbox color="default" {...props} />);
-
+*/
 function CheckboxLabels() {
   const [state, setState] = React.useState({
     checkedA: false,
