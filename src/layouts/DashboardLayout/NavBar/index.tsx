@@ -11,6 +11,7 @@ import {
   BarChart as BarChartIcon,
   PieChart as PieChartIcon,
   Star as StarIcon
+  
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
@@ -25,6 +26,7 @@ const navData = [
   {
     name: 'Companies',
     items: [
+      
       {
         href: '/companies/featured',
         icon: StarIcon,

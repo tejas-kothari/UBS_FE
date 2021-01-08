@@ -6,6 +6,10 @@ import { useParams } from 'react-router-dom';
 import Page from '../../components/Page';
 import { Company } from '../../interfaces/company';
 import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.json';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import 'fontsource-roboto';
+import CompanyCardModified from '../CompanyView/CompanyCardModified';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +30,22 @@ function CompanyView() {
 
   return (
     <Page title="Portfolio" className={classes.root}>
-      <Typography variant="h1">Company: {company?.name}</Typography>
+      <Typography variant="h1">Company: </Typography>
+      <Typography variant="body1">&nbsp;</Typography>
+      <Grid container 
+        spacing={1}
+        direction="row"
+        justify="flex-start"
+        alignItems="flex-start">
+        
+        <Paper>
+          <Grid item xs={12}>
+            
+            <CompanyCardModified company={company} key={company.uuid} />
+            
+          </Grid>
+        </Paper>
+      </Grid>
     </Page>
   );
 }

@@ -9,6 +9,7 @@ import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.js
 import { Company } from '../../interfaces/company';
 import { phases, categories, sizes, countries } from "./CompanyFilters"
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.default,
