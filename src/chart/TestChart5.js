@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import {nest} from 'd3-collection';
+import { nest } from 'd3-collection';
 import { D3Chart } from './D3Chart';
 export default class TestChart5 extends D3Chart {
   constructor(element) {
@@ -9,65 +9,98 @@ export default class TestChart5 extends D3Chart {
       height = 400 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#my_dataviz")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3
+      .select(element)
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     //Read the data
     d3.csv(
-      "https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered.csv", 
-      function (data) {
+      'https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered.csv',
+      function(data) {
         return {
           ...data
         };
       }
     ).then(function(data) {
       // group the data: I want to draw one line per group
-      var sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
-        .key(function (d) { return d.name; })
+      var sumstat = 
+        nest() // nest function allows to group the calculation per level of a factor
+        .key(function(d) {
+          return d.name;
+        })
         .entries(data);
 
       // Add X axis --> it is a date format
-      var x = d3.scaleLinear()
-        .domain(d3.extent(data, function (d) { return d.year; }))
+      var x = d3
+        .scaleLinear()
+        .domain(
+          d3.extent(data, function(d) {
+            return d.year;
+          })
+        )
         .range([0, width]);
-      svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+      svg
+        .append('g')
+        .attr('transform', 'translate(0,' + height + ')')
         .call(d3.axisBottom(x).ticks(5));
 
       // Add Y axis
-      var y = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d) { return +d.n; })])
+      var y = d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(data, function(d) {
+            return +d.n;
+          })
+        ])
         .range([height, 0]);
-      svg.append("g")
-        .call(d3.axisLeft(y));
+      svg.append('g').call(d3.axisLeft(y));
 
       // color palette
-      var res = sumstat.map(function (d) { return d.key }) // list of group names
-      var color = d3.scaleOrdinal()
+      var res = sumstat.map(function(d) {
+        return d.key;
+      }); // list of group names
+      var color = d3
+        .scaleOrdinal()
         .domain(res)
-        .range(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628', '#f781bf', '#999999'])
+        .range([
+          '#e41a1c',
+          '#377eb8',
+          '#4daf4a',
+          '#984ea3',
+          '#ff7f00',
+          '#ffff33',
+          '#a65628',
+          '#f781bf',
+          '#999999'
+        ]);
 
       // Draw the line
-      svg.selectAll(".line")
+      svg
+        .selectAll('.line')
         .data(sumstat)
         .enter()
-        .append("path")
-        .attr("fill", "none")
-        .attr("stroke", function (d) { return color(d.key) })
-        .attr("stroke-width", 1.5)
-        .attr("d", function (d) {
-          return d3.line()
-            .x(function (d) { return x(d.year); })
-            .y(function (d) { return y(+d.n); })
-            (d.values)
+        .append('path')
+        .attr('fill', 'none')
+        .attr('stroke', function(d) {
+          return color(d.key);
         })
-
-    })
+        .attr('stroke-width', 1.5)
+        .attr('d', function(d) {
+          return d3
+            .line()
+            .x(function(d) {
+              return x(d.year);
+            })
+            .y(function(d) {
+              return y(+d.n);
+            })(d.values);
+        });
+    });
   }
 
   update() {
