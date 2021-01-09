@@ -5,7 +5,7 @@ import TestChart from '../../chart/TestChart';
 import TestChart2 from '../../chart/TestChart2';
 import TestChart3 from '../../chart/TestChart3';
 import TestChart4 from '../../chart/TestChart4';
-//import TestChart5 from '../../chart/TestChart5';
+import TestChart5 from '../../chart/TestChart5';
 import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +31,7 @@ function ChartView() {
         {ChartWrapper<TestChart2>(TestChart2)}
         {ChartWrapper<TestChart3>(TestChart3)}
         {ChartWrapper<TestChart4>(TestChart4)}
-        {/*ChartWrapper<TestChart5>(TestChart5)}
+        {ChartWrapper<TestChart5>(TestChart5)}
         {/* <Typography variant="h2" gutterBottom>
           Funding by Year
         </Typography> */}
