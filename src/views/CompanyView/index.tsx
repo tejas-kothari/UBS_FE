@@ -1,14 +1,6 @@
-import classes from '*.module.css';
 import { Box, makeStyles } from '@material-ui/core';
 import Checkbox /* CheckboxProps */ from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-/*import { withStyles } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'; */
-import FormGroup from '@material-ui/core/FormGroup';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
