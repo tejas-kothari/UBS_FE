@@ -47,7 +47,7 @@ function FullWidthGrid() {
       >
         <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Subsectors
             </Typography>
             <Typography variant="body1" gutterBottom>
@@ -58,7 +58,7 @@ function FullWidthGrid() {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               $$$
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="h6" gutterBottom>
               Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
               Increase
             </Typography>
@@ -66,7 +66,7 @@ function FullWidthGrid() {
         </Grid>
         <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Subsectors
             </Typography>
             <Typography variant="body1" gutterBottom>
@@ -77,47 +77,7 @@ function FullWidthGrid() {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               $$$
             </Typography>
-            <Typography variant="body2" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} />
-
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="body1" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="body2" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="body1" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="h6" gutterBottom>
               Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
               Increase
             </Typography>
@@ -127,7 +87,7 @@ function FullWidthGrid() {
 
         <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Subsectors
             </Typography>
             <Typography variant="body1" gutterBottom>
@@ -138,7 +98,7 @@ function FullWidthGrid() {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               $$$
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="h6" gutterBottom>
               Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
               Increase
             </Typography>
@@ -146,7 +106,7 @@ function FullWidthGrid() {
         </Grid>
         <Grid item xs={3}>
           <Paper>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               Subsectors
             </Typography>
             <Typography variant="body1" gutterBottom>
@@ -157,7 +117,47 @@ function FullWidthGrid() {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               $$$
             </Typography>
-            <Typography variant="body2" gutterBottom>
+            <Typography variant="h6" gutterBottom>
+              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
+              Increase
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={6} />
+
+        <Grid item xs={3}>
+          <Paper>
+            <Typography variant="h3" gutterBottom>
+              Subsectors
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              &nbsp;
+            </Typography>
+            <Typography variant="h5" gutterBottom>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              $$$
+            </Typography>
+            <Typography variant="h6" gutterBottom>
+              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
+              Increase
+            </Typography>
+          </Paper>
+        </Grid>
+        <Grid item xs={3}>
+          <Paper>
+            <Typography variant="h3" gutterBottom>
+              Subsectors
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              &nbsp;
+            </Typography>
+            <Typography variant="h5" gutterBottom>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              $$$
+            </Typography>
+            <Typography variant="h6" gutterBottom>
               Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
               Increase
             </Typography>
