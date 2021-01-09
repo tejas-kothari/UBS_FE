@@ -84,13 +84,12 @@ function CompanyView() {
       label: string;
     }) {
       return (
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={3} className={classes.checkboxLabel}>
           <FormControlLabel
             control={
               <Checkbox checked={value} onChange={handleChange} name={name} />
             }
             label={label}
-            className={classes.checkboxLabel}
           />
         </Grid>
       );
@@ -177,7 +176,7 @@ function CompanyView() {
         <Grid item xs={12}>
           <CompanyCardModified company={company} key={company.uuid} />
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Typography variant="body1">&nbsp;</Typography>
         </Grid>
         <Paper className={classes.paper}>
@@ -188,7 +187,7 @@ function CompanyView() {
             <CheckboxLabels />
           </Grid>
         </Paper>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Typography variant="body1">&nbsp;</Typography>
         </Grid>
         <Paper>
