@@ -1,14 +1,12 @@
 import { Grid, makeStyles, TablePagination } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from '../../components/Page';
-import CompanyCard from './CompanyCard';
-import CustomSelect from './CustomSelect';
-import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.json';
 import { Company } from '../../interfaces/company';
-import { phases, categories, sizes, countries } from "./CompanyFilters"
-
+import CompanyCard from './CompanyCard';
+import { categories, countries, phases, sizes } from './CompanyFilters';
+import CustomSelect from './CustomSelect';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,12 +27,19 @@ const useStyles = makeStyles(theme => ({
   companyCards: {}
 }));
 
-const elementInArray = (el: string, arr : string[]) : boolean => {
+const elementInArray = (el: string, arr: string[]): boolean => {
   return arr.some(str => str === el);
 };
 
 function FeaturedCompaniesView() {
   const classes = useStyles();
+  const [allCompanies, setAllCompanies] = useState<Company[]>([]);
+
+  useEffect(() => {
+    fetch('/static/dataset/organizations.json')
+      .then(res => res.json())
+      .then(data => setAllCompanies(data as Company[]));
+  }, []);
 
   const selects = {
     phases,
@@ -43,8 +48,6 @@ function FeaturedCompaniesView() {
     countries,
     investor: ['Investor A']
   };
-
-  const allCompanies = companiesData as Company[];
 
   const [filterCategory, setFilterCategory] = useState<string[]>([]);
   const [filterCountry, setFilterCountry] = useState<string[]>([]);
@@ -80,20 +83,31 @@ function FeaturedCompaniesView() {
       filterCategory.length &&
       !company.category_list
         .split(',')
-        .some(companyCategory => elementInArray(companyCategory, filterCategory))
+        .some(companyCategory =>
+          elementInArray(companyCategory, filterCategory)
+        )
     ) {
       return false;
     }
 
-    if (filterCountry.length && !elementInArray(company.country_code, filterCountry)) {
+    if (
+      filterCountry.length &&
+      !elementInArray(company.country_code, filterCountry)
+    ) {
       return false;
     }
 
-    if (filterPhase.length && !elementInArray(company.last_funding_type, filterPhase)) {
+    if (
+      filterPhase.length &&
+      !elementInArray(company.last_funding_type, filterPhase)
+    ) {
       return false;
     }
 
-    if (filterSize.length && !elementInArray(company.employee_count, filterSize)) {
+    if (
+      filterSize.length &&
+      !elementInArray(company.employee_count, filterSize)
+    ) {
       return false;
     }
 

@@ -5,13 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ChartWrapper from '../../chart/ChartWrapper';
 import TestChart3 from '../../chart/TestChart3';
 import Page from '../../components/Page';
 import { Company } from '../../interfaces/company';
-import companiesData from '../../tmp_data/crunchbase_data_heads/organizations.json';
 import CompanyCardModified from '../CompanyView/CompanyCardModified';
 
 const useStyles = makeStyles(theme => ({
@@ -49,10 +48,17 @@ function CompanyView() {
   const classes = useStyles();
 
   const { companyId } = useParams();
-  const company = companiesData.find(
+  const [allCompanies, setAllCompanies] = useState<Company[]>([]);
+
+  useEffect(() => {
+    fetch('/static/dataset/organizations.json')
+      .then(res => res.json())
+      .then(data => setAllCompanies(data as Company[]));
+  }, []);
+
+  const company = allCompanies.find(
     company => company.uuid === companyId
   ) as Company;
-  console.log(companiesData);
 
   function CheckboxLabels() {
     const [state, setState] = React.useState({
@@ -162,10 +168,8 @@ function CompanyView() {
     );
   }
 
-  return (
-    <Page title={company.name} className={classes.root}>
-      <Typography variant="h1">Company View </Typography>
-      <Typography variant="body1">&nbsp;</Typography>
+  function CompanyDetails() {
+    return (
       <Grid
         container
         spacing={1}
@@ -201,6 +205,14 @@ function CompanyView() {
           </Box>
         </Paper>
       </Grid>
+    );
+  }
+
+  return (
+    <Page title={company && company.name} className={classes.root}>
+      <Typography variant="h1">Company View </Typography>
+      <Typography variant="body1">&nbsp;</Typography>
+      {company ? <CompanyDetails /> : <Typography>Loading company...</Typography>}
     </Page>
   );
 }
