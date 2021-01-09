@@ -4,7 +4,7 @@ import React from 'react';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    minWidth: 150,
+    minWidth: 250,
     backgroundColor: `${theme.palette.background.paper} !important`
   },
   select: {
@@ -37,7 +37,7 @@ function CustomSelect({
     <Grid item>
       <Autocomplete
         id={`featured-companies-${id}-autocomplete`}
-        style={{ width: 300 }}
+        // style={{ width: 300 }}
         options={values}
         className={classes.formControl}
         autoHighlight
