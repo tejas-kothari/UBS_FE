@@ -3,19 +3,11 @@ import { nest } from 'd3-collection';
 import { D3Chart } from './D3Chart';
 export default class TestChart5 extends D3Chart {
   constructor(element) {
-    super(element);
-    var margin = { top: 10, right: 30, bottom: 30, left: 60 },
+    const margin = { top: 10, right: 30, bottom: 30, left: 60 },
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
-    // append the svg object to the body of the page
-    var svg = d3
-      .select(element)
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    super(element, margin, width, height);
 
     //Read the data
     d3.csv(
@@ -25,10 +17,9 @@ export default class TestChart5 extends D3Chart {
           ...data
         };
       }
-    ).then(function(data) {
+    ).then(data => {
       // group the data: I want to draw one line per group
-      var sumstat = 
-        nest() // nest function allows to group the calculation per level of a factor
+      var sumstat = nest() // nest function allows to group the calculation per level of a factor
         .key(function(d) {
           return d.name;
         })
@@ -43,7 +34,7 @@ export default class TestChart5 extends D3Chart {
           })
         )
         .range([0, width]);
-      svg
+      this.svg
         .append('g')
         .attr('transform', 'translate(0,' + height + ')')
         .call(d3.axisBottom(x).ticks(5));
@@ -58,7 +49,7 @@ export default class TestChart5 extends D3Chart {
           })
         ])
         .range([height, 0]);
-      svg.append('g').call(d3.axisLeft(y));
+      this.svg.append('g').call(d3.axisLeft(y));
 
       // color palette
       var res = sumstat.map(function(d) {
@@ -80,7 +71,7 @@ export default class TestChart5 extends D3Chart {
         ]);
 
       // Draw the line
-      svg
+      this.svg
         .selectAll('.line')
         .data(sumstat)
         .enter()

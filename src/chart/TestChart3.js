@@ -3,21 +3,11 @@ import { D3Chart } from './D3Chart';
 
 export default class TestChart3 extends D3Chart {
   constructor(element) {
-    super(element); // List of words
-
     // set the dimensions and margins of the graph
-    var margin = { top: 10, right: 100, bottom: 30, left: 30 },
+    const margin = { top: 10, right: 100, bottom: 30, left: 30 },
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
-
-    // append the svg object to the body of the page
-    var svg = d3
-      .select(element)
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    super(element, margin, width, height);
 
     //Read the data
     d3.csv(
@@ -27,7 +17,7 @@ export default class TestChart3 extends D3Chart {
           ...data
         };
       }
-    ).then(function(data) {
+    ).then(data => {
       // List of groups (here I have one group per column)
       var allGroup = ['valueA', 'valueB', 'valueC'];
 
@@ -55,7 +45,7 @@ export default class TestChart3 extends D3Chart {
         .scaleLinear()
         .domain([0, 10])
         .range([0, width]);
-      svg
+      this.svg
         .append('g')
         .attr('transform', 'translate(0,' + height + ')')
         .call(d3.axisBottom(x));
@@ -65,7 +55,7 @@ export default class TestChart3 extends D3Chart {
         .scaleLinear()
         .domain([0, 20])
         .range([height, 0]);
-      svg.append('g').call(d3.axisLeft(y));
+      this.svg.append('g').call(d3.axisLeft(y));
 
       // Add the lines
       var line = d3
@@ -76,7 +66,7 @@ export default class TestChart3 extends D3Chart {
         .y(function(d) {
           return y(+d.value);
         });
-      svg
+      this.svg
         .selectAll('myLines')
         .data(dataReady)
         .enter()
@@ -91,7 +81,7 @@ export default class TestChart3 extends D3Chart {
         .style('fill', 'none');
 
       // Add the points
-      svg
+      this.svg
         // First we need to enter in a group
         .selectAll('myDots')
         .data(dataReady)
@@ -117,7 +107,7 @@ export default class TestChart3 extends D3Chart {
         .attr('stroke', 'white');
 
       // Add a legend at the end of each line
-      svg
+      this.svg
         .selectAll('myLabels')
         .data(dataReady)
         .enter()

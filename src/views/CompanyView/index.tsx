@@ -194,16 +194,18 @@ function CompanyView() {
         <Grid item xs={12}>
           <Typography variant="body1">&nbsp;</Typography>
         </Grid>
-        <Paper>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            flexWrap="wrap"
-          >
-            {ChartWrapper<TestChart3>(TestChart3)}
-          </Box>
-        </Paper>
+        <Grid item xs={12} md={6} lg={4}>
+          <Paper>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              flexWrap="wrap"
+            >
+              {ChartWrapper<TestChart3>(TestChart3)}
+            </Box>
+          </Paper>
+        </Grid>
       </Grid>
     );
   }
@@ -212,7 +214,11 @@ function CompanyView() {
     <Page title={company && company.name} className={classes.root}>
       <Typography variant="h1">Company View </Typography>
       <Typography variant="body1">&nbsp;</Typography>
-      {company ? <CompanyDetails /> : <Typography>Loading company...</Typography>}
+      {company ? (
+        <CompanyDetails />
+      ) : (
+        <Typography>Loading company...</Typography>
+      )}
     </Page>
   );
 }

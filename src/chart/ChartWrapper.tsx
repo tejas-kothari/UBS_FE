@@ -1,9 +1,18 @@
-import React, { useRef, useState, useEffect } from 'react';
-import D3Chart from './TestChart';
+import { makeStyles } from '@material-ui/core';
+import React, { useEffect, useRef, useState } from 'react';
+import { D3Chart } from './D3Chart';
+
+const useStyles = makeStyles(theme => ({
+  chartArea: {
+    width: '100%'
+  }
+}));
 
 const ChartWrapper = function<T extends D3Chart>(type: { new (el: any): T }) {
   const chartArea = useRef(null);
   const [chart, setChart] = useState<T | null>(null);
+
+  const classes = useStyles();
 
   useEffect(() => {
     if (!chart) {
@@ -13,7 +22,7 @@ const ChartWrapper = function<T extends D3Chart>(type: { new (el: any): T }) {
     }
   }, [chart, type]);
 
-  return <div className="chart-area" ref={chartArea}></div>;
+  return <div className={classes.chartArea} ref={chartArea}></div>;
 };
 
 export default ChartWrapper;
