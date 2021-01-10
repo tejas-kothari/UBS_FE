@@ -38,7 +38,11 @@ function FeaturedCompaniesView() {
   useEffect(() => {
     fetch('/static/dataset/organizations.json')
       .then(res => res.json())
-      .then(data => setAllCompanies(data as Company[]));
+      .then(data => {
+        setAllCompanies(
+          data.sort((a: Company, b: Company) => parseInt(a.rank) - parseInt(b.rank)) as Company[]
+        );
+      });
   }, []);
 
   const selects = {

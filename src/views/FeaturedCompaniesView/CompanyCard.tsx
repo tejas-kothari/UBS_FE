@@ -56,7 +56,7 @@ function CompanyCard({ company }: CompanyCardProps) {
             <Grid container spacing={2} alignItems="center">
               <Grid item>
                 <Typography className={classes.title} gutterBottom>
-                  1.
+                  {parseInt(company.rank)}.
                 </Typography>
               </Grid>
               <Grid item>
