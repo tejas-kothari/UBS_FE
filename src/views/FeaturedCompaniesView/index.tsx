@@ -7,6 +7,7 @@ import { Company } from '../../interfaces/company';
 import CompanyCard from './CompanyCard';
 import { categories, countries, phases, sizes } from './CompanyFilters';
 import CustomSelect from './CustomSelect';
+import { SearchField } from './SearchField';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +41,9 @@ function FeaturedCompaniesView() {
       .then(res => res.json())
       .then(data => {
         setAllCompanies(
-          data.sort((a: Company, b: Company) => parseInt(a.rank) - parseInt(b.rank)) as Company[]
+          data.sort(
+            (a: Company, b: Company) => parseInt(a.rank) - parseInt(b.rank)
+          ) as Company[]
         );
       });
   }, []);
@@ -58,6 +61,7 @@ function FeaturedCompaniesView() {
   const [filterPhase, setFilterPhase] = useState<string[]>([]);
   const [filterSize, setFilterSize] = useState<string[]>([]);
   const [filterInvestor, setFilterInvestor] = useState<string[]>([]);
+  const [search, setSearch] = useState<string>('');
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
@@ -115,6 +119,13 @@ function FeaturedCompaniesView() {
       return false;
     }
 
+    if (
+      search !== '' &&
+      company.name.toLowerCase().indexOf(search.toLowerCase()) === -1
+    ) {
+      return false;
+    }
+
     // Filter investors later
 
     return true;
@@ -166,6 +177,7 @@ function FeaturedCompaniesView() {
           updateCompanies={updateCompanies}
           values={selects.investor}
         />
+        <SearchField search={search} setSearch={setSearch} />
       </Grid>
 
       {companies.length ? (
