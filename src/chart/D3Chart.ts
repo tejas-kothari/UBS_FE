@@ -4,6 +4,7 @@ export abstract class D3Chart {
 
   constructor(
     element: HTMLElement,
+    protected classes: Record<string, string>,
     margin: ChartMargins,
     width: number,
     height: number

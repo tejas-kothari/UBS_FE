@@ -5,13 +5,13 @@ import data from '../tmp_data/crunchbase_tmp.json';
 import { D3Chart } from './D3Chart';
 
 export default class TestChart extends D3Chart {
-  constructor(element) {
+  constructor(element, classes) {
     // set the dimensions and margins of the graph
     const margin = { top: 10, right: 10, bottom: 10, left: 10 },
       width = 450 - margin.left - margin.right,
       height = 450 - margin.top - margin.bottom;
 
-    super(element, margin, width, height);
+    super(element, classes, margin, width, height);
 
     let words = Object.keys(data)
       .map(key => {

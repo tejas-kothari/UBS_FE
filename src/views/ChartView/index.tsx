@@ -1,6 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import ChartWrapper from '../../chart/ChartWrapper';
+import PivotChart from '../../chart/PivotChart';
 import TestChart2 from '../../chart/TestChart2';
 import TestChart3 from '../../chart/TestChart3';
 import TestChart5 from '../../chart/TestChart5';
@@ -23,6 +24,7 @@ function ChartView() {
         <Grid item xs={12} md={4}>{ChartWrapper<TestChart2>(TestChart2)}</Grid>
         <Grid item xs={12} md={4}>{ChartWrapper<TestChart3>(TestChart3)}</Grid>
         <Grid item xs={12} md={4}>{ChartWrapper<TestChart5>(TestChart5)}</Grid>
+        <Grid item xs={12} md={4}>{ChartWrapper<PivotChart>(PivotChart)}</Grid>
       </Grid>
     </Page>
   );

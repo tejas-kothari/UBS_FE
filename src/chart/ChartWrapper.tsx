@@ -5,10 +5,24 @@ import { D3Chart } from './D3Chart';
 const useStyles = makeStyles(theme => ({
   chartArea: {
     width: '100%'
+  },
+  tooltip: {
+    width: 'auto',
+    position: 'absolute',
+    color: 'black',
+    cursor: 'default',
+    border: ' 1px solid',
+    borderRadius: 5,
+    padding: 10,
+    shapeRendering: 'crispEdges',
+    pointerEvents: 'none',
+    backgroundColor: "white",
   }
 }));
 
-const ChartWrapper = function<T extends D3Chart>(type: { new (el: any): T }) {
+const ChartWrapper = function<T extends D3Chart>(type: {
+  new (el: any, classes: any): T;
+}) {
   const chartArea = useRef(null);
   const [chart, setChart] = useState<T | null>(null);
 
@@ -16,11 +30,11 @@ const ChartWrapper = function<T extends D3Chart>(type: { new (el: any): T }) {
 
   useEffect(() => {
     if (!chart) {
-      setChart(new type(chartArea.current));
+      setChart(new type(chartArea.current, classes));
     } else {
       chart.update();
     }
-  }, [chart, type]);
+  }, [chart, classes, type]);
 
   return <div className={classes.chartArea} ref={chartArea}></div>;
 };

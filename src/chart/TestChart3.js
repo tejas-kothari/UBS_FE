@@ -2,12 +2,13 @@ import * as d3 from 'd3';
 import { D3Chart } from './D3Chart';
 
 export default class TestChart3 extends D3Chart {
-  constructor(element) {
+  constructor(element, classes) {
     // set the dimensions and margins of the graph
     const margin = { top: 10, right: 100, bottom: 30, left: 30 },
       width = 460 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
-    super(element, margin, width, height);
+      
+    super(element, classes, margin, width, height);
 
     //Read the data
     d3.csv(
