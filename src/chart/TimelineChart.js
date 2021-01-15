@@ -1,10 +1,12 @@
 import * as d3 from 'd3';
 import { D3Chart } from './D3Chart';
 //import { time } from "d3-collection"
-import timelineData from '../tmp_data/TimelineDataSample.json'
+//import timelineData from '../tmp_data/TimelineDataSample.json'
 
 var data = {
-  Date: ['2003-01-02', '2006-01-02', '2009-01-02']
+  Milestone1: ['2003-01-02', '2006-01-02', '2009-01-02'],
+  Milestone2: ['2004-01-02', '2007-01-02', '2010-01-02'],
+  Milestone3: ['2005-01-02', '2008-01-02', '2011-01-02']
 };
 
 export default class TimelineChart extends D3Chart {
@@ -24,19 +26,50 @@ export default class TimelineChart extends D3Chart {
       .attr('transform', 'translate(0,' + height + ')')
       .call(d3.axisBottom(x));
 
-    // Add dots
+    // Add circles for milestone1
     this.svg
       .append('g')
-      .selectAll('dot')
-      .data(data.Date)
+      .selectAll('circle')
+      .data(data.Milestone1)
       .enter()
-      .append('circle')
-      .attr('cx', function(d, i) {
-        return x(new Date(d));
-      })
-      .attr('cy', height)
-      .attr('r', 7)
-      .style('fill', '#69b3a2');
+      .append('rect')
+        .attr('x', function(d, i) {
+          return x(new Date(d));
+        })
+        .attr('y', height-7)
+        .attr('width', 4)
+        .attr('height', 14)
+        .style('fill', '#FA1607');
+    
+    // Add squares for milestone2
+    this.svg
+      .append('g')
+      .selectAll('square')
+      .data(data.Milestone2)
+      .enter()
+      .append('rect')
+        .attr('x', function(d, i) {
+          return x(new Date(d));
+        })
+        .attr('y', height-7)
+        .attr('width', 4)
+        .attr('height', 14)
+        .style('fill', '#0807FA');
+
+    // Add squares for milestone3
+    this.svg
+      .append('g')
+      .selectAll('square')
+      .data(data.Milestone3)
+      .enter()
+      .append('rect')
+        .attr('x', function(d, i) {
+          return x(new Date(d));
+        })
+        .attr('y', height-7)
+        .attr('width', 4)
+        .attr('height', 14)
+        .style('fill', '#11F905');
   }
 
   update() {
