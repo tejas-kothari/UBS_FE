@@ -42,13 +42,13 @@ function FeaturedCompaniesView() {
   const [allCompanies, setAllCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
-    fetch('/static/dataset/organizations.json')
+    fetch('https://ubs-be.herokuapp.com/get_startup_list')
       .then(res => res.json())
       .then(data => {
         setAllCompanies(
-          data.sort(
-            (a: Company, b: Company) => parseInt(a.rank) - parseInt(b.rank)
-          ) as Company[]
+          Object.values<Company>(data).sort(
+            (a: Company, b: Company) => a.rank - b.rank
+          )
         );
       });
   }, []);
@@ -94,7 +94,7 @@ function FeaturedCompaniesView() {
   companies = allCompanies.filter(company => {
     if (
       filterCategory.length &&
-      !company.category_list
+      !company.category_groups_list
         .split(',')
         .some(companyCategory =>
           elementInArray(companyCategory, filterCategory)
@@ -105,14 +105,14 @@ function FeaturedCompaniesView() {
 
     if (
       filterCountry.length &&
-      !elementInArray(company.country_code, filterCountry)
+      !elementInArray(company.country, filterCountry)
     ) {
       return false;
     }
 
     if (
       filterPhase.length &&
-      !elementInArray(company.last_funding_type, filterPhase)
+      !elementInArray(company.num_funding_rounds.toString(), filterPhase)
     ) {
       return false;
     }

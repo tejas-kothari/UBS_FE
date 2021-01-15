@@ -38,6 +38,11 @@ const useStyles = makeStyles(theme => ({
   details: {
     maxWidth: 600,
     width: '100%'
+  },
+  img: {
+    width: 120,
+    height: 120,
+    objectFit: 'contain'
   }
 }));
 
@@ -56,11 +61,11 @@ function CompanyCard({ company }: CompanyCardProps) {
             <Grid container spacing={2} alignItems="center">
               <Grid item>
                 <Typography className={classes.title} gutterBottom>
-                  {parseInt(company.rank)}.
+                  {company.rank}.
                 </Typography>
               </Grid>
               <Grid item>
-                <img src={company.logo_url} alt={company.name} />
+                <img className={classes.img} src={company.logo_url} alt={company.name} />
               </Grid>
               <Grid item>
                 <Typography className={classes.title} gutterBottom>
@@ -70,13 +75,13 @@ function CompanyCard({ company }: CompanyCardProps) {
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <CategoryIcon className={classes.icon} />
-                      {company.category_list.split(',')[0] || 'unknown'}
+                      {company.category_groups_list.split(',')[0] || 'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <LocationOnIcon className={classes.icon} />
-                      {company.country_code || 'unknown'}
+                      {company.country || 'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>

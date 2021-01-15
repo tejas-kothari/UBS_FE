@@ -67,13 +67,13 @@ function CompanyCardModified({ company }: CompanyCardProps) {
                 <Grid item xs={6}>
                   <Typography noWrap={true} color="textSecondary">
                     <CategoryIcon className={classes.icon} />
-                    {company.category_list.split(',')[0] || 'unknown'}
+                    {company.category_groups_list.split(',')[0] || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography noWrap={true} color="textSecondary">
                     <LocationOnIcon className={classes.icon} />
-                    {company.country_code || 'unknown'}
+                    {company.country || 'unknown'}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>

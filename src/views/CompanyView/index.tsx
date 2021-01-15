@@ -33,32 +33,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-/*const GreenCheckbox = withStyles({
-  root: {
-    color: green[400],
-    '&$checked': {
-      color: green[600],
-    },
-  },
-  checked: {},
-})((props: CheckboxProps) => <Checkbox color="default" {...props} />);
-*/
-
 function CompanyView() {
   const classes = useStyles();
 
   const { companyId } = useParams();
-  const [allCompanies, setAllCompanies] = useState<Company[]>([]);
+  const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
-    fetch('/static/dataset/organizations.json')
+    fetch('https://ubs-be.herokuapp.com/get_startup/' + companyId)
       .then(res => res.json())
-      .then(data => setAllCompanies(data as Company[]));
-  }, []);
-
-  const company = allCompanies.find(
-    company => company.uuid === companyId
-  ) as Company;
+      .then(data => setCompany(data as Company));
+  }, [companyId]);
 
   function CheckboxLabels() {
     const [state, setState] = React.useState({
@@ -168,7 +153,7 @@ function CompanyView() {
     );
   }
 
-  function CompanyDetails() {
+  function CompanyDetails({ company }: { company: Company }) {
     return (
       <Grid
         container
@@ -215,7 +200,7 @@ function CompanyView() {
       <Typography variant="h1">Company View </Typography>
       <Typography variant="body1">&nbsp;</Typography>
       {company ? (
-        <CompanyDetails />
+        <CompanyDetails company={company} />
       ) : (
         <Typography>Loading company...</Typography>
       )}
