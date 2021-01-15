@@ -29,6 +29,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const elementInArray = (el: string, arr: string[]): boolean => {
+  // When searching elements of unknown, target string is automatically replaced with ""
+  arr = arr.map(value => {
+    if (value.toLowerCase() === 'unknown') return '';
+    return value;
+  });
   return arr.some(str => str === el);
 };
 
@@ -82,9 +87,9 @@ function FeaturedCompaniesView() {
     setPage(0);
   };
 
-  function updateCompanies() {
+  const updateCompanies = () => {
     setPage(0);
-  }
+  };
 
   companies = allCompanies.filter(company => {
     if (

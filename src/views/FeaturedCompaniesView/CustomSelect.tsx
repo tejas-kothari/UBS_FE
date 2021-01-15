@@ -60,30 +60,6 @@ function CustomSelect({
         }}
         limitTags={1}
       />
-      {/* <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="featured-companies-category-select-label">
-          {label}
-        </InputLabel>
-        <Select
-          labelId={`featured-companies-${id}-select-label`}
-          value={value}
-          onChange={event => {
-            handleChange(event.target.value as string);
-            updateCompanies();
-          }}
-          label={label}
-          className={classes.select}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {values.map(value => (
-            <MenuItem value={value} key={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
     </Grid>
   );
 }
