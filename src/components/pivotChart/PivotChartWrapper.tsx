@@ -35,10 +35,8 @@ const PivotChartWrapper = function({ data } : PivotChartWrapperProps) {
       if (!chartArea.current) {
         return;
       }
-      console.log('init');
       setChart(new PivotChart(chartArea.current, classes));
     } else {
-      console.log('update');
       chart.updateState(data);
     }
   }, [chart, classes, data]);
