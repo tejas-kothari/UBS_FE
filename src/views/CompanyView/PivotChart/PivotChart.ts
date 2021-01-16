@@ -132,7 +132,9 @@ export default class PivotChart extends D3Chart {
       .attr('cx', (d: DatumType) => this.x(d[state.xAxis]))
       .attr('cy', (d: DatumType) => this.y(d[state.yAxis]))
       .attr('r', 7)
-      .style('fill', '#69b3a2')
+      .style('fill', d =>
+        d.uuid === state.company.uuid ? '#E60100' : '#69b3a2'
+      )
       .style('opacity', 0)
       .style('stroke', 'white');
 

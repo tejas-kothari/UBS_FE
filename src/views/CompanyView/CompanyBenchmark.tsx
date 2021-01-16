@@ -45,6 +45,7 @@ export type CompanyBenchmarkState = {
   category: string;
   data: Company[];
   reset: boolean;
+  company: Company;
 };
 
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
@@ -54,7 +55,8 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     yAxis: 'total_funding_usd',
     category: '',
     data: [],
-    reset: false
+    reset: false,
+    company
   });
 
   useEffect(() => {
@@ -64,12 +66,12 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
         setState(state => {
           return {
             ...state,
-            data: Object.values(data),
+            data: [...Object.values(data) as Company[], company],
             reset: true
           };
         });
       });
-  }, []);
+  }, [company]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
