@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import Page from '../../components/Page';
 import PivotChartWrapper from '../../components/pivotChart/PivotChartWrapper';
 import { Company } from '../../interfaces/company';
-import CompanyCardModified from '../CompanyView/CompanyCardModified';
+import CompanyCard from '../../components/CompanyCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -165,7 +165,7 @@ function CompanyView() {
           alignItems="flex-start"
         >
           <Grid item xs={12}>
-            <CompanyCardModified company={company} key={company.uuid} />
+            <CompanyCard company={company} showRank={false} />
           </Grid>
           <Grid item xs={12}>
             <Typography variant="body1">&nbsp;</Typography>

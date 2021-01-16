@@ -13,7 +13,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Company } from '../../interfaces/company';
+import { Company } from '../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,9 +48,10 @@ const useStyles = makeStyles(theme => ({
 
 type CompanyCardProps = {
   company: Company;
+  showRank: boolean;
 };
 
-function CompanyCard({ company }: CompanyCardProps) {
+function CompanyCard({ company, showRank }: CompanyCardProps) {
   const classes = useStyles();
 
   return (
@@ -59,13 +60,19 @@ function CompanyCard({ company }: CompanyCardProps) {
         <Card className={classes.root}>
           <CardContent className={classes.cardContent}>
             <Grid container spacing={2} alignItems="center">
+              {showRank && (
+                <Grid item>
+                  <Typography className={classes.title} gutterBottom>
+                    {company.rank}.
+                  </Typography>
+                </Grid>
+              )}
               <Grid item>
-                <Typography className={classes.title} gutterBottom>
-                  {company.rank}.
-                </Typography>
-              </Grid>
-              <Grid item>
-                <img className={classes.img} src={company.logo_url} alt={company.name} />
+                <img
+                  className={classes.img}
+                  src={company.logo_url}
+                  alt={company.name}
+                />
               </Grid>
               <Grid item>
                 <Typography className={classes.title} gutterBottom>

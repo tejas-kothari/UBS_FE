@@ -4,7 +4,7 @@ import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
 import Page from '../../components/Page';
 import { Company } from '../../interfaces/company';
-import CompanyCard from './CompanyCard';
+import CompanyCard from '../../components/CompanyCard';
 import { categories, countries, phases, sizes } from './CompanyFilters';
 import CustomSelect from './CustomSelect';
 import { SearchField } from './SearchField';
@@ -196,7 +196,7 @@ function FeaturedCompaniesView() {
             {companies
               .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
               .map(company => (
-                <CompanyCard company={company} key={company.uuid} />
+                <CompanyCard company={company} showRank={true} key={company.uuid} />
               ))}
           </Grid>
           <TablePagination
