@@ -40,8 +40,8 @@ type CompanyBenchmarkProps = {
 };
 
 export type CompanyBenchmarkState = {
-  xAxis: 'rank' | 'total_funding_usd';
-  yAxis: 'rank' | 'total_funding_usd';
+  xAxis: 'rank' | 'total_funding_usd' | 'num_funding_rounds';
+  yAxis: 'rank' | 'total_funding_usd' | 'num_funding_rounds';
   category: string;
   data: Company[];
   reset: boolean;
@@ -51,7 +51,7 @@ export type CompanyBenchmarkState = {
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const classes = useStyles();
   const [state, setState] = useState<CompanyBenchmarkState>({
-    xAxis: 'rank',
+    xAxis: 'num_funding_rounds',
     yAxis: 'total_funding_usd',
     category: '',
     data: [],
@@ -66,7 +66,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
         setState(state => {
           return {
             ...state,
-            data: [...Object.values(data) as Company[], company],
+            data: [...(Object.values(data) as Company[]), company],
             reset: true
           };
         });
@@ -101,7 +101,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <PivotChartWrapper state={state} setState={setState}/>
+            <PivotChartWrapper state={state} setState={setState} />
           </Grid>
           <Grid item>
             <FormControl component="fieldset">
@@ -130,6 +130,10 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                   value="total_funding_usd"
                   label="Total Funding USD"
                 ></RadioButton>
+                <RadioButton
+                  value="num_funding_rounds"
+                  label="Number of founding rounds"
+                ></RadioButton>
               </RadioGroup>
             </FormControl>
             <FormControl component="fieldset">
@@ -145,6 +149,10 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 <RadioButton
                   value="total_funding_usd"
                   label="Total Funding USD"
+                ></RadioButton>
+                <RadioButton
+                  value="num_funding_rounds"
+                  label="Number of founding rounds"
                 ></RadioButton>
               </RadioGroup>
             </FormControl>
