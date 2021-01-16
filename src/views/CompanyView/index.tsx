@@ -7,9 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ChartWrapper from '../../chart/ChartWrapper';
-import TestChart3 from '../../chart/TestChart3';
 import Page from '../../components/Page';
+import PivotChartWrapper from '../../components/pivotChart/PivotChartWrapper';
 import { Company } from '../../interfaces/company';
 import CompanyCardModified from '../CompanyView/CompanyCardModified';
 
@@ -45,22 +44,22 @@ function CompanyView() {
       .then(data => setCompany(data as Company));
   }, [companyId]);
 
-  function CheckboxLabels() {
-    const [state, setState] = React.useState({
-      checkedA: false,
-      checkedB: false,
-      checkedC: false,
-      checkedD: false,
-      checkedE: false,
-      checkedF: false,
-      checkedG: false,
-      checkedH: false,
-      checkedI: false,
-      checkedJ: false,
-      checkedK: false,
-      checkedL: false
-    });
+  const [state, setState] = React.useState({
+    checkedA: false,
+    checkedB: false,
+    checkedC: false,
+    checkedD: false,
+    checkedE: false,
+    checkedF: false,
+    checkedG: false,
+    checkedH: false,
+    checkedI: false,
+    checkedJ: false,
+    checkedK: false,
+    checkedL: false
+  });
 
+  function CheckboxLabels() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       setState({ ...state, [event.target.name]: event.target.checked });
     };
@@ -153,54 +152,52 @@ function CompanyView() {
     );
   }
 
-  function CompanyDetails({ company }: { company: Company }) {
-    return (
-      <Grid
-        container
-        spacing={1}
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      >
-        <Grid item xs={12}>
-          <CompanyCardModified company={company} key={company.uuid} />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="body1">&nbsp;</Typography>
-        </Grid>
-        <Paper className={classes.paper}>
-          <Grid item xs={12}>
-            <Typography variant="body1" align="left" className={classes.title}>
-              Data Features
-            </Typography>
-            <CheckboxLabels />
-          </Grid>
-        </Paper>
-        <Grid item xs={12}>
-          <Typography variant="body1">&nbsp;</Typography>
-        </Grid>
-        <Grid item xs={12} md={6} lg={4}>
-          <Paper>
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              flexWrap="wrap"
-            >
-              {ChartWrapper<TestChart3>(TestChart3)}
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
-    );
-  }
-
   return (
     <Page title={company && company.name} className={classes.root}>
       <Typography variant="h1">Company View </Typography>
       <Typography variant="body1">&nbsp;</Typography>
       {company ? (
-        <CompanyDetails company={company} />
+        <Grid
+          container
+          spacing={1}
+          direction="row"
+          justify="flex-start"
+          alignItems="flex-start"
+        >
+          <Grid item xs={12}>
+            <CompanyCardModified company={company} key={company.uuid} />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">&nbsp;</Typography>
+          </Grid>
+          <Paper className={classes.paper}>
+            <Grid item xs={12}>
+              <Typography
+                variant="body1"
+                align="left"
+                className={classes.title}
+              >
+                Data Features
+              </Typography>
+              <CheckboxLabels />
+            </Grid>
+          </Paper>
+          <Grid item xs={12}>
+            <Typography variant="body1">&nbsp;</Typography>
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <Paper>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                flexWrap="wrap"
+              >
+                <PivotChartWrapper data={state} />
+              </Box>
+            </Paper>
+          </Grid>
+        </Grid>
       ) : (
         <Typography>Loading company...</Typography>
       )}

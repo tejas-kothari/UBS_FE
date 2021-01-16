@@ -3,8 +3,9 @@ import DashboardLayout from './layouts/DashboardLayout';
 import ChartView from './views/ChartView';
 import PortfolioView from './views/PortfolioView';
 import SubsectorView from './views/SubsectorView';
-import CompanyView from './views/CompanyView';
+import CompanyView from './views/CompanyView/index';
 import FeaturedCompaniesView from './views/FeaturedCompaniesView';
+import TestView from './views/TestView';
 
 const routes = [
   {
@@ -22,6 +23,10 @@ const routes = [
       {
         path: 'subsectors',
         element: <SubsectorView/>
+      },
+      {
+        path: 'test',
+        element: <TestView />
       },
       {
         path: '/',

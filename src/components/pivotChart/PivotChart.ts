@@ -1,29 +1,29 @@
 import * as d3 from 'd3';
 import { DSVRowString } from 'd3';
-import { D3Chart } from './D3Chart';
+import { D3Chart } from '../../chart/D3Chart';
 
 type DatumType = DSVRowString<string>;
 export default class PivotChart extends D3Chart {
-  static margin = { top: 10, right: 30, bottom: 30, left: 60 };
-  static width = 460 - PivotChart.margin.left - PivotChart.margin.right;
-  static height = 450 - PivotChart.margin.top - PivotChart.margin.bottom;
+  static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 60 };
+  static readonly WIDTH = 460 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
+  static readonly HEIGHT = 450 - PivotChart.MARGIN.top - PivotChart.MARGIN.bottom;
 
   idleTimeout: NodeJS.Timeout | null = null;
   x!: d3.ScaleLinear<number, number, never>;
   y!: d3.ScaleLinear<number, number, never>;
   brush!: d3.BrushBehavior<DatumType>;
-  scatter!: d3.Selection<SVGGElement, DatumType, null, undefined>;
-  xAxis!: d3.Selection<SVGGElement, any, null, undefined>;
-  yAxis!: d3.Selection<SVGGElement, any, null, undefined>;
+  scatter!: d3.Selection<SVGGElement, any, null, undefined>;
+  xAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
+  yAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
 
   constructor(element: HTMLElement, classes: Record<string, string>) {
     // set the dimensions and margins of the graph
     super(
       element,
       classes,
-      PivotChart.margin,
-      PivotChart.width,
-      PivotChart.height
+      PivotChart.MARGIN,
+      PivotChart.WIDTH,
+      PivotChart.HEIGHT
     );
 
     //Read the data
@@ -34,28 +34,28 @@ export default class PivotChart extends D3Chart {
       this.x = d3
         .scaleLinear()
         .domain([0, 3000])
-        .range([0, PivotChart.width]);
+        .range([0, PivotChart.WIDTH]);
       this.xAxis = this.svg
         .append('g')
-        .attr('transform', 'translate(0,' + PivotChart.height + ')')
+        .attr('transform', 'translate(0,' + PivotChart.HEIGHT + ')')
         .call(d3.axisBottom(this.x).ticks(5));
 
       // Add Y axis
       this.y = d3
         .scaleLinear()
         .domain([0, 400000])
-        .range([PivotChart.height, 0]);
+        .range([PivotChart.HEIGHT, 0]);
       this.yAxis = this.svg.append('g').call(d3.axisLeft(this.y));
 
       // Add a clipPath: everything out of this area won't be drawn.
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const clip = this.svg
+      this.svg
         .append('defs')
         .append('svg:clipPath')
         .attr('id', 'clip')
         .append('svg:rect')
-        .attr('width', PivotChart.width)
-        .attr('height', PivotChart.height)
+        .attr('width', PivotChart.WIDTH)
+        .attr('height', PivotChart.HEIGHT)
         .attr('x', 0)
         .attr('y', 0);
 
@@ -64,7 +64,7 @@ export default class PivotChart extends D3Chart {
         .brushX<DatumType>() // Add the brush feature using the d3.brush function
         .extent([
           [0, 0],
-          [PivotChart.width, PivotChart.height]
+          [PivotChart.WIDTH, PivotChart.HEIGHT]
         ]) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
         .on('end', event => this.brushed(event)); // Each time the brush selection changes, trigger the 'updateChart' function
 
@@ -132,8 +132,13 @@ export default class PivotChart extends D3Chart {
     });
   }
 
-  update(): void {
+  updateState(state: any): void {
+    console.log(state);
     // throw new Error('Method not implemented.');
+  }
+
+  update(): void {
+    throw new Error('Method not implemented.');
   }
 
   brushed(event: { selection: any }) {
