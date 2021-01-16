@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { D3BrushEvent } from 'd3';
 import { D3Chart } from '../../../chart/D3Chart';
 import { Company } from '../../../interfaces/company';
 import { CompanyBenchmarkState } from '../CompanyBenchmark';
@@ -55,7 +56,7 @@ export default class PivotChart extends D3Chart {
     this.yAxis = this.svg.append('g');
     // Add brushing
     this.brush = d3
-      .brushX<DatumType>() // Add the brush feature using the d3.brush function
+      .brush<DatumType>() // Add the brush feature using the d3.brush function
       .extent([
         [0, 0],
         [PivotChart.WIDTH, PivotChart.HEIGHT]
@@ -83,20 +84,12 @@ export default class PivotChart extends D3Chart {
         .scaleLinear()
         .domain([0, maxX!])
         .range([0, PivotChart.WIDTH]);
-      this.xAxis
-        .transition()
-        .duration(1000)
-        .call(d3.axisBottom(this.x).ticks(5));
 
       // Add Y axis
       this.y = d3
         .scaleLinear()
         .domain([0, maxY!])
         .range([PivotChart.HEIGHT, 0]);
-      this.yAxis
-        .transition()
-        .duration(1000)
-        .call(d3.axisLeft(this.y));
 
       this.setState({
         ...state,
@@ -105,6 +98,23 @@ export default class PivotChart extends D3Chart {
 
       return;
     }
+
+    // If the data array is empty, stop rendering as it is not yet ready
+    if (state.data.length === 0) {
+      return;
+    }
+
+    // Update X Axis
+    this.xAxis
+      .transition()
+      .duration(1000)
+      .call(d3.axisBottom(this.x).ticks(5));
+
+    // Update Y Axis
+    this.yAxis
+      .transition()
+      .duration(1000)
+      .call(d3.axisLeft(this.y));
 
     // JOIN
     const dots = this.scatter
@@ -182,8 +192,8 @@ export default class PivotChart extends D3Chart {
     throw new Error('Method not implemented.');
   }
 
-  brushed(event: { selection: any }) {
-    const extent = event.selection;
+  brushed(event: D3BrushEvent<DatumType>) {
+    const extent = event.selection as [[number, number], [number, number]];
 
     // If no selection, back to initial coordinate. Otherwise, update X axis domain
     if (!extent) {
@@ -193,17 +203,18 @@ export default class PivotChart extends D3Chart {
           350
         )); // This allows to wait a little bit
 
-      this.setState(state => {
-        return {
-          ...state,
-          reset: true
-        };
-      });
+        this.setState(state => {
+          return {
+            ...state,
+            reset: true
+          };
+        });
     } else {
-      this.x.domain([this.x.invert(extent[0]), this.x.invert(extent[1])]);
+      this.x.domain([this.x.invert(extent[0][0]), this.x.invert(extent[1][0])]);
+      this.y.domain([this.y.invert(extent[1][1]), this.y.invert(extent[0][1])]);
       this.scatter.select<SVGGElement>('.brush').call(this.brush.move, null); // This remove the grey brush area as soon as the selection has been done
+      this.forceUpdate();
     }
 
-    this.forceUpdate();
   }
 }
