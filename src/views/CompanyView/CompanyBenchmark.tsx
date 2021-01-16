@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   FormControl,
@@ -156,6 +157,19 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 ></RadioButton>
               </RadioGroup>
             </FormControl>
+            <Button
+              variant="contained"
+              onClick={() =>
+                setState(state => {
+                  return {
+                    ...state,
+                    reset: true
+                  };
+                })
+              }
+            >
+              Reset Zoom
+            </Button>
           </Grid>
         </Grid>
       </CardContent>
