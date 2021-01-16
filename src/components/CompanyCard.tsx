@@ -106,7 +106,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <AttachMoneyIcon className={classes.icon} />
-                      USD {company.total_funding_usd || 'unknown'}
+                      USD {new Intl.NumberFormat('en-US', { notation: "compact" }).format(company.total_funding_usd) || 'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
