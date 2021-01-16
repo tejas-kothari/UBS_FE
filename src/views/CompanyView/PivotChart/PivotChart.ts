@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { DSVRowString } from 'd3';
-import { D3Chart } from '../../chart/D3Chart';
+import { D3Chart } from '../../../chart/D3Chart';
 
 type DatumType = DSVRowString<string>;
 export default class PivotChart extends D3Chart {

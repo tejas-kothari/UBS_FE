@@ -11,7 +11,7 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import PivotChartWrapper from '../../components/pivotChart/PivotChartWrapper';
+import PivotChartWrapper from './PivotChart/PivotChartWrapper';
 import { Company } from '../../interfaces/company';
 
 const useStyles = makeStyles(theme => ({

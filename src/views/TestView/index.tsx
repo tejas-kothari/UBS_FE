@@ -1,7 +1,7 @@
 import { makeStyles, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import Page from '../../components/Page';
-import PivotChartWrapper from '../../components/pivotChart/PivotChartWrapper';
+import PivotChartWrapper from '../CompanyView/PivotChart/PivotChartWrapper';
 
 const useStyles = makeStyles(theme => ({
   root: {

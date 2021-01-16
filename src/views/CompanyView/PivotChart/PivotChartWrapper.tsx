@@ -24,7 +24,7 @@ type PivotChartWrapperProps = {
   data: any;
 };
 
-const PivotChartWrapper = function({ data } : PivotChartWrapperProps) {
+const PivotChartWrapper = function({ data }: PivotChartWrapperProps) {
   const chartArea = useRef<HTMLDivElement>(null);
   const [chart, setChart] = useState<PivotChart | null>(null);
 
