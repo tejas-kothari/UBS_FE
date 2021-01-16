@@ -10,7 +10,7 @@ import {
   RadioGroup,
   Typography
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PivotChartWrapper from './PivotChart/PivotChartWrapper';
 import { Company } from '../../interfaces/company';
 
@@ -39,23 +39,42 @@ type CompanyBenchmarkProps = {
   company: Company;
 };
 
-type CompanyBenchmarkState = {
-  xAxis: string;
-  yAxis: string;
+export type CompanyBenchmarkState = {
+  xAxis: 'rank' | 'total_funding_usd';
+  yAxis: 'rank' | 'total_funding_usd';
   category: string;
+  data: Company[];
+  reset: boolean;
 };
 
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const classes = useStyles();
   const [state, setState] = useState<CompanyBenchmarkState>({
-    xAxis: '',
-    yAxis: '',
-    category: ''
+    xAxis: 'rank',
+    yAxis: 'total_funding_usd',
+    category: '',
+    data: [],
+    reset: false
   });
+
+  useEffect(() => {
+    fetch('https://ubs-be.herokuapp.com/get_startup_list')
+      .then(res => res.json())
+      .then(data => {
+        setState(state => {
+          return {
+            ...state,
+            data: Object.values(data),
+            reset: true
+          };
+        });
+      });
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setState({
       ...state,
+      reset: true,
       [event.target.name]: event.target.value
     });
   };
@@ -80,7 +99,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <PivotChartWrapper data={state} />
+            <PivotChartWrapper state={state} setState={setState}/>
           </Grid>
           <Grid item>
             <FormControl component="fieldset">
@@ -92,8 +111,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.category}
                 onChange={handleChange}
               >
-                <RadioButton value="test" label="Test"></RadioButton>
-                <RadioButton value="test2" label="Test2"></RadioButton>
+                <RadioButton value="" label="???"></RadioButton>
               </RadioGroup>
             </FormControl>
             <FormControl component="fieldset">
@@ -105,8 +123,11 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.xAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="test" label="Test"></RadioButton>
-                <RadioButton value="test2" label="Test2"></RadioButton>
+                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton
+                  value="total_funding_usd"
+                  label="Total Funding USD"
+                ></RadioButton>
               </RadioGroup>
             </FormControl>
             <FormControl component="fieldset">
@@ -118,8 +139,11 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.yAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="test" label="Test"></RadioButton>
-                <RadioButton value="test2" label="Test2"></RadioButton>
+                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton
+                  value="total_funding_usd"
+                  label="Total Funding USD"
+                ></RadioButton>
               </RadioGroup>
             </FormControl>
           </Grid>

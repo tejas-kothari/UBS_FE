@@ -27,11 +27,11 @@ function PageBody({ value, setValue, classes } : {
         onChange={event => setValue(event.target.value)}
       />
       <div className={classes.chart}>
-        <PivotChartWrapper
+        {/* <PivotChartWrapper
           data={{
             value
           }}
-        />
+        /> */}
       </div>
     </>
   );
