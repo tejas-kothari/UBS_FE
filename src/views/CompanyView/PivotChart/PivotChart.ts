@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
 import { D3Chart } from '../../../chart/D3Chart';
-import { Company } from '../../../interfaces/company';
+import Company from '../../../interfaces/company';
 import { CompanyBenchmarkState } from '../CompanyBenchmark';
 
 type DatumType = Company;
@@ -73,9 +73,10 @@ export default class PivotChart extends D3Chart {
   }
 
   updateState(state: CompanyBenchmarkState): void {
-    const data = state.data;
+    let data = state.data;
 
     if (state.reset) {
+      data = state.allCompanies.filter(company => state.category === "" || company.category_groups_list.indexOf(state.category) !== -1);
       const maxX = d3.max(data, d => d[state.xAxis]);
       const maxY = d3.max(data, d => d[state.yAxis]);
 
@@ -93,7 +94,8 @@ export default class PivotChart extends D3Chart {
 
       this.setState({
         ...state,
-        reset: false
+        reset: false,
+        data
       });
 
       return;
@@ -126,6 +128,7 @@ export default class PivotChart extends D3Chart {
       .exit()
       .transition()
       .duration(1000)
+      .style('opacity', 0)
       .remove();
 
     // UPDATE
@@ -203,18 +206,17 @@ export default class PivotChart extends D3Chart {
           350
         )); // This allows to wait a little bit
 
-        this.setState(state => {
-          return {
-            ...state,
-            reset: true
-          };
-        });
+      this.setState(state => {
+        return {
+          ...state,
+          reset: true
+        };
+      });
     } else {
       this.x.domain([this.x.invert(extent[0][0]), this.x.invert(extent[1][0])]);
       this.y.domain([this.y.invert(extent[1][1]), this.y.invert(extent[0][1])]);
       this.scatter.select<SVGGElement>('.brush').call(this.brush.move, null); // This remove the grey brush area as soon as the selection has been done
       this.forceUpdate();
     }
-
   }
 }

@@ -12,8 +12,8 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import Company, { categories } from '../../interfaces/company';
 import PivotChartWrapper from './PivotChart/PivotChartWrapper';
-import { Company } from '../../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,6 +45,7 @@ export type CompanyBenchmarkState = {
   yAxis: 'rank' | 'total_funding_usd' | 'num_funding_rounds';
   category: string;
   data: Company[];
+  allCompanies: Company[];
   reset: boolean;
   company: Company;
 };
@@ -54,10 +55,11 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const [state, setState] = useState<CompanyBenchmarkState>({
     xAxis: 'num_funding_rounds',
     yAxis: 'total_funding_usd',
-    category: '',
+    category: company.category_groups_list.split(',')[0],
     data: [],
     reset: false,
-    company
+    company,
+    allCompanies: []
   });
 
   useEffect(() => {
@@ -67,7 +69,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
         setState(state => {
           return {
             ...state,
-            data: [...(Object.values(data) as Company[]), company],
+            allCompanies: [...(Object.values(data) as Company[]), company],
             reset: true
           };
         });
@@ -82,12 +84,21 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     });
   };
 
-  const RadioButton = ({ value, label }: { value: string; label: string }) => {
+  const RadioButton = ({
+    value,
+    label,
+    disabled = false
+  }: {
+    value: string;
+    label: string;
+    disabled?: boolean;
+  }) => {
     return (
       <FormControlLabel
         value={value}
         control={<Radio />}
         label={label}
+        disabled={disabled}
       ></FormControlLabel>
     );
   };
@@ -114,7 +125,17 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.category}
                 onChange={handleChange}
               >
-                <RadioButton value="" label="???"></RadioButton>
+                <RadioButton value="" label="All"></RadioButton>
+                {categories.map(category => (
+                  <RadioButton
+                    key={category}
+                    value={category}
+                    label={category}
+                    disabled={
+                      company.category_groups_list.indexOf(category) === -1
+                    }
+                  ></RadioButton>
+                ))}
               </RadioGroup>
             </FormControl>
             <FormControl component="fieldset">

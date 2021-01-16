@@ -2,10 +2,14 @@ import { Grid, makeStyles, TablePagination } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
-import Page from '../../components/Page';
-import { Company } from '../../interfaces/company';
 import CompanyCard from '../../components/CompanyCard';
-import { categories, countries, phases, sizes } from './CompanyFilters';
+import Page from '../../components/Page';
+import Company, {
+  categories,
+  countries,
+  phases,
+  sizes
+} from '../../interfaces/company';
 import CustomSelect from './CustomSelect';
 import { SearchField } from './SearchField';
 
@@ -196,7 +200,11 @@ function FeaturedCompaniesView() {
             {companies
               .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
               .map(company => (
-                <CompanyCard company={company} showRank={true} key={company.uuid} />
+                <CompanyCard
+                  company={company}
+                  showRank={true}
+                  key={company.uuid}
+                />
               ))}
           </Grid>
           <TablePagination

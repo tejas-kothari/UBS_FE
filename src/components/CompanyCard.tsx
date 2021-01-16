@@ -13,7 +13,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Company } from '../interfaces/company';
+import Company from '../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -106,7 +106,10 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <AttachMoneyIcon className={classes.icon} />
-                      USD {new Intl.NumberFormat('en-US', { notation: "compact" }).format(company.total_funding_usd) || 'unknown'}
+                      USD{' '}
+                      {new Intl.NumberFormat('en-US', {
+                        notation: 'compact'
+                      }).format(company.total_funding_usd) || 'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CompanyCard from '../../components/CompanyCard';
 import Page from '../../components/Page';
-import { Company } from '../../interfaces/company';
+import Company from '../../interfaces/company';
 import CompanyBenchmark from './CompanyBenchmark';
 
 const useStyles = makeStyles(theme => ({
