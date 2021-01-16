@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
     padding: 10,
     shapeRendering: 'crispEdges',
     pointerEvents: 'none',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    zIndex: 1500
   }
 }));
 
