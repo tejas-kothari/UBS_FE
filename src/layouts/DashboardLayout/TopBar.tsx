@@ -13,7 +13,8 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
+    backgroundColor: 'white'
   },
   toolbar: {
     minHeight: 64
@@ -37,12 +38,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
   // const [notifications] = useState([]);
 
   return (
-    <AppBar
-      className={clsx(classes.root, className)}
-      elevation={2}
-      {...rest}
-      color="transparent"
-    >
+    <AppBar className={clsx(classes.root, className)} elevation={2} {...rest}>
       <Toolbar className={classes.toolbar}>
         <RouterLink to="/">
           <img src="/static/ubs-logo-svg.svg" alt="UBS Team 1" height="50px" />
