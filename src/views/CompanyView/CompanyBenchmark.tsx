@@ -112,7 +112,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               Company Benchmark
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
+          <Grid item xs={12} md={8} xl={4}>
             <PivotChartWrapper state={state} setState={setState} />
           </Grid>
           <Grid item>
