@@ -9,6 +9,8 @@ const useStyles = makeStyles(theme => ({
   tooltip: {
     width: 'auto',
     position: 'absolute',
+    left: 0,
+    top: 0,
     color: 'black',
     cursor: 'default',
     border: ' 1px solid',
