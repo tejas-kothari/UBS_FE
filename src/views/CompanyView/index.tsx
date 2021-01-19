@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import CompanyCard from '../../components/CompanyCard';
 import Page from '../../components/Page';
 import Company from '../../interfaces/company';
+import CompanyFunding from '../../interfaces/company_funding';
 import CompanyBenchmark from './CompanyBenchmark';
 
 const useStyles = makeStyles(theme => ({
@@ -39,12 +40,19 @@ function CompanyView() {
 
   const { companyId } = useParams();
   const [company, setCompany] = useState<Company>();
+  const [companyFunding, setCompanyFunding] = useState<CompanyFunding[]>();
 
   useEffect(() => {
     fetch('https://ubs-be.herokuapp.com/get_startup?uuid=' + companyId)
       .then(res => res.json())
       .then(data => setCompany(data as Company));
+
+    fetch('https://ubs-be.herokuapp.com/get_startup_funding?uuid=' + companyId)
+      .then(res => res.json())
+      .then(data => setCompanyFunding(Object.values(data) as CompanyFunding[]));
   }, [companyId]);
+
+  console.log(companyFunding);
 
   return (
     <Page title={company && company.name} className={classes.root}>
