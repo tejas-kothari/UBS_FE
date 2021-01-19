@@ -36,7 +36,7 @@ export default abstract class StatefulD3Chart<StateType> {
   ) {
     // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
     // Its opacity is set to 0: we don't see it by default.
-    const tooltip = d3.select('#tooltip').style('opacity', 0);
+    const tooltip = d3.select('.tooltip').style('opacity', 0);
 
     // A function that change this tooltip when the user hover a point.
     // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)

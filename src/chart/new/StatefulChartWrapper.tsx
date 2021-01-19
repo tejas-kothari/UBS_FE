@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import StatefulD3Chart from './StatefulD3Chart';
 
@@ -9,6 +10,8 @@ const useStyles = makeStyles(theme => ({
   tooltip: {
     width: 'auto',
     position: 'absolute',
+    left: 0,
+    top: 0,
     color: 'black',
     cursor: 'default',
     border: ' 1px solid',
@@ -53,7 +56,7 @@ const StatefulChartWrappper = function<
   return (
     <>
       <div className={classes.chartArea} ref={chartArea}></div>
-      <div id="tooltip" className={classes.tooltip}></div>
+      <div className={clsx('tooltip', classes.tooltip)}></div>
     </>
   );
 };
