@@ -1,11 +1,11 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
-import { D3Chart } from '../../../chart/D3Chart';
-import Company from '../../../interfaces/company';
-import { CompanyBenchmarkState } from '../CompanyBenchmark';
+import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
+import Company from '../../interfaces/company';
+import { CompanyBenchmarkState } from './CompanyBenchmark';
 
 type DatumType = Company;
-export default class PivotChart extends D3Chart {
+export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
   static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 60 };
   static readonly WIDTH =
     460 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
@@ -22,16 +22,14 @@ export default class PivotChart extends D3Chart {
 
   constructor(
     element: HTMLElement,
-    classes: Record<string, string>,
-    private setState: React.Dispatch<
-      React.SetStateAction<CompanyBenchmarkState>
-    >,
-    private forceUpdate: React.DispatchWithoutAction
+    setState: React.Dispatch<React.SetStateAction<CompanyBenchmarkState>>,
+    forceUpdate: React.DispatchWithoutAction
   ) {
     // set the dimensions and margins of the graph
     super(
       element,
-      classes,
+      setState,
+      forceUpdate,
       PivotChart.MARGIN,
       PivotChart.WIDTH,
       PivotChart.HEIGHT
@@ -49,14 +47,17 @@ export default class PivotChart extends D3Chart {
       .attr('x', 0)
       .attr('y', 0);
 
+    // Add x-axis
     this.xAxis = this.svg
       .append('g')
       .attr('transform', 'translate(0,' + PivotChart.HEIGHT + ')');
 
+    // Add y-axis
     this.yAxis = this.svg.append('g');
-    // Add brushing
+
+    // Init brushing
     this.brush = d3
-      .brush<DatumType>() // Add the brush feature using the d3.brush function
+      .brush<DatumType>()
       .extent([
         [0, 0],
         [PivotChart.WIDTH, PivotChart.HEIGHT]
@@ -66,6 +67,7 @@ export default class PivotChart extends D3Chart {
     // Create the scatter variable: where both the circles and the brush take place
     this.scatter = this.svg.append('g').attr('clip-path', 'url(#clip)');
 
+    // Add brushing
     this.scatter
       .append('g')
       .attr('class', 'brush')
@@ -76,17 +78,21 @@ export default class PivotChart extends D3Chart {
     let data = state.data;
 
     if (state.reset) {
-      data = state.allCompanies.filter(company => state.category === "" || company.category_groups_list.indexOf(state.category) !== -1);
+      data = state.allCompanies.filter(
+        company =>
+          state.category === '' ||
+          company.category_groups_list.indexOf(state.category) !== -1
+      );
       const maxX = d3.max(data, d => d[state.xAxis]);
       const maxY = d3.max(data, d => d[state.yAxis]);
 
-      // Add X axis
+      // Set X axis
       this.x = d3
         .scaleLinear()
         .domain([0, maxX!])
         .range([0, PivotChart.WIDTH]);
 
-      // Add Y axis
+      // Set Y axis
       this.y = d3
         .scaleLinear()
         .domain([0, maxY!])
@@ -156,43 +162,7 @@ export default class PivotChart extends D3Chart {
       .duration(1000)
       .style('opacity', 0.3);
 
-    this.addTooltip(newDots);
-  }
-
-  private addTooltip(
-    items: d3.Selection<SVGCircleElement, Company, SVGGElement, any>
-  ) {
-    // Add a tooltip div. Here I define the general feature of the tooltip: stuff that do not depend on the data point.
-    // Its opacity is set to 0: we don't see it by default.
-    const tooltip = d3.select('#tooltip').style('opacity', 0);
-
-    // A function that change this tooltip when the user hover a point.
-    // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-    const mouseover = function(e: any, d: any) {
-      tooltip.style('opacity', 1);
-    };
-
-    const mousemove = function(e: MouseEvent, d: Company) {
-      tooltip
-        // .html('The exact value of<br>the Ground Living area is: ' + d.)
-        .html(d.name)
-        .style('left', e.x + 'px') // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-        .style('top', e.y + 'px');
-    };
-
-    // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-    const mouseleave = function(d: any) {
-      tooltip.style('opacity', 0);
-    };
-
-    items
-      .on('mouseover', mouseover)
-      .on('mousemove', mousemove)
-      .on('mouseleave', mouseleave);
-  }
-
-  update(): void {
-    throw new Error('Method not implemented.');
+    this.addTooltip<DatumType>(newDots, company => company.name);
   }
 
   brushed(event: D3BrushEvent<DatumType>) {

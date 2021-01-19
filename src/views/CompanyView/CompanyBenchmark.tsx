@@ -12,8 +12,9 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Company, { categories } from '../../interfaces/company';
-import PivotChartWrapper from './PivotChart/PivotChartWrapper';
+import PivotChart from './PivotChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -113,7 +114,12 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={8} xl={4}>
-            <PivotChartWrapper state={state} setState={setState} />
+            <StatefulChartWrappper
+              type={PivotChart}
+              state={state}
+              setState={setState}
+            />
+            {/* <PivotChartWrapper state={state} setState={setState} /> */}
           </Grid>
           <Grid item>
             <FormControl component="fieldset">

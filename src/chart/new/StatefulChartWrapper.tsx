@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { CompanyBenchmarkState } from '../CompanyBenchmark';
-import PivotChart from './PivotChart';
+import StatefulD3Chart from './StatefulD3Chart';
 
 const useStyles = makeStyles(theme => ({
   chartArea: {
@@ -22,17 +21,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-type PivotChartWrapperProps = {
-  state: CompanyBenchmarkState;
-  setState: React.Dispatch<React.SetStateAction<CompanyBenchmarkState>>;
-};
-
-const PivotChartWrapper = function({
+const StatefulChartWrappper = function<
+  State,
+  T extends StatefulD3Chart<State>
+>({
   state,
-  setState
-}: PivotChartWrapperProps) {
-  const chartArea = useRef<HTMLDivElement>(null);
-  const [chart, setChart] = useState<PivotChart | null>(null);
+  setState,
+  type
+}: {
+  type: {
+    new (el: any, setState: any, forceUpdate: any): T;
+  };
+  state: State;
+  setState: React.Dispatch<React.SetStateAction<State>>;
+}) {
+  const chartArea = useRef(null);
+  const [chart, setChart] = useState<T | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
@@ -40,16 +44,11 @@ const PivotChartWrapper = function({
 
   useEffect(() => {
     if (!chart) {
-      if (!chartArea.current) {
-        return;
-      }
-      setChart(
-        new PivotChart(chartArea.current, classes, setState, forceUpdate)
-      );
+      setChart(new type(chartArea.current, setState, forceUpdate));
     } else {
       chart.updateState(state);
     }
-  }, [chart, classes, setState, state, ignored]);
+  }, [chart, classes, setState, state, ignored, type]);
 
   return (
     <>
@@ -59,4 +58,4 @@ const PivotChartWrapper = function({
   );
 };
 
-export default PivotChartWrapper;
+export default StatefulChartWrappper;
