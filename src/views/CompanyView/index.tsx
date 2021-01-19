@@ -9,6 +9,7 @@ import Page from '../../components/Page';
 import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
 import CompanyBenchmark from './CompanyBenchmark';
+import ComapnyFundingTimeline from './CompanyFundingTimeline';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,10 +59,13 @@ function CompanyView() {
     <Page title={company && company.name} className={classes.root}>
       <Typography variant="h1">Company View </Typography>
       <Typography variant="body1">&nbsp;</Typography>
-      {company ? (
+      {(company && companyFunding) ? (
         <Grid container spacing={1}>
           <Grid item xs={12} className={classes.companyCard}>
             <CompanyCard company={company} showRank={false} />
+          </Grid>
+          <Grid item xs={12}>
+            <ComapnyFundingTimeline companyFunding={companyFunding} />
           </Grid>
           <Grid item xs={12}>
             <CompanyBenchmark company={company} />

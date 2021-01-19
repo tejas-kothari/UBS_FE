@@ -119,7 +119,6 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               state={state}
               setState={setState}
             />
-            {/* <PivotChartWrapper state={state} setState={setState} /> */}
           </Grid>
           <Grid item>
             <FormControl component="fieldset">
