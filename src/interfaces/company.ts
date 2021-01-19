@@ -12,6 +12,7 @@ export default interface Company {
   total_funding_usd: number;
   founded_on: string;
   last_funding_on: string;
+  last_funding_round: string;
   closed_on: string;
   employee_count: string;
   email: string;
@@ -55,34 +56,34 @@ export default interface Company {
 
 const phases = [
   'angel',
-  'series a',
-  'series b',
-  'seed',
-  'series c',
-  'series d',
-  'series unknown',
-  'debt financing',
-  'series e',
-  'private equity',
-  'series f',
-  'pre seed',
-  'undisclosed',
+  'convertible_note',
+  'corporate_round',
+  'debt_financing',
+  'equity_crowdfunding',
   'grant',
-  'post ipo equity',
-  'convertible note',
-  'post ipo debt',
-  'non equity assistance',
-  'corporate round',
-  'series i',
-  'series g',
-  'secondary market',
-  'initial coin offering',
-  'series h',
-  'product crowdfunding',
-  'equity crowdfunding',
-  'post ipo secondary',
-  'series j'
-].sort();
+  'initial_coin_offering',
+  'non_equity_assistance',
+  'post_ipo_debt',
+  'post_ipo_equity',
+  'post_ipo_secondary',
+  'pre_seed',
+  'private_equity',
+  'product_crowdfunding',
+  'secondary_market',
+  'seed',
+  'series_a',
+  'series_b',
+  'series_c',
+  'series_d',
+  'series_e',
+  'series_f',
+  'series_g',
+  'series_h',
+  'series_i',
+  'series_j',
+  'series_unknown',
+  'undisclosed'
+];
 
 const categories = [
   'Financial Services',

@@ -100,7 +100,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <ShowChartIcon className={classes.icon} />
-                      {company.num_funding_rounds || 'unknown'}
+                      {company.last_funding_round || 'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>

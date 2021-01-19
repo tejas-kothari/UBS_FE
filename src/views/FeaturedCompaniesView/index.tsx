@@ -116,7 +116,7 @@ function FeaturedCompaniesView() {
 
     if (
       filterPhase.length &&
-      !elementInArray(company.num_funding_rounds.toString(), filterPhase)
+      !elementInArray(company.last_funding_round.toString(), filterPhase)
     ) {
       return false;
     }

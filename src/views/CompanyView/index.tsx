@@ -41,7 +41,7 @@ function CompanyView() {
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
-    fetch('https://ubs-be.herokuapp.com/get_startup/' + companyId)
+    fetch('https://ubs-be.herokuapp.com/get_startup?uuid=' + companyId)
       .then(res => res.json())
       .then(data => setCompany(data as Company));
   }, [companyId]);
