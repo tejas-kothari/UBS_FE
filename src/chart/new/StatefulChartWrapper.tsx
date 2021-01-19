@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     left: 0,
     top: 0,
+    opacity: 0,
     color: 'black',
     cursor: 'default',
     border: ' 1px solid',
