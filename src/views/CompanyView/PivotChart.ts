@@ -20,6 +20,11 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
   xAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
   yAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
 
+  private compactValue = (value: d3.NumberValue): string =>
+    new Intl.NumberFormat('en-US', {
+      notation: 'compact'
+    }).format(value as number);
+
   constructor(
     element: HTMLElement,
     setState: React.Dispatch<React.SetStateAction<CompanyBenchmarkState>>,
@@ -89,13 +94,13 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
       // Set X axis
       this.x = d3
         .scaleLinear()
-        .domain([0, maxX!])
+        .domain([0, maxX! * 1.1])
         .range([0, PivotChart.WIDTH]);
 
       // Set Y axis
       this.y = d3
         .scaleLinear()
-        .domain([0, maxY!])
+        .domain([0, maxY! * 1.1])
         .range([PivotChart.HEIGHT, 0]);
 
       this.setState({
@@ -116,13 +121,13 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     this.xAxis
       .transition()
       .duration(1000)
-      .call(d3.axisBottom(this.x).ticks(5));
+      .call(d3.axisBottom(this.x).tickFormat(this.compactValue));
 
     // Update Y Axis
     this.yAxis
       .transition()
       .duration(1000)
-      .call(d3.axisLeft(this.y));
+      .call(d3.axisLeft(this.y).tickFormat(this.compactValue));
 
     // JOIN
     const dots = this.scatter
