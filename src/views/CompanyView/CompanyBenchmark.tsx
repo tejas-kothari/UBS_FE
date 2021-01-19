@@ -56,7 +56,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const [state, setState] = useState<CompanyBenchmarkState>({
     xAxis: 'num_funding_rounds',
     yAxis: 'total_funding_usd',
-    category: "",
+    category: '',
     data: [],
     reset: false,
     company,
@@ -151,7 +151,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.xAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
                 <RadioButton
                   value="total_funding_usd"
                   label="Total Funding USD"
@@ -171,7 +171,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.yAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
                 <RadioButton
                   value="total_funding_usd"
                   label="Total Funding USD"
