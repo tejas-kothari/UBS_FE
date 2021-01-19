@@ -51,6 +51,13 @@ type CompanyCardProps = {
   showRank: boolean;
 };
 
+const processFundingRound = (round: string) => {
+  return round
+    .split('_')
+    .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+    .join(' ');
+};
+
 function CompanyCard({ company, showRank }: CompanyCardProps) {
   const classes = useStyles();
 
@@ -100,7 +107,8 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                   <Grid item xs={6}>
                     <Typography noWrap={true} color="textSecondary">
                       <ShowChartIcon className={classes.icon} />
-                      {company.last_funding_round || 'unknown'}
+                      {processFundingRound(company.last_funding_round) ||
+                        'unknown'}
                     </Typography>
                   </Grid>
                   <Grid item xs={6}>
