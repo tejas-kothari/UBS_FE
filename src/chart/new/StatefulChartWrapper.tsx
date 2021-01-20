@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import StatefulD3Chart from './StatefulD3Chart';
 
@@ -56,7 +57,7 @@ const StatefulChartWrappper = function<
   return (
     <>
       <div className={classes.chartArea} ref={chartArea}></div>
-      <div id="tooltip" className={classes.tooltip}></div>
+      <div className={clsx('tooltip', classes.tooltip)}></div>
     </>
   );
 };

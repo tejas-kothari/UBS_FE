@@ -41,7 +41,6 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     );
 
     // Add a clipPath: everything out of this area won't be drawn.
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.svg
       .append('defs')
       .append('svg:clipPath')
