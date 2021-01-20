@@ -6,7 +6,7 @@ import { D3Chart } from '../../chart/D3Chart';
 //import * as countries from '.'
 //import { nodeModuleNameResolver } from 'typescript';
 //import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
-
+import './Trip_data'
 //import { WorldMapState } from './WorldMapState'
 
 
@@ -27,25 +27,108 @@ export default class WorldMapChart extends D3Chart {
     var plane_path = d3.geoPath()
       .projection(projection);
 
-      
+
 
     var g = this.svg.append("g");
     var path = d3.geoPath()
       .projection(projection);
 
     // load and display the World
-    
-    d3.json("https://unpkg.com/world-atlas@1/world/110m.json").then(topology=> {
-      
-    g.selectAll("path")
+
+    d3.json("https://unpkg.com/world-atlas@1/world/110m.json").then(topology => {
+
+      g.selectAll("path")
         .data(topojson.feature(topology, topology.objects.countries)
           .features)
         .enter()
         .append("path")
         .attr("d", path)
-        
+
+      var visited_countries = ["752", "578", "703", "642", "100",
+        "008", "807", "070", "040", "604",
+        "068", "840", "276", "826", "-99",
+        "499", "191", "170", "152", "036",
+        "554"];
+
+      function colorCountry(country) {
+        console.log(country)
+        if (visited_countries.includes(country.id)) {
+          // hack to discolor ehtiopia
+          if (country.id == '-99' & country.geometry.coordinates[0][0][0] != 20.590405904059054) {
+            return '#e7d8ad'
+          } else {
+            return '#c8b98d';
+          };
+        } else {
+          return '#e7d8ad';
+        }
+      };
+      g.selectAll('path')
+        .attr('fill', colorCountry)
+
     });
 
+    /*var visited_countries = ["752", "578", "703", "642", "100",
+      "008", "807", "070", "040", "604",
+      "068", "840", "276", "826", "-99",
+      "499", "191", "170", "152", "036",
+      "554"];
+
+    function colorCountry(country) {
+      console.log(country)
+      if (visited_countries.includes(country.id)) {
+        // hack to discolor ehtiopia
+        if (country.id == '-99' & country.geometry.coordinates[0][0][0] != 20.590405904059054) {
+          return '#e7d8ad'
+        } else {
+          return '#c8b98d';
+        };
+      } else {
+        return '#e7d8ad';
+      }
+    };
+    g.selectAll('path')
+      .attr('fill', colorCountry)*/
+
+    /*var trip_data = d3.json("trip_data.csv", function(error, t_data){
+      return t_data
+    });
+    
+    g.selectAll("circle")
+     .data(trip_data)
+     .enter()
+     .append("circle")
+     .attr("cx", function(d) {
+            return projection([d.lon, d.lat])[0];
+      })
+     .attr("cy", function(d) {
+            return projection([d.lon, d.lat])[1];
+      })
+     .attr("r", width / 300)
+     .on("mousemove", showTooltip)
+     .on("mouseout", hideTooltip)
+     
+     
+     };
+    
+    function hideTooltip(d) {
+      // Show the tooltip (unhide it) and set the name of the data entry.
+      tooltip
+      .classed('hidden', true);
+    }
+    
+    function showTooltip(d){
+      var mouse = d3.mouse(svg.node()).map(function(d) {
+                            return parseInt(d);
+                        });
+      tooltip
+      .classed('hidden', false)
+      .html(d.name)
+      .attr('style', 
+            'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
+    };
+    
+    svg.call(zoom);*/
     /*this.svg.selectAll('.country')
       .data(CombinedGeoData.features)
       .join('path')
@@ -63,9 +146,9 @@ export default class WorldMapChart extends D3Chart {
       .precision(100)
     const pathGenerator = geoPath().projection(projection)*/
 
-    
+
   }
-  update() {}
+  update() { }
 }
 
 
