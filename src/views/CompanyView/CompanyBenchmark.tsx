@@ -157,7 +157,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 ></RadioButton>
                 <RadioButton
                   value="num_funding_rounds"
-                  label="Number of founding rounds"
+                  label="Number of funding rounds"
                 ></RadioButton>
               </RadioGroup>
             </FormControl>
@@ -177,7 +177,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 ></RadioButton>
                 <RadioButton
                   value="num_funding_rounds"
-                  label="Number of founding rounds"
+                  label="Number of funding rounds"
                 ></RadioButton>
               </RadioGroup>
             </FormControl>
