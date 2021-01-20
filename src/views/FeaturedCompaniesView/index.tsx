@@ -216,8 +216,10 @@ function FeaturedCompaniesView() {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </>
-      ) : (
+      ) : allCompanies.length ? (
         <Typography>Companies Not Found!</Typography>
+      ) : (
+        <Typography>Loading companies...</Typography>
       )}
     </Page>
   );
