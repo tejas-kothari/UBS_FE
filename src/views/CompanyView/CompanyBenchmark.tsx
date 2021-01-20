@@ -56,7 +56,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const [state, setState] = useState<CompanyBenchmarkState>({
     xAxis: 'num_funding_rounds',
     yAxis: 'total_funding_usd',
-    category: company.category_groups_list.split(',')[0],
+    category: '',
     data: [],
     reset: false,
     company,
@@ -131,14 +131,12 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 onChange={handleChange}
               >
                 <RadioButton value="" label="All"></RadioButton>
-                {categories.map(category => (
+                {company.category_groups_list.split(',').map(category => (
                   <RadioButton
                     key={category}
                     value={category}
                     label={category}
-                    disabled={
-                      company.category_groups_list.indexOf(category) === -1
-                    }
+                    disabled={categories.indexOf(category) === -1}
                   ></RadioButton>
                 ))}
               </RadioGroup>
@@ -152,7 +150,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.xAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
                 <RadioButton
                   value="total_funding_usd"
                   label="Total Funding USD"
@@ -172,7 +170,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.yAxis}
                 onChange={handleChange}
               >
-                <RadioButton value="rank" label="Rank"></RadioButton>
+                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
                 <RadioButton
                   value="total_funding_usd"
                   label="Total Funding USD"

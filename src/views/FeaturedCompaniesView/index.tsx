@@ -69,7 +69,7 @@ function FeaturedCompaniesView() {
   const [filterCountry, setFilterCountry] = useState<string[]>([]);
   const [filterPhase, setFilterPhase] = useState<string[]>([]);
   const [filterSize, setFilterSize] = useState<string[]>([]);
-  const [filterInvestor, setFilterInvestor] = useState<string[]>([]);
+  // const [filterInvestor, setFilterInvestor] = useState<string[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [page, setPage] = useState<number>(0);
@@ -178,14 +178,14 @@ function FeaturedCompaniesView() {
           updateCompanies={updateCompanies}
           values={selects.sizes}
         />
-        <CustomSelect
+        {/* <CustomSelect
           label="Investors"
           id="investors"
           value={filterInvestor}
           handleChange={setFilterInvestor}
           updateCompanies={updateCompanies}
           values={selects.investor}
-        />
+        /> */}
         <SearchField search={search} setSearch={setSearch} />
       </Grid>
 
