@@ -31,6 +31,9 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center'
   },
+  rank: {
+    width: 100
+  },
   icon: {
     verticalAlign: 'middle',
     marginRight: theme.spacing(1)
@@ -68,7 +71,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
           <CardContent className={classes.cardContent}>
             <Grid container spacing={2} alignItems="center">
               {showRank && (
-                <Grid item>
+                <Grid item className={classes.rank}>
                   <Typography className={classes.title} gutterBottom>
                     {company.rank}.
                   </Typography>
