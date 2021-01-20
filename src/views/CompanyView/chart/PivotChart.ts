@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
-import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
-import Company from '../../interfaces/company';
-import { CompanyBenchmarkState } from './CompanyBenchmark';
+import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
+import Company from '../../../interfaces/company';
+import { CompanyBenchmarkState } from '../CompanyBenchmark';
 
 type DatumType = Company;
 export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {

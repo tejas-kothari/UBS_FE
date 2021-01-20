@@ -7,8 +7,10 @@ import {
 } from '@material-ui/core';
 import React, { useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
-import FundingTimelineChart from './FundingTimelineChart';
+import FundingChart from './chart/FundingChart';
+import FundingTimelineChart from './chart/FundingTimelineChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,17 +35,21 @@ const useStyles = makeStyles(theme => ({
 
 type ComapnyFundingTimelineProps = {
   companyFunding: CompanyFunding[];
+  company: Company;
 };
 
 export type ComapnyFundingTimelineState = {
   companyFunding: CompanyFunding[];
+  company: Company;
 };
 
 function ComapnyFundingTimeline({
+  company,
   companyFunding
 }: ComapnyFundingTimelineProps) {
   const classes = useStyles();
   const [state, setState] = useState<ComapnyFundingTimelineState>({
+    company,
     companyFunding
   });
 
@@ -59,6 +65,13 @@ function ComapnyFundingTimeline({
           <Grid item xs={12}>
             <StatefulChartWrappper
               type={FundingTimelineChart}
+              state={state}
+              setState={setState}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <StatefulChartWrappper
+              type={FundingChart}
               state={state}
               setState={setState}
             />
