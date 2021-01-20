@@ -14,7 +14,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
 > {
   static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 10 };
   static readonly WIDTH =
-    460 - TimelineChart.MARGIN.left - TimelineChart.MARGIN.right;
+    700 - TimelineChart.MARGIN.left - TimelineChart.MARGIN.right;
   static readonly HEIGHT =
     50 - TimelineChart.MARGIN.top - TimelineChart.MARGIN.bottom;
 
@@ -77,19 +77,23 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
       .on('end', event => this.brushed(event)); // Each time the brush selection changes, trigger the 'updateChart' function
 
     // Add brushing
-    this.brushElement = this.svg.append('g').call(this.brush);
+    this.brushElement = this.timeline.append('g').call(this.brush);
   }
 
   abstract updateState(state: StateType): void;
 
   protected addItems(data: TimelineItem[]): void {
     // Update x-axis
-    this.xAxis.call(d3.axisBottom(this.x));
+    this.xAxis
+      .transition()
+      .duration(1000)
+      .call(d3.axisBottom(this.x).ticks(10));
 
     // JOIN
     const items = this.timeline
-      .selectAll<SVGRectElement, TimelineItem>('rect')
-      .data<TimelineItem>(data, (item, i) => item.name);
+      .selectAll<SVGRectElement, TimelineItem>('.item')
+      .data<TimelineItem>(data, (item, i) => item.date.toString());
+    console.log(items);
 
     // EXIT
     items
@@ -110,6 +114,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
     const newItems = items
       .enter()
       .append('rect')
+      .attr('class', 'item')
       .attr('x', d => this.x(d.date))
       .attr('y', TimelineChart.HEIGHT - 7)
       .attr('width', 4)
@@ -118,7 +123,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
 
     this.addTooltip<TimelineItem>(
       newItems,
-      item => item.name + '<br>' + item.date.toDateString()
+      item => item.name + '<br>' + item.date.toLocaleDateString('en-US')
     );
   }
 
