@@ -1,10 +1,12 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+//import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React from 'react';
 import Page from '../../components/Page';
+import WorldMapChart from './WorldMapChart'
+import ChartWrapper from '../../chart/ChartWrapper'
 
 /*
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function FullWidthGrid() {
+/*function FullWidthGrid() {
   const classes = useStyles();
 
   return (
@@ -167,7 +169,7 @@ function FullWidthGrid() {
       </Grid>
     </div>
   );
-}
+}*/
 
 function SubsectorView() {
   const classes = useStyles();
@@ -181,7 +183,11 @@ function SubsectorView() {
         justify="flex-start"
         alignItems="flex-start"
       />*/}
-      <FullWidthGrid />
+      <Grid container>
+        <Grid item xs={12} md={4}>
+          {ChartWrapper<WorldMapChart>(WorldMapChart)}
+        </Grid>
+      </Grid>
     </Page>
   );
 }
