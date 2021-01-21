@@ -11,6 +11,7 @@ import Company, {
   sizes
 } from '../../interfaces/company';
 import CustomSelect from './CustomSelect';
+import { NavLink } from 'react-router-dom';
 import { SearchField } from './SearchField';
 
 const useStyles = makeStyles(theme => ({
@@ -200,11 +201,15 @@ function FeaturedCompaniesView() {
             {companies
               .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
               .map(company => (
-                <CompanyCard
-                  company={company}
-                  showRank={true}
-                  key={company.uuid}
-                />
+                <Grid item xs={12}>
+                  <NavLink to={`/companies/${company.uuid}`}>
+                    <CompanyCard
+                      company={company}
+                      showRank={true}
+                      key={company.uuid}
+                    />
+                  </NavLink>
+                </Grid>
               ))}
           </Grid>
           <TablePagination

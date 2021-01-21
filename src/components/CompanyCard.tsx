@@ -3,6 +3,7 @@ import {
   CardContent,
   Grid,
   makeStyles,
+  Tooltip,
   Typography
 } from '@material-ui/core';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
@@ -12,7 +13,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PeopleIcon from '@material-ui/icons/People';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Company from '../interfaces/company';
 
 const useStyles = makeStyles(theme => ({
@@ -65,77 +65,124 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12}>
-      <NavLink to={`/companies/${company.uuid}`}>
-        <Card className={classes.root}>
-          <CardContent className={classes.cardContent}>
-            <Grid container spacing={2} alignItems="center">
-              {showRank && (
-                <Grid item className={classes.rank}>
-                  <Typography className={classes.title} gutterBottom>
-                    {company.rank}.
+    <Card className={classes.root}>
+      <CardContent className={classes.cardContent}>
+        <Grid container spacing={2} alignItems="center">
+          {showRank && (
+            <Grid item className={classes.rank}>
+              <Typography
+                component="span"
+                className={classes.title}
+                gutterBottom
+              >
+                {company.rank}.
+              </Typography>
+            </Grid>
+          )}
+          <Grid item>
+            <img
+              className={classes.img}
+              src={company.logo_url}
+              alt={company.name}
+            />
+          </Grid>
+          <Grid item>
+            <Typography component="span" className={classes.title} gutterBottom>
+              {company.name}
+            </Typography>
+            <Grid container spacing={1} className={classes.details}>
+              <Grid item xs={6}>
+                <Tooltip title={company.category_groups_list}>
+                  <Typography
+                    component="span"
+                    noWrap={true}
+                    color="textSecondary"
+                  >
+                    <CategoryIcon className={classes.icon} />
+                    {company.category_groups_list.split(',')[0] || 'unknown'}
                   </Typography>
-                </Grid>
-              )}
-              <Grid item>
-                <img
-                  className={classes.img}
-                  src={company.logo_url}
-                  alt={company.name}
-                />
+                </Tooltip>
               </Grid>
-              <Grid item>
-                <Typography className={classes.title} gutterBottom>
-                  {company.name}
-                </Typography>
-                <Grid container spacing={1} className={classes.details}>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
-                      <CategoryIcon className={classes.icon} />
-                      {company.category_groups_list.split(',')[0] || 'unknown'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
-                      <LocationOnIcon className={classes.icon} />
-                      {company.country || 'unknown'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
-                      <PeopleIcon className={classes.icon} />
-                      {company.employee_count || 'unknown'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
-                      <ShowChartIcon className={classes.icon} />
-                      {processFundingRound(company.last_funding_round) ||
-                        'unknown'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
-                      <AttachMoneyIcon className={classes.icon} />
-                      USD{' '}
-                      {new Intl.NumberFormat('en-US', {
+              <Grid item xs={6}>
+                <Tooltip title={company.country}>
+                  <Typography
+                    component="span"
+                    noWrap={true}
+                    color="textSecondary"
+                  >
+                    <LocationOnIcon className={classes.icon} />
+                    {company.country || 'unknown'}
+                  </Typography>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <Tooltip title={company.employee_count}>
+                  <Typography
+                    component="span"
+                    noWrap={true}
+                    color="textSecondary"
+                  >
+                    <PeopleIcon className={classes.icon} />
+                    {company.employee_count || 'unknown'}
+                  </Typography>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <Tooltip
+                  title={processFundingRound(company.last_funding_round)}
+                >
+                  <Typography
+                    component="span"
+                    noWrap={true}
+                    color="textSecondary"
+                  >
+                    <ShowChartIcon className={classes.icon} />
+                    {processFundingRound(company.last_funding_round) ||
+                      'unknown'}
+                  </Typography>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <Tooltip
+                  title={
+                    'USD ' +
+                      new Intl.NumberFormat('en-US', {
                         notation: 'compact'
-                      }).format(company.total_funding_usd) || 'unknown'}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography noWrap={true} color="textSecondary">
+                      }).format(company.total_funding_usd) || 'unknown'
+                  }
+                >
+                  <Typography
+                    component="span"
+                    noWrap={true}
+                    color="textSecondary"
+                  >
+                    <AttachMoneyIcon className={classes.icon} />
+                    USD{' '}
+                    {new Intl.NumberFormat('en-US', {
+                      notation: 'compact'
+                    }).format(company.total_funding_usd) || 'unknown'}
+                  </Typography>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={6}>
+                <a href={company.homepage_url} target="_blank" rel="noreferrer">
+                  <Tooltip title="Click to go to company homepage">
+                    <Typography
+                      component="span"
+                      noWrap={true}
+                      color="textSecondary"
+                    >
                       <LanguageIcon className={classes.icon} />
                       {company.homepage_url || 'unknown'}
                     </Typography>
-                  </Grid>
-                </Grid>
+                  </Tooltip>
+                </a>
               </Grid>
             </Grid>
-          </CardContent>
-        </Card>
-      </NavLink>
-    </Grid>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 }
 
