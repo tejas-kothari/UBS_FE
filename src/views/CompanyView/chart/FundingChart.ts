@@ -188,7 +188,7 @@ export default class FundingChart extends StatefulD3Chart<
         '<br>' +
         item.announced_on +
         '<br>USD ' +
-        item.raised_amount_usd
+        this.compactValue(item.raised_amount_usd)
     );
   }
 
