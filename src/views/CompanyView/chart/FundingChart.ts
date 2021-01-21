@@ -101,17 +101,27 @@ export default class FundingChart extends StatefulD3Chart<
         new Date(a.announced_on).getTime() - new Date(b.announced_on).getTime()
     );
 
-    this.y.domain([
-      0,
-      d3.max(funding.map(funding => funding.raised_amount_usd)) as number
-    ]);
-
     // Update x-axis
     this.xAxis
       .transition()
       .duration(1000)
-      .call(d3.axisBottom(this.x).ticks(10));
+      .call(d3.axisBottom(this.x).ticks(5));
 
+    const xDomain = this.x.domain();
+    // Update y-axis scale
+    this.y.domain([
+      0,
+      (d3.max(
+        funding.map(funding =>
+          new Date(funding.announced_on) >= xDomain[0] &&
+          new Date(funding.announced_on) <= xDomain[1]
+            ? funding.raised_amount_usd
+            : 0
+        )
+      ) as number) * 1.1
+    ]);
+
+    // Update y-axis
     this.yAxis
       .transition()
       .duration(1000)
@@ -122,6 +132,7 @@ export default class FundingChart extends StatefulD3Chart<
           .tickFormat(this.compactValue)
       );
 
+    // Update line
     this.line
       .datum(funding)
       .transition()
