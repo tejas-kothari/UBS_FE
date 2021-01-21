@@ -3,10 +3,10 @@ import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
-import React from 'react';
+import React, { useState } from 'react';
+import ChartWrapper from '../../chart/ChartWrapper';
 import Page from '../../components/Page';
-import WorldMapChart from './WorldMapChart'
-import ChartWrapper from '../../chart/ChartWrapper'
+import WorldMapChart from './WorldMapChart';
 
 /*
 const useStyles = makeStyles((theme) => ({
@@ -171,8 +171,17 @@ const useStyles = makeStyles((theme: Theme) =>
   );
 }*/
 
+type SubsectorViewState = {
+  country: string;
+}
+
 function SubsectorView() {
   const classes = useStyles();
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, setState] = useState<SubsectorViewState>({
+    country: "Unknown"
+  });
 
   return (
     <Page title="Subsectors" className={classes.root}>
@@ -184,8 +193,11 @@ function SubsectorView() {
         alignItems="flex-start"
       />*/}
       <Grid container>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12}>
           {ChartWrapper<WorldMapChart>(WorldMapChart)}
+        </Grid>
+        <Grid item xs={12}>
+          <Typography>{state.country}</Typography>
         </Grid>
       </Grid>
     </Page>
