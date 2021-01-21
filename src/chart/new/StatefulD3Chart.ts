@@ -62,4 +62,10 @@ export default abstract class StatefulD3Chart<StateType> {
       .on('mousemove', mousemove)
       .on('mouseleave', mouseleave);
   }
+
+  // Function to compact large integers
+  protected compactValue = (value: d3.NumberValue): string =>
+    new Intl.NumberFormat('en-US', {
+      notation: 'compact'
+    }).format(value as number);
 }

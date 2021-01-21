@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Company, { categories } from '../../interfaces/company';
-import PivotChart from './PivotChart';
+import PivotChart from './chart/PivotChart';
 
 const useStyles = makeStyles(theme => ({
   root: {

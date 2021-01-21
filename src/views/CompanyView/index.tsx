@@ -65,7 +65,7 @@ function CompanyView() {
             <CompanyCard company={company} showRank={false} />
           </Grid>
           <Grid item xs={12}>
-            <ComapnyFundingTimeline companyFunding={companyFunding} />
+            <ComapnyFundingTimeline company={company} companyFunding={companyFunding} />
           </Grid>
           <Grid item xs={12}>
             <CompanyBenchmark company={company} />

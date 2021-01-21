@@ -1,5 +1,5 @@
-import TimelineChart from '../../chart/TimelineChart';
-import { ComapnyFundingTimelineState } from './CompanyFundingTimeline';
+import TimelineChart from '../../../chart/TimelineChart';
+import { ComapnyFundingTimelineState } from '../CompanyFundingTimeline';
 
 export default class FundingTimelineChart extends TimelineChart<
   ComapnyFundingTimelineState

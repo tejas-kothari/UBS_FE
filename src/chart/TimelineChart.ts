@@ -92,7 +92,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
     // JOIN
     const items = this.timeline
       .selectAll<SVGRectElement, TimelineItem>('.item')
-      .data<TimelineItem>(data, (item, i) => item.date.toString());
+      .data<TimelineItem>(data, (item, i) => i);
     console.log(items);
 
     // EXIT

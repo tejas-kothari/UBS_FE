@@ -6,9 +6,7 @@ import { D3Chart } from '../../chart/D3Chart';
 //import * as countries from '.'
 //import { nodeModuleNameResolver } from 'typescript';
 //import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
-import './Trip_data'
 //import { WorldMapState } from './WorldMapState'
-
 
 export default class WorldMapChart extends D3Chart {
   constructor(element, classes) {
@@ -18,67 +16,74 @@ export default class WorldMapChart extends D3Chart {
 
     super(element, classes, margin, width, height);
 
-    var projection = d3.geoMercator()
+    var projection = d3
+      .geoMercator()
       .translate([width / 2.2, height / 2.2])
       .center([0, 0])
       .translate([256, 300])
       .scale(512 / (2 * Math.PI));
 
-    var plane_path = d3.geoPath()
-      .projection(projection);
+    // eslint-disable-next-line no-unused-vars
+    var plane_path = d3.geoPath().projection(projection);
 
-
-
-    var g = this.svg.append("g");
-    var path = d3.geoPath()
-      .projection(projection);
+    var g = this.svg.append('g');
+    var path = d3.geoPath().projection(projection);
 
     // load and display the World
-
-    d3.json("https://unpkg.com/world-atlas@1/world/110m.json").then(topology => {
-
-      g.selectAll("path")
-        .data(topojson.feature(topology, topology.objects.countries)
-          .features)
+    d3.json(
+      'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
+    ).then(topology => {
+      g.selectAll('path')
+        .data(topojson.feature(topology, topology.objects.countries).features)
         .enter()
-        .append("path")
-        .attr("d", path)
+        .append('path')
+        .attr('d', path);
 
-      var visited_countries = ["752", "578", "703", "642", "100",
-        "008", "807", "070", "040", "604",
-        "068", "840", "276", "826", "-99",
-        "499", "191", "170", "152", "036",
-        "554"];
+      var visited_countries = [
+        '752',
+        '578',
+        '703',
+        '642',
+        '100',
+        '008',
+        '807',
+        '070',
+        '040',
+        '604',
+        '068',
+        '840',
+        '276',
+        '826',
+        '-99',
+        '499',
+        '191',
+        '170',
+        '152',
+        '036',
+        '554'
+      ];
 
       function colorCountry(country) {
-        console.log(country)
+        console.log(country.properties.name);
+
+        if (country.properties.name === 'Antarctica') {
+          return 'none';
+        }
         if (visited_countries.includes(country.id)) {
           // hack to discolor ehtiopia
-          if (country.id == '-99' & country.geometry.coordinates[0][0][0] != 20.590405904059054) {
-            return '#e7d8ad'
+          if (
+            (country.id === '-99') &
+            (country.geometry.coordinates[0][0][0] !== 20.590405904059054)
+          ) {
+            return '#e7d8ad';
           } else {
             return '#c8b98d';
-          };
+          }
         } else {
           return '#e7d8ad';
         }
-      };
-      g.selectAll('path')
-        .attr('fill', colorCountry)
-
-      updateState(state: ComapnyFundingTimelineState): void {
-        this.addItems(
-          state.companyFunding.map(funding => {
-            return {
-              name: funding.investment_type.split("_").map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(" "),
-              color: '#FF0000',
-              date: new Date(funding.announced_on)
-            };
-          })
-        );
       }
-
-
+      g.selectAll('path').attr('fill', colorCountry);
     });
 
     /*var visited_countries = ["752", "578", "703", "642", "100",
@@ -158,10 +163,6 @@ export default class WorldMapChart extends D3Chart {
       .fitSize([width, height], clickedCountry || CombinedGeoData)
       .precision(100)
     const pathGenerator = geoPath().projection(projection)*/
-
-
   }
-  update() { }
+  update() {}
 }
-
-

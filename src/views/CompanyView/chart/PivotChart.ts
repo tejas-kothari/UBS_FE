@@ -1,14 +1,14 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
-import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
-import Company from '../../interfaces/company';
-import { CompanyBenchmarkState } from './CompanyBenchmark';
+import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
+import Company from '../../../interfaces/company';
+import { CompanyBenchmarkState } from '../CompanyBenchmark';
 
 type DatumType = Company;
 export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
-  static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 60 };
+  static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
-    460 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
+    450 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
   static readonly HEIGHT =
     450 - PivotChart.MARGIN.top - PivotChart.MARGIN.bottom;
 
@@ -19,11 +19,6 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
   scatter!: d3.Selection<SVGGElement, any, null, undefined>;
   xAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
   yAxis!: d3.Selection<SVGGElement, DatumType, null, undefined>;
-
-  private compactValue = (value: d3.NumberValue): string =>
-    new Intl.NumberFormat('en-US', {
-      notation: 'compact'
-    }).format(value as number);
 
   constructor(
     element: HTMLElement,
