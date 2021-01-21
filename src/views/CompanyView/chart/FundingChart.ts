@@ -140,7 +140,7 @@ export default class FundingChart extends StatefulD3Chart<
     // JOIN
     const items = this.timeline
       .selectAll<SVGRectElement, CompanyFunding>('.item')
-      .data<CompanyFunding>(funding, (item, i) => item.announced_on);
+      .data<CompanyFunding>(funding, (item, i) => i);
 
     // EXIT
     items
