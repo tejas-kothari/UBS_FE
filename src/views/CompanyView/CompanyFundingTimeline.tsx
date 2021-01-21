@@ -62,14 +62,14 @@ function ComapnyFundingTimeline({
               Funding Timeline
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={8} xl={8}>
             <StatefulChartWrappper
               type={FundingTimelineChart}
               state={state}
               setState={setState}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={8} xl={4}>
             <StatefulChartWrappper
               type={FundingChart}
               state={state}
