@@ -31,7 +31,8 @@ export default class WorldMapChart extends StatefulD3Chart {
         .data(topojson.feature(topology, topology.objects.countries).features)
         .enter()
         .append('path')
-        .attr('d', path);
+        .attr('d', path)
+        .style("stroke", "#000000"); //boundaries
 
       var visited_countries = [
         '752',

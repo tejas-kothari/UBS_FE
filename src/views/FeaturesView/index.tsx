@@ -1,15 +1,11 @@
 import { Grid, makeStyles } from '@material-ui/core';
 //import { Timeline } from '@material-ui/lab';
 import React from 'react';
-import BarChart from '../../chart/BarChart';
 import ChartWrapper from '../../chart/ChartWrapper';
-import RingChart from '../../chart/RingChart';
 import TestChart2 from '../../chart/TestChart2';
 import TestChart3 from '../../chart/TestChart3';
 import TestChart5 from '../../chart/TestChart5';
 import Page from '../../components/Page';
-
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function ChartView() {
+function FeaturesView() {
   const classes = useStyles();
 
   return (
@@ -35,14 +31,12 @@ function ChartView() {
           {ChartWrapper<TestChart5>(TestChart5)}
         </Grid>
         <Grid item xs={12} md={4}>
-          {ChartWrapper<BarChart>(BarChart)}
+         
         </Grid>
-        <Grid item xs={12} md={4}>
-          {ChartWrapper<RingChart>(RingChart)}
-        </Grid>
-      </Grid>
+      </Grid> 
+    
     </Page>
   );
 }
 
-export default ChartView;
+export default FeaturesView;

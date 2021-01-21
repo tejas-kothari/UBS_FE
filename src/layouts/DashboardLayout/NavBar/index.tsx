@@ -46,6 +46,11 @@ const navData = [
         href: '/subsectors',
         icon: PieChartIcon,
         title: 'Subsectors'
+      },
+      {
+        href: '/features',
+        icon: PieChartIcon,
+        title: 'Features'
       }
     ]
   },

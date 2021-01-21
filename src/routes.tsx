@@ -6,6 +6,7 @@ import SubsectorView from './views/SubsectorView';
 import CompanyView from './views/CompanyView/index';
 import FeaturedCompaniesView from './views/FeaturedCompaniesView';
 import TestView from './views/TestView';
+import FeaturesView from './views/FeaturesView'
 
 const routes = [
   {
@@ -19,6 +20,10 @@ const routes = [
       {
         path: 'portfolio',
         element: <PortfolioView />
+      },
+      {
+        path: 'FeaturesView',
+        element: <FeaturesView />
       },
       {
         path: 'subsectors',
