@@ -66,6 +66,19 @@ export default class WorldMapChart extends D3Chart {
       g.selectAll('path')
         .attr('fill', colorCountry)
 
+      updateState(state: ComapnyFundingTimelineState): void {
+        this.addItems(
+          state.companyFunding.map(funding => {
+            return {
+              name: funding.investment_type.split("_").map(str => str.charAt(0).toUpperCase() + str.slice(1)).join(" "),
+              color: '#FF0000',
+              date: new Date(funding.announced_on)
+            };
+          })
+        );
+      }
+
+
     });
 
     /*var visited_countries = ["752", "578", "703", "642", "100",
