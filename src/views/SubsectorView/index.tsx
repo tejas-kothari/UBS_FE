@@ -8,6 +8,7 @@ import ChartWrapper from '../../chart/ChartWrapper';
 import Page from '../../components/Page';
 import WorldMapChart from './WorldMapChart';
 
+
 /*
 const useStyles = makeStyles((theme) => ({
   root: {

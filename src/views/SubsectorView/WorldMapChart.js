@@ -2,11 +2,13 @@ import * as d3 from 'd3';
 //import { event, select, geoPath, geoMercator, min, max, scaleLinear } from 'd3';
 //import geojson from 'geojson';
 import * as topojson from 'topojson';
+import SubsectorView from './index';
 import { D3Chart } from '../../chart/D3Chart';
 //import * as countries from '.'
 //import { nodeModuleNameResolver } from 'typescript';
 //import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
 //import { WorldMapState } from './WorldMapState'
+
 
 export default class WorldMapChart extends D3Chart {
   constructor(element, classes) {
@@ -84,6 +86,42 @@ export default class WorldMapChart extends D3Chart {
         }
       }
       g.selectAll('path').attr('fill', colorCountry);
+
+
+      updateState(state: subsectorViewState) void {
+        
+      
+      }
+      // JOIN
+
+      const items = this.svg
+        .selectAll('.item')
+        .data(country.properties.names);
+
+      // EXIT
+      items
+        .exit()
+        .transition()
+        .duration(1000)
+        .style('opacity', 0)
+        .remove();
+
+      // UPDATE
+      items
+        .transition()
+        .duration(1000)
+        .attr('cx', d => this.x(new Date(d.announced_on)))
+        .attr('cy', d => this.y(d.raised_amount_usd));
+
+      const newItems = items
+      this.addTooltip(
+        newItems,
+        item => item.country.properties.name
+      );
+      
+
+
+
     });
 
     /*var visited_countries = ["752", "578", "703", "642", "100",
@@ -164,5 +202,5 @@ export default class WorldMapChart extends D3Chart {
       .precision(100)
     const pathGenerator = geoPath().projection(projection)*/
   }
-  update() {}
+  update() { }
 }
