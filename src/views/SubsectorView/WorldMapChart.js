@@ -1,22 +1,14 @@
 import * as d3 from 'd3';
-//import { event, select, geoPath, geoMercator, min, max, scaleLinear } from 'd3';
-//import geojson from 'geojson';
 import * as topojson from 'topojson';
-import SubsectorView from './index';
-import { D3Chart } from '../../chart/D3Chart';
-//import * as countries from '.'
-//import { nodeModuleNameResolver } from 'typescript';
-//import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
-//import { WorldMapState } from './WorldMapState'
+import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
 
-
-export default class WorldMapChart extends D3Chart {
-  constructor(element, classes) {
+export default class WorldMapChart extends StatefulD3Chart {
+  constructor(element, setState, forceUpdate) {
     const margin = { top: 10, right: 30, bottom: 30, left: 60 },
       width = 900 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
-    super(element, classes, margin, width, height);
+    super(element, setState, forceUpdate, margin, width, height);
 
     var projection = d3
       .geoMercator()
@@ -66,7 +58,7 @@ export default class WorldMapChart extends D3Chart {
       ];
 
       function colorCountry(country) {
-        console.log(country.properties.name);
+        // console.log(country.properties.name);
 
         if (country.properties.name === 'Antarctica') {
           return 'none';
@@ -85,122 +77,20 @@ export default class WorldMapChart extends D3Chart {
           return '#e7d8ad';
         }
       }
-      g.selectAll('path').attr('fill', colorCountry);
+      g.selectAll('path')
+        .attr('fill', colorCountry)
+        .on('click', (event, d) => {
+          setState(state => {
+            return {
+              ...state,
+              country: d.properties.name
+            };
+          });
+        });
 
-
-      updateState(state: subsectorViewState) void {
-        
-      
-      }
-      // JOIN
-
-      const items = this.svg
-        .selectAll('.item')
-        .data(country.properties.names);
-
-      // EXIT
-      items
-        .exit()
-        .transition()
-        .duration(1000)
-        .style('opacity', 0)
-        .remove();
-
-      // UPDATE
-      items
-        .transition()
-        .duration(1000)
-        .attr('cx', d => this.x(new Date(d.announced_on)))
-        .attr('cy', d => this.y(d.raised_amount_usd));
-
-      const newItems = items
-      this.addTooltip(
-        newItems,
-        item => item.country.properties.name
-      );
-      
-
-
-
+      this.addTooltip(g.selectAll('path'), (d) => d.properties.name);
     });
-
-    /*var visited_countries = ["752", "578", "703", "642", "100",
-      "008", "807", "070", "040", "604",
-      "068", "840", "276", "826", "-99",
-      "499", "191", "170", "152", "036",
-      "554"];
-
-    function colorCountry(country) {
-      console.log(country)
-      if (visited_countries.includes(country.id)) {
-        // hack to discolor ehtiopia
-        if (country.id == '-99' & country.geometry.coordinates[0][0][0] != 20.590405904059054) {
-          return '#e7d8ad'
-        } else {
-          return '#c8b98d';
-        };
-      } else {
-        return '#e7d8ad';
-      }
-    };
-    g.selectAll('path')
-      .attr('fill', colorCountry)*/
-
-    /*var trip_data = d3.json("trip_data.csv", function(error, t_data){
-      return t_data
-    });
-    
-    g.selectAll("circle")
-     .data(trip_data)
-     .enter()
-     .append("circle")
-     .attr("cx", function(d) {
-            return projection([d.lon, d.lat])[0];
-      })
-     .attr("cy", function(d) {
-            return projection([d.lon, d.lat])[1];
-      })
-     .attr("r", width / 300)
-     .on("mousemove", showTooltip)
-     .on("mouseout", hideTooltip)
-     
-     
-     };
-    
-    function hideTooltip(d) {
-      // Show the tooltip (unhide it) and set the name of the data entry.
-      tooltip
-      .classed('hidden', true);
-    }
-    
-    function showTooltip(d){
-      var mouse = d3.mouse(svg.node()).map(function(d) {
-                            return parseInt(d);
-                        });
-      tooltip
-      .classed('hidden', false)
-      .html(d.name)
-      .attr('style', 
-            'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1] - 35) + 'px')
-    };
-    
-    svg.call(zoom);*/
-    /*this.svg.selectAll('.country')
-      .data(CombinedGeoData.features)
-      .join('path')
-      .attr('class', 'country')
-      .attr("fiil", feature => colorScale(feature.properties.gdp_md_est))
-      .attr('d', feature =>pathGenerator(feature))
-      .on('mouseover', feature =>{mouseOver(feature)})
-      .on('mouseout', feature =>{mouseOut(feature)})
-      .on('click', feature =>
-      {setClickedCountry(clickedCountry===feature ? null :feature)})
-  }, [clickedCountry, mouseOver, mouseOut])
-
-    const projection = geoMercator()
-      .fitSize([width, height], clickedCountry || CombinedGeoData)
-      .precision(100)
-    const pathGenerator = geoPath().projection(projection)*/
   }
-  update() { }
+
+  updateState(state) {}
 }
