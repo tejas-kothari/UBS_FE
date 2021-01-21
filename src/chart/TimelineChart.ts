@@ -12,9 +12,9 @@ type TimelineItem = {
 export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
   StateType
 > {
-  static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 10 };
+  static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 30 };
   static readonly WIDTH =
-    700 - TimelineChart.MARGIN.left - TimelineChart.MARGIN.right;
+    450 - TimelineChart.MARGIN.left - TimelineChart.MARGIN.right;
   static readonly HEIGHT =
     50 - TimelineChart.MARGIN.top - TimelineChart.MARGIN.bottom;
 
@@ -87,7 +87,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
     this.xAxis
       .transition()
       .duration(1000)
-      .call(d3.axisBottom(this.x).ticks(10));
+      .call(d3.axisBottom(this.x).ticks(5));
 
     // JOIN
     const items = this.timeline

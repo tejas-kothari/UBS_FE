@@ -2,10 +2,10 @@ import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
 import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
 import CompanyFunding from '../../../interfaces/company_funding';
-import { ComapnyFundingTimelineState } from '../CompanyFundingTimeline';
+import { CompanyFundingTimelineState } from '../CompanyFundingTimeline';
 
 export default class FundingChart extends StatefulD3Chart<
-  ComapnyFundingTimelineState
+  CompanyFundingTimelineState
 > {
   static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
@@ -26,7 +26,7 @@ export default class FundingChart extends StatefulD3Chart<
 
   constructor(
     element: HTMLElement,
-    setState: React.Dispatch<React.SetStateAction<ComapnyFundingTimelineState>>,
+    setState: React.Dispatch<React.SetStateAction<CompanyFundingTimelineState>>,
     forceUpdate: React.DispatchWithoutAction
   ) {
     super(
@@ -88,7 +88,7 @@ export default class FundingChart extends StatefulD3Chart<
     this.line = this.timeline.append('path');
   }
 
-  updateState(state: ComapnyFundingTimelineState): void {
+  updateState(state: CompanyFundingTimelineState): void {
     const funding = ([
       {
         announced_on: state.company.founded_on,
@@ -180,7 +180,15 @@ export default class FundingChart extends StatefulD3Chart<
 
     this.addTooltip<CompanyFunding>(
       newItems,
-      item => item.investment_type + '<br>' + item.announced_on
+      item =>
+        item.investment_type
+          .split('_')
+          .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+          .join(' ') +
+        '<br>' +
+        item.announced_on +
+        '<br>USD ' +
+        item.raised_amount_usd
     );
   }
 

@@ -33,22 +33,22 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-type ComapnyFundingTimelineProps = {
+type CompanyFundingTimelineProps = {
   companyFunding: CompanyFunding[];
   company: Company;
 };
 
-export type ComapnyFundingTimelineState = {
+export type CompanyFundingTimelineState = {
   companyFunding: CompanyFunding[];
   company: Company;
 };
 
-function ComapnyFundingTimeline({
+function CompanyFundingTimeline({
   company,
   companyFunding
-}: ComapnyFundingTimelineProps) {
+}: CompanyFundingTimelineProps) {
   const classes = useStyles();
-  const [state, setState] = useState<ComapnyFundingTimelineState>({
+  const [state, setState] = useState<CompanyFundingTimelineState>({
     company,
     companyFunding
   });
@@ -56,10 +56,10 @@ function ComapnyFundingTimeline({
   return (
     <Card>
       <CardContent>
-        <Grid container justify="center" spacing={1}>
+        <Grid container justify="center" alignItems="center" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="body1" align="left" className={classes.title}>
-              Funding Timeline
+              Company Funding
             </Typography>
           </Grid>
           <Grid item xs={12} md={8} xl={8}>
@@ -82,4 +82,4 @@ function ComapnyFundingTimeline({
   );
 }
 
-export default ComapnyFundingTimeline;
+export default CompanyFundingTimeline;
