@@ -7,11 +7,11 @@ import { ComapnyFundingTimelineState } from '../CompanyFundingTimeline';
 export default class FundingChart extends StatefulD3Chart<
   ComapnyFundingTimelineState
 > {
-  static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 60 };
+  static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
-    700 - FundingChart.MARGIN.left - FundingChart.MARGIN.right;
+    450 - FundingChart.MARGIN.left - FundingChart.MARGIN.right;
   static readonly HEIGHT =
-    700 - FundingChart.MARGIN.top - FundingChart.MARGIN.bottom;
+    450 - FundingChart.MARGIN.top - FundingChart.MARGIN.bottom;
 
   x: d3.ScaleTime<number, number, never>;
   xAxis: d3.Selection<SVGGElement, any, null, undefined>;
@@ -115,7 +115,12 @@ export default class FundingChart extends StatefulD3Chart<
     this.yAxis
       .transition()
       .duration(1000)
-      .call(d3.axisLeft(this.y).ticks(10));
+      .call(
+        d3
+          .axisLeft(this.y)
+          .ticks(10)
+          .tickFormat(this.compactValue)
+      );
 
     this.line
       .datum(funding)
