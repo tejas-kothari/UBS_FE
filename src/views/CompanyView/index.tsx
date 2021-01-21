@@ -9,7 +9,7 @@ import Page from '../../components/Page';
 import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
 import CompanyBenchmark from './CompanyBenchmark';
-import ComapnyFundingTimeline from './CompanyFundingTimeline';
+import ComapnyFundingTimeline from './CompanyFunding';
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -2,10 +2,10 @@ import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
 import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
 import CompanyFunding from '../../../interfaces/company_funding';
-import { CompanyFundingTimelineState } from '../CompanyFundingTimeline';
+import { CompanyFundingState } from '../CompanyFunding';
 
 export default class FundingChart extends StatefulD3Chart<
-  CompanyFundingTimelineState
+  CompanyFundingState
 > {
   static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
@@ -26,7 +26,7 @@ export default class FundingChart extends StatefulD3Chart<
 
   constructor(
     element: HTMLElement,
-    setState: React.Dispatch<React.SetStateAction<CompanyFundingTimelineState>>,
+    setState: React.Dispatch<React.SetStateAction<CompanyFundingState>>,
     forceUpdate: React.DispatchWithoutAction
   ) {
     super(
@@ -88,7 +88,7 @@ export default class FundingChart extends StatefulD3Chart<
     this.line = this.timeline.append('path');
   }
 
-  updateState(state: CompanyFundingTimelineState): void {
+  updateState(state: CompanyFundingState): void {
     const funding = ([
       {
         announced_on: state.company.founded_on,

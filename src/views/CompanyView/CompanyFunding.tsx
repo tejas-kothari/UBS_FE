@@ -10,7 +10,6 @@ import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
 import FundingChart from './chart/FundingChart';
-import FundingTimelineChart from './chart/FundingTimelineChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,12 +32,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-type CompanyFundingTimelineProps = {
+type CompanyFundingProps = {
   companyFunding: CompanyFunding[];
   company: Company;
 };
 
-export type CompanyFundingTimelineState = {
+export type CompanyFundingState = {
   companyFunding: CompanyFunding[];
   company: Company;
 };
@@ -46,9 +45,9 @@ export type CompanyFundingTimelineState = {
 function CompanyFundingTimeline({
   company,
   companyFunding
-}: CompanyFundingTimelineProps) {
+}: CompanyFundingProps) {
   const classes = useStyles();
-  const [state, setState] = useState<CompanyFundingTimelineState>({
+  const [state, setState] = useState<CompanyFundingState>({
     company,
     companyFunding
   });
@@ -62,13 +61,13 @@ function CompanyFundingTimeline({
               Company Funding
             </Typography>
           </Grid>
-          <Grid item xs={12} md={8} xl={8}>
+          {/* <Grid item xs={12} md={8} xl={8}>
             <StatefulChartWrappper
               type={FundingTimelineChart}
               state={state}
               setState={setState}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={8} xl={4}>
             <StatefulChartWrappper
               type={FundingChart}
