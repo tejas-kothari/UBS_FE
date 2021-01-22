@@ -118,7 +118,7 @@ export default abstract class TimelineChart<StateType> extends StatefulD3Chart<
       .attr('y', TimelineChart.HEIGHT - 7)
       .attr('width', 4)
       .attr('height', 14)
-      .style('fill', d => d.color);
+      .style('fill', d => d.color)
 
     this.addTooltip<TimelineItem>(
       newItems,

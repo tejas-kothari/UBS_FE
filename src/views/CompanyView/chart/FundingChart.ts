@@ -4,9 +4,7 @@ import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
 import CompanyFunding from '../../../interfaces/company_funding';
 import { CompanyFundingState } from '../CompanyFunding';
 
-export default class FundingChart extends StatefulD3Chart<
-  CompanyFundingState
-> {
+export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
   static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
     450 - FundingChart.MARGIN.left - FundingChart.MARGIN.right;
@@ -176,7 +174,16 @@ export default class FundingChart extends StatefulD3Chart<
       .attr('cx', d => this.x(new Date(d.announced_on)))
       .attr('cy', d => this.y(d.raised_amount_usd))
       .attr('r', 4)
-      .style('fill', '#FF00000');
+      .style('fill', '#FF00000')
+      .on('click', (event, funding) => {
+        console.log(funding);
+        this.setState(state => {
+          return {
+            ...state,
+            activeFunding: funding
+          };
+        });
+      });
 
     this.addTooltip<CompanyFunding>(
       newItems,

@@ -37,7 +37,7 @@ const processFundingRound = (round: string) => {
 
 function CompanyFundingCard({ funding }: CompanyFundingCardProps) {
   const classes = useStyles();
-  
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.cardContent}>
@@ -51,7 +51,7 @@ function CompanyFundingCard({ funding }: CompanyFundingCardProps) {
           </Grid>
           <Grid item>
             <Typography>Lead investors</Typography>
-            {Object.values(funding.investors).map(investor => (
+            {funding.investors && Object.values(funding.investors).map(investor => (
               <Chip
                 key={investor.uuid}
                 avatar={<Avatar src={investor.logo_url}></Avatar>}
