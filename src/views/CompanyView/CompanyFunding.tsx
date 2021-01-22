@@ -10,6 +10,7 @@ import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
 import FundingChart from './chart/FundingChart';
+import CompanyFundingCard from './CompanyFundingCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +41,7 @@ type CompanyFundingProps = {
 export type CompanyFundingState = {
   companyFunding: CompanyFunding[];
   company: Company;
+  activeFunding: CompanyFunding | null;
 };
 
 function CompanyFundingTimeline({
@@ -49,7 +51,8 @@ function CompanyFundingTimeline({
   const classes = useStyles();
   const [state, setState] = useState<CompanyFundingState>({
     company,
-    companyFunding
+    companyFunding,
+    activeFunding: companyFunding[0]
   });
 
   return (
@@ -75,6 +78,11 @@ function CompanyFundingTimeline({
               setState={setState}
             />
           </Grid>
+          {state.activeFunding && (
+            <Grid item xs={12}>
+              <CompanyFundingCard funding={state.activeFunding} />
+            </Grid>
+          )}
         </Grid>
       </CardContent>
     </Card>

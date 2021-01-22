@@ -5,4 +5,12 @@ export default interface CompanyFunding {
     lead_investor_uuids: string;
     org_uuid: string;
     raised_amount_usd: number;
+    investors: FundingInvestor[];
+}
+
+export interface FundingInvestor {
+    investment_count: number;
+    logo_url: string;
+    name: string;
+    uuid: string;
 }
