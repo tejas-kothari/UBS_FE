@@ -37,8 +37,7 @@ const processFundingRound = (round: string) => {
 
 function CompanyFundingCard({ funding }: CompanyFundingCardProps) {
   const classes = useStyles();
-  console.log(funding);
-
+  
   return (
     <Card className={classes.root}>
       <CardContent className={classes.cardContent}>

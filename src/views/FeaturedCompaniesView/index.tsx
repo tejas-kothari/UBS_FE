@@ -101,8 +101,6 @@ function FeaturedCompaniesView() {
     setPage(0);
   };
 
-  console.log(companies);
-
   return (
     <Page title="Featured Companies" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
