@@ -5,8 +5,8 @@ import { D3Chart } from './D3Chart';
 export default class RingChart extends D3Chart {
   constructor(element, classes) {
     // set the dimensions and margins of the graph
-    const margin = { top: 10, right: 20, bottom: 30, left: 50 },
-      width = 800 - margin.left - margin.right,
+    const margin = { top: 0, right: 0, bottom: 0, left: 10 },
+      width = 1200 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
     super(element, classes, margin, width, height);

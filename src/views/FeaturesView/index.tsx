@@ -1,4 +1,4 @@
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 //import { Timeline } from '@material-ui/lab';
 import React from 'react';
 //import BarChart from '../../chart/BarChart';
@@ -23,7 +23,12 @@ const useStyles = makeStyles(theme => ({
   selects: {
     marginBottom: theme.spacing(3)
   },
-  companyCards: {}
+  companyCards: {},
+  paper: {
+    padding: theme.spacing(3),
+    textAlign: 'center',
+    color: theme.palette.text.primary
+  },
 }));
 
 function FeaturesView() {
@@ -36,16 +41,21 @@ function FeaturesView() {
       </Typography>
       <Grid container>
 
-       {/* <Grid item xs={12} md={4}>
+        {/* <Grid item xs={12} md={4}>
           
             {ChartWrapper<BarChart>(BarChart)}
           
         </Grid> */}
 
-        <Grid item xs={12} md={12}>
-          
+        <Grid item xs={12} md={12} alignContent='center'>
+          <Paper variant="outlined" className={classes.paper}>
+            <Typography variant="h5" className={classes.title} align={'left'}>
+              Relative importance of Features
+            </Typography>
+            <Grid>
             {ChartWrapper<RingChart>(RingChart)}
-          
+            </Grid>
+          </Paper >
         </Grid>
       </Grid>
     </Page>
