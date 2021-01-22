@@ -136,14 +136,17 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 onChange={handleChange}
               >
                 <RadioButton value="" label="All"></RadioButton>
-                {company.category_groups_list.split(',').map(category => (
-                  <RadioButton
-                    key={category}
-                    value={category}
-                    label={category}
-                    disabled={categories.indexOf(category) === -1}
-                  ></RadioButton>
-                ))}
+                {company.category_groups_list
+                  .split(',')
+                  .filter(category => categories.indexOf(category) !== -1)
+                  .map(category => (
+                    <RadioButton
+                      key={category}
+                      value={category}
+                      label={category}
+                      disabled={false}
+                    ></RadioButton>
+                  ))}
               </RadioGroup>
             </FormControl>
             <FormControl component="fieldset">
