@@ -52,7 +52,7 @@ function CompanyView() {
       .then(data => setCompanyFunding(Object.values(data) as CompanyFunding[]));
   }, [companyId]);
 
-  console.log(companyFunding);
+  // console.log(companyFunding);
 
   return (
     <Page title={company && company.name} className={classes.root}>

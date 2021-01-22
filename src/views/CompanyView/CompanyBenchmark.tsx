@@ -64,13 +64,13 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   });
 
   useEffect(() => {
-    fetch('https://ubs-be.herokuapp.com/get_startup_list')
+    fetch('https://ubs-be.herokuapp.com/get_startup_list?page=1&rowsPerPage=50')
       .then(res => res.json())
       .then(data => {
         setState(state => {
           return {
             ...state,
-            allCompanies: [...(Object.values(data) as Company[]), company],
+            allCompanies: [...(Object.values(data.filteredStartups) as Company[]), company],
             reset: true
           };
         });
