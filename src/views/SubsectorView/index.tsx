@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -27,11 +27,15 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: '100%',
       padding: theme.spacing(3)
     },
+    title: {
+      marginBottom: theme.spacing(1)
+    },
     paper: {
       padding: theme.spacing(3),
       textAlign: 'center',
       color: theme.palette.text.secondary
-    }
+    },
+
   })
 );
 
@@ -184,27 +188,38 @@ function SubsectorView() {
   });
 
   return (
-    <Page title="Subsectors" className={classes.root}>
-      <Typography variant="h1">Subsectors</Typography>
-      {/*<Grid
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      />*/}
+    <Page title="Charts" className={classes.root}>
+      <Typography variant="h1" className={classes.title}>
+        Subsectors
+      </Typography>
       <Grid container>
-        <Grid item xs={12}>
-          <StatefulChartWrappper
-            type={WorldMapChart}
-            state={state}
-            setState={setState}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography>{state.country}</Typography>
+
+        {/* <Grid item xs={12} md={4}>
+          
+            {ChartWrapper<BarChart>(BarChart)}
+          
+        </Grid> */}
+
+        <Grid item xs={12} md={12} alignContent='center'>
+          <Paper variant="outlined" className={classes.paper}>
+            <Typography variant="h5" className={classes.title} align={'left'}>
+            Total funding by country
+            </Typography>
+            <Grid>
+              <StatefulChartWrappper
+                type={WorldMapChart}
+                state={state}
+                setState={setState}
+                />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>{state.country}</Typography>
+            </Grid>
+          </Paper >
         </Grid>
       </Grid>
     </Page>
+    
   );
 }
 
