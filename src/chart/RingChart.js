@@ -5,8 +5,8 @@ import { D3Chart } from './D3Chart';
 export default class RingChart extends D3Chart {
   constructor(element, classes) {
     // set the dimensions and margins of the graph
-    const margin = { top: 10, right: 10, bottom: 30, left: 30 },
-      width = 460 - margin.left - margin.right,
+    const margin = { top: 10, right: 20, bottom: 30, left: 50 },
+      width = 800 - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
     super(element, classes, margin, width, height);
@@ -20,15 +20,23 @@ export default class RingChart extends D3Chart {
         };
       }
     ).then(data => {*/
-    
+
     this.svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-    
+
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin.left - margin.right;
 
     // Create dummy data
-    const data = { a: 9, b: 20, c: 30, d: 8, e: 12, f: 3, g: 7, h: 14 };
+    const data = { 
+      'debt financing total': 0.43,
+      'series c total': 0.15,
+      'funding rounds from all jobs': 0.13,
+      'private equity total': 0.11,
+      'org employee count': 0.106,
+      'funding rounds from founded': 0.0877,
+      'series a total':0.075,
+    };
 
     // set the color scale
     var color = d3
@@ -40,12 +48,12 @@ export default class RingChart extends D3Chart {
     var pie = d3
       .pie()
       .sort(null) // Do not sort group by size
-      .value(function(d) {
+      .value(function (d) {
         return d[1];
       });
     var data_ready = pie(Object.entries(data));
 
-    
+
 
     // The arc generator
     var arc = d3
@@ -58,7 +66,7 @@ export default class RingChart extends D3Chart {
       .arc()
       .innerRadius(radius * 0.9)
       .outerRadius(radius * 0.9);
-      console.log(radius);
+    console.log(radius);
 
     // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
     this.svg
@@ -67,7 +75,7 @@ export default class RingChart extends D3Chart {
       .enter()
       .append('path')
       .attr('d', arc)
-      .attr('fill', function(d) {
+      .attr('fill', function (d) {
         console.log(d);
         return color(d.data[0]);
       })
@@ -84,7 +92,7 @@ export default class RingChart extends D3Chart {
       .attr('stroke', 'black')
       .style('fill', 'none')
       .attr('stroke-width', 1)
-      .attr('points', function(d) {
+      .attr('points', function (d) {
         var posA = arc.centroid(d); // line insertion in the slice
         var posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
         var posC = outerArc.centroid(d); // Label position = almost the same as posB
@@ -99,20 +107,20 @@ export default class RingChart extends D3Chart {
       .data(data_ready)
       .enter()
       .append('text')
-      .text(function(d) {
-        return d.data[0];
+      .text(function (d) {
+        return d.data[0]+':'+d.data[1];
       })
-      .attr('transform', function(d) {
+      .attr('transform', function (d) {
         var pos = outerArc.centroid(d);
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      .style('text-anchor', function(d) {
+      .style('text-anchor', function (d) {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
       });
   }
 
-  update() {}
+  update() { }
 }

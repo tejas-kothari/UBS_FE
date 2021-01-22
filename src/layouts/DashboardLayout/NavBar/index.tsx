@@ -9,9 +9,10 @@ import {
 import React, { useEffect } from 'react';
 import {
   BarChart as BarChartIcon,
-  PieChart as PieChartIcon,
-  Star as StarIcon
-  
+  //PieChart as PieChartIcon,
+  Star as StarIcon,
+  Globe as WorldIcon,
+  Key as KeyIcon  
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
@@ -32,11 +33,11 @@ const navData = [
         icon: StarIcon,
         title: 'Featured'
       },
-      {
+      /*{
         href: '/portfolio',
         icon: PieChartIcon,
         title: 'Portfolio Allocation'
-      }
+      }*/
     ]
   },
   {
@@ -44,12 +45,12 @@ const navData = [
     items: [
       {
         href: '/subsectors',
-        icon: PieChartIcon,
+        icon: WorldIcon,
         title: 'Subsectors'
       },
       {
         href: '/features',
-        icon: PieChartIcon,
+        icon: KeyIcon,
         title: 'Features'
       }
     ]

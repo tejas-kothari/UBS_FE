@@ -1,7 +1,7 @@
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 //import { Timeline } from '@material-ui/lab';
 import React from 'react';
-import BarChart from '../../chart/BarChart';
+//import BarChart from '../../chart/BarChart';
 import ChartWrapper from '../../chart/ChartWrapper';
 import RingChart from '../../chart/RingChart';
 
@@ -35,12 +35,18 @@ function FeaturesView() {
         Features Identified
       </Typography>
       <Grid container>
-        <Grid item xs={12} md={4}>
-          {ChartWrapper<BarChart>(BarChart)}
+
+       {/* <Grid item xs={12} md={4}>
+          
+            {ChartWrapper<BarChart>(BarChart)}
+          
+        </Grid> */}
+
+        <Grid item xs={12} md={12}>
+          
+            {ChartWrapper<RingChart>(RingChart)}
+          
         </Grid>
-        <Grid item xs={12} md={4}>
-          {ChartWrapper<RingChart>(RingChart)}
-        </Grid> 
       </Grid>
     </Page>
   );

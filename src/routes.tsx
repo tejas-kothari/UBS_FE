@@ -1,7 +1,7 @@
 import { Navigate, PartialRouteObject } from 'react-router';
 import DashboardLayout from './layouts/DashboardLayout';
 import ChartView from './views/ChartView';
-import PortfolioView from './views/PortfolioView';
+//import PortfolioView from './views/PortfolioView';
 import SubsectorView from './views/SubsectorView';
 import CompanyView from './views/CompanyView/index';
 import FeaturedCompaniesView from './views/FeaturedCompaniesView';
@@ -17,10 +17,10 @@ const routes = [
         path: 'chart',
         element: <ChartView />
       },
-      {
+      /*{
         path: 'portfolio',
         element: <PortfolioView />
-      },
+      },   */
       {
         path: 'features',
         element: <FeaturesView />
