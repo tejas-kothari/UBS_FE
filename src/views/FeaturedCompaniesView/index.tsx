@@ -2,6 +2,7 @@ import { Grid, makeStyles, TablePagination } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import CompanyCard from '../../components/CompanyCard';
 import Page from '../../components/Page';
 import Company, {
@@ -11,7 +12,6 @@ import Company, {
   sizes
 } from '../../interfaces/company';
 import CustomSelect from './CustomSelect';
-import { NavLink } from 'react-router-dom';
 import { SearchField } from './SearchField';
 
 const useStyles = makeStyles(theme => ({
@@ -33,30 +33,11 @@ const useStyles = makeStyles(theme => ({
   companyCards: {}
 }));
 
-const elementInArray = (el: string, arr: string[]): boolean => {
-  // When searching elements of unknown, target string is automatically replaced with ""
-  arr = arr.map(value => {
-    if (value.toLowerCase() === 'unknown') return '';
-    return value;
-  });
-  return arr.some(str => str === el);
-};
-
 function FeaturedCompaniesView() {
   const classes = useStyles();
-  const [allCompanies, setAllCompanies] = useState<Company[]>([]);
-
-  useEffect(() => {
-    fetch('https://ubs-be.herokuapp.com/get_startup_list')
-      .then(res => res.json())
-      .then(data => {
-        setAllCompanies(
-          Object.values<Company>(data).sort(
-            (a: Company, b: Company) => a.rank - b.rank
-          )
-        );
-      });
-  }, []);
+  const [totalNumStartups, setTotalNumStartups] = useState<number>(0);
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const selects = {
     phases,
@@ -76,7 +57,31 @@ function FeaturedCompaniesView() {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
-  let companies = allCompanies;
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://ubs-be.herokuapp.com/get_startup_list?page=${page +
+        1}&rowsPerPage=${rowsPerPage}&search=${search}&filterCategory=${filterCategory}&filterCountry=${filterCountry}&filterPhase=${filterPhase}&filterSize=${filterSize}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        setCompanies(
+          Object.values<Company>(data.filteredStartups).sort(
+            (a: Company, b: Company) => a.rank - b.rank
+          )
+        );
+        setTotalNumStartups(data.totalNumStartups);
+        setLoading(false);
+      });
+  }, [
+    filterCategory,
+    filterCountry,
+    filterPhase,
+    filterSize,
+    page,
+    rowsPerPage,
+    search
+  ]);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -96,50 +101,7 @@ function FeaturedCompaniesView() {
     setPage(0);
   };
 
-  companies = allCompanies.filter(company => {
-    if (
-      filterCategory.length &&
-      !company.category_groups_list
-        .split(',')
-        .some(companyCategory =>
-          elementInArray(companyCategory, filterCategory)
-        )
-    ) {
-      return false;
-    }
-
-    if (
-      filterCountry.length &&
-      !elementInArray(company.country, filterCountry)
-    ) {
-      return false;
-    }
-
-    if (
-      filterPhase.length &&
-      !elementInArray(company.last_funding_round.toString(), filterPhase)
-    ) {
-      return false;
-    }
-
-    if (
-      filterSize.length &&
-      !elementInArray(company.employee_count, filterSize)
-    ) {
-      return false;
-    }
-
-    if (
-      search !== '' &&
-      company.name.toLowerCase().indexOf(search.toLowerCase()) === -1
-    ) {
-      return false;
-    }
-
-    // Filter investors later
-
-    return true;
-  });
+  console.log(companies);
 
   return (
     <Page title="Featured Companies" className={classes.root}>
@@ -179,18 +141,12 @@ function FeaturedCompaniesView() {
           updateCompanies={updateCompanies}
           values={selects.sizes}
         />
-        {/* <CustomSelect
-          label="Investors"
-          id="investors"
-          value={filterInvestor}
-          handleChange={setFilterInvestor}
-          updateCompanies={updateCompanies}
-          values={selects.investor}
-        /> */}
         <SearchField search={search} setSearch={setSearch} />
       </Grid>
 
-      {companies.length ? (
+      {loading ? (
+        <Typography>Loading companies...</Typography>
+      ) : companies.length ? (
         <>
           <Grid
             container
@@ -198,33 +154,25 @@ function FeaturedCompaniesView() {
             direction="column"
             className={classes.companyCards}
           >
-            {companies
-              .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-              .map(company => (
-                <Grid item xs={12}>
-                  <NavLink to={`/companies/${company.uuid}`}>
-                    <CompanyCard
-                      company={company}
-                      showRank={true}
-                      key={company.uuid}
-                    />
-                  </NavLink>
-                </Grid>
-              ))}
+            {companies.map(company => (
+              <Grid item xs={12} key={company.uuid}>
+                <NavLink to={`/companies/${company.uuid}`}>
+                  <CompanyCard company={company} showRank={true} />
+                </NavLink>
+              </Grid>
+            ))}
           </Grid>
           <TablePagination
             component="div"
-            count={companies.length}
+            count={totalNumStartups}
             page={page}
             onChangePage={handleChangePage}
             rowsPerPage={rowsPerPage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </>
-      ) : allCompanies.length ? (
-        <Typography>Companies Not Found!</Typography>
       ) : (
-        <Typography>Loading companies...</Typography>
+        <Typography>Companies Not Found!</Typography>
       )}
     </Page>
   );
