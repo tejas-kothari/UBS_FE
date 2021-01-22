@@ -65,11 +65,7 @@ function FeaturedCompaniesView() {
     )
       .then(res => res.json())
       .then(data => {
-        setCompanies(
-          Object.values<Company>(data.filteredStartups).sort(
-            (a: Company, b: Company) => a.rank - b.rank
-          )
-        );
+        setCompanies(Object.values<Company>(data.filteredStartups));
         setTotalNumStartups(data.totalNumStartups);
         setLoading(false);
       });
