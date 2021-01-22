@@ -20,6 +20,9 @@ export default class RingChart extends D3Chart {
         };
       }
     ).then(data => {*/
+    
+    this.svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+    
 
     // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
     var radius = Math.min(width, height) / 2 - margin.left - margin.right;
@@ -42,7 +45,7 @@ export default class RingChart extends D3Chart {
       });
     var data_ready = pie(Object.entries(data));
 
-    console.log(data_ready);
+    
 
     // The arc generator
     var arc = d3
