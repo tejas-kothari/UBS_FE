@@ -70,7 +70,12 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
         setState(state => {
           return {
             ...state,
-            allCompanies: [...(Object.values(data.filteredStartups) as Company[]), company],
+            allCompanies: [
+              ...(Object.values(data.filteredStartups) as Company[]).filter(
+                _company => _company.uuid !== company.uuid
+              ),
+              company
+            ],
             reset: true
           };
         });
