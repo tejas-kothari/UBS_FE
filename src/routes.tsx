@@ -22,7 +22,7 @@ const routes = [
         element: <PortfolioView />
       },
       {
-        path: 'FeaturesView',
+        path: 'features',
         element: <FeaturesView />
       },
       {

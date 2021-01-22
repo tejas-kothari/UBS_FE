@@ -32,7 +32,12 @@ export default class WorldMapChart extends StatefulD3Chart {
         .enter()
         .append('path')
         .attr('d', path)
-        .style("stroke", "#000000"); //boundaries
+        .style('stroke', function(country) {
+          if (country.properties.name === 'Antarctica') {
+            return 'none';
+          }
+          return '#000000';
+        }); //boundaries
 
       var visited_countries = [
         '752',
@@ -89,7 +94,7 @@ export default class WorldMapChart extends StatefulD3Chart {
           });
         });
 
-      this.addTooltip(g.selectAll('path'), (d) => d.properties.name);
+      this.addTooltip(g.selectAll('path'), d => d.properties.name);
     });
   }
 
