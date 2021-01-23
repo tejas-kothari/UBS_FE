@@ -1,4 +1,12 @@
-import { createStyles, makeStyles, Paper, Theme } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  createStyles,
+  makeStyles,
+  Paper,
+  Theme
+} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -32,148 +40,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       padding: theme.spacing(3),
-      textAlign: 'center',
       color: theme.palette.text.secondary
-    },
-
+    }
   })
 );
-
-/*function FullWidthGrid() {
-  const classes = useStyles();
-
-  return (
-    <div className={classes.root}>
-      <Grid
-        container
-        spacing={3}
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
-      >
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} />
-
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} />
-
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper>
-            <Typography variant="h3" gutterBottom>
-              Subsectors
-            </Typography>
-            <Typography variant="body1" gutterBottom>
-              &nbsp;
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              $$$
-            </Typography>
-            <Typography variant="h6" gutterBottom>
-              Total Investments &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YOY
-              Increase
-            </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} />
-      </Grid>
-    </div>
-  );
-}*/
 
 type SubsectorViewState = {
   country: string;
@@ -190,36 +60,34 @@ function SubsectorView() {
   return (
     <Page title="Charts" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
-        Subsectors
+        Analysis by country
       </Typography>
-      <Grid container>
 
-        {/* <Grid item xs={12} md={4}>
-          
-            {ChartWrapper<BarChart>(BarChart)}
-          
-        </Grid> */}
-
-        <Grid item xs={12} md={12} alignContent='center'>
-          <Paper variant="outlined" className={classes.paper}>
-            <Typography variant="h5" className={classes.title} align={'left'}>
-            Total funding by country
-            </Typography>
-            <Grid>
-              <StatefulChartWrappper
-                type={WorldMapChart}
-                state={state}
-                setState={setState}
-                />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>{state.country}</Typography>
-            </Grid>
-          </Paper >
+      <Paper variant="outlined" className={classes.paper}>
+        <Grid container alignItems="stretch" justify="center">
+          <Grid item xs={12} lg={8}>
+            <StatefulChartWrappper
+              type={WorldMapChart}
+              state={state}
+              setState={setState}
+            />
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <Card>
+              <CardHeader title={state.country} />
+              <CardContent>
+                <Typography>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Error eum itaque iste libero optio cumque velit animi, quasi
+                  voluptatem provident deleniti, architecto quas! Illo nesciunt
+                  nobis possimus ducimus assumenda incidunt?
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </Page>
-    
   );
 }
 

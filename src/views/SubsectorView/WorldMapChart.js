@@ -4,18 +4,17 @@ import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
 
 export default class WorldMapChart extends StatefulD3Chart {
   constructor(element, setState, forceUpdate) {
-    const margin = { top: 10, right: 30, bottom: 30, left: 60 },
-      width = 900 - margin.left - margin.right,
-      height = 500 - margin.top - margin.bottom;
+    const margin = { top: 0, right: 0, bottom: 0, left: 0 },
+      width = 600 - margin.left - margin.right,
+      height = 350 - margin.top - margin.bottom;
 
     super(element, setState, forceUpdate, margin, width, height);
 
     var projection = d3
       .geoMercator()
-      .translate([width / 2.2, height / 2.2])
-      .center([0, 0])
-      .translate([256, 300])
-      .scale(512 / (2 * Math.PI));
+      .translate([width / 2, height / 2 + 60])
+      // .translate([256, 300])
+      .scale(width / (2.5 * Math.PI));
 
     // eslint-disable-next-line no-unused-vars
     var plane_path = d3.geoPath().projection(projection);
