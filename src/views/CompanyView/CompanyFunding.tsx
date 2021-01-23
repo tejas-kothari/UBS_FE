@@ -71,7 +71,7 @@ function CompanyFundingTimeline({
               setState={setState}
             />
           </Grid> */}
-          <Grid item xs={12} md={8} xl={4}>
+          <Grid item xs={12} md={8}>
             <StatefulChartWrappper
               type={FundingChart}
               state={state}

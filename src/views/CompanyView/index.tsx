@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1)
   },
   companyCard: {
-    marginBottom: theme.spacing(3)
+    // marginBottom: theme.spacing(3)
   }
 }));
 
@@ -59,17 +59,17 @@ function CompanyView() {
       <Typography variant="h1">Company View </Typography>
       <Typography variant="body1">&nbsp;</Typography>
       {company && companyFunding ? (
-        <Grid container spacing={1}>
+        <Grid container spacing={3} alignItems="stretch">
           <Grid item xs={12} className={classes.companyCard}>
             <CompanyCard company={company} showRank={false} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} xl={6}>
             <ComapnyFundingTimeline
               company={company}
               companyFunding={companyFunding}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} xl={6}>
             <CompanyBenchmark company={company} />
           </Grid>
         </Grid>
