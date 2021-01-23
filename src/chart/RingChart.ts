@@ -85,11 +85,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .remove();
 
     // UPDATE
-    arcs
-      .transition()
-      .duration(1000)
-      .attr('d', this.arc)
-      .attr('fill', d => color(d.data.key) as string);
+    arcs.attr('d', this.arc).attr('fill', d => color(d.data.key) as string);
 
     // ENTER
     arcs
@@ -99,6 +95,9 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .attr('fill', d => color(d.data.key) as string)
       .attr('stroke', 'white')
       .style('stroke-width', '2px')
+      .style('opacity', 0)
+      .transition()
+      .duration(1000)
       .style('opacity', 0.7);
 
     // Add the polylines between chart and labels:
