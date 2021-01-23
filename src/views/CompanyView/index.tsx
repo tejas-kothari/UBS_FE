@@ -61,7 +61,7 @@ function CompanyView() {
       {company && companyFunding ? (
         <Grid container spacing={3} alignItems="stretch">
           <Grid item xs={12} className={classes.companyCard}>
-            <CompanyCard company={company} showRank={false} />
+            <CompanyCard company={company} showRank={false} addLink={true} />
           </Grid>
           <Grid item xs={12} xl={6}>
             <ComapnyFundingTimeline

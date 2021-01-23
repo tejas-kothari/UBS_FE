@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 type CompanyCardProps = {
   company: Company;
   showRank: boolean;
+  addLink: boolean;
 };
 
 const processFundingRound = (round: string) => {
@@ -61,8 +62,14 @@ const processFundingRound = (round: string) => {
     .join(' ');
 };
 
-function CompanyCard({ company, showRank }: CompanyCardProps) {
+function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
   const classes = useStyles();
+  const companyHomepage = (
+    <Typography component="span" noWrap={true} color="textSecondary">
+      <LanguageIcon className={classes.icon} />
+      {company.homepage_url || 'unknown'}
+    </Typography>
+  );
 
   return (
     <Card className={classes.root}>
@@ -92,7 +99,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
             </Typography>
             <Grid container spacing={1} className={classes.details}>
               <Grid item xs={6}>
-                <Tooltip title={company.category_groups_list}>
+                <Tooltip title={'Category: ' + company.category_groups_list}>
                   <Typography
                     component="span"
                     noWrap={true}
@@ -104,7 +111,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                 </Tooltip>
               </Grid>
               <Grid item xs={6}>
-                <Tooltip title={company.country}>
+                <Tooltip title={'Country: ' + company.country}>
                   <Typography
                     component="span"
                     noWrap={true}
@@ -116,7 +123,9 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                 </Tooltip>
               </Grid>
               <Grid item xs={6}>
-                <Tooltip title={company.employee_count}>
+                <Tooltip
+                  title={'Number of employees: ' + company.employee_count}
+                >
                   <Typography
                     component="span"
                     noWrap={true}
@@ -129,7 +138,10 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
               </Grid>
               <Grid item xs={6}>
                 <Tooltip
-                  title={processFundingRound(company.last_funding_round)}
+                  title={
+                    'Last funding round: ' +
+                    processFundingRound(company.last_funding_round)
+                  }
                 >
                   <Typography
                     component="span"
@@ -145,7 +157,7 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
               <Grid item xs={6}>
                 <Tooltip
                   title={
-                    'USD ' +
+                    'Total funding: USD ' +
                       new Intl.NumberFormat('en-US', {
                         notation: 'compact'
                       }).format(company.total_funding_usd) || 'unknown'
@@ -165,18 +177,19 @@ function CompanyCard({ company, showRank }: CompanyCardProps) {
                 </Tooltip>
               </Grid>
               <Grid item xs={6}>
-                <a href={company.homepage_url} target="_blank" rel="noreferrer">
-                  <Tooltip title="Click to go to company homepage">
-                    <Typography
-                      component="span"
-                      noWrap={true}
-                      color="textSecondary"
-                    >
-                      <LanguageIcon className={classes.icon} />
-                      {company.homepage_url || 'unknown'}
-                    </Typography>
-                  </Tooltip>
-                </a>
+                {addLink ? (
+                  <a
+                    href={company.homepage_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Tooltip title="Click to go to company homepage">
+                      {companyHomepage}
+                    </Tooltip>
+                  </a>
+                ) : (
+                  companyHomepage
+                )}
               </Grid>
             </Grid>
           </Grid>

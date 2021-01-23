@@ -10,7 +10,7 @@ function CompanyList({ companies }: { companies: Company[] }) {
       {companies.map(company => (
         <Grid item xs={12} key={company.uuid}>
           <NavLink to={`/companies/${company.uuid}`}>
-            <CompanyCard company={company} showRank={true} />
+            <CompanyCard company={company} showRank={true} addLink={false} />
           </NavLink>
         </Grid>
       ))}

@@ -73,7 +73,7 @@ function CompanyFundingDetailsCard({
               <AttachMoneyIcon className={classes.icon} />
               USD{' '}
               {compactValue(funding.raised_amount_usd) === '0'
-                ? 'unknown'
+                ? 'N/A'
                 : compactValue(funding.raised_amount_usd)}
             </Typography>
           </Grid>
