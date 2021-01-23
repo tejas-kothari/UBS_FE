@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 //import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
 import FundingBarChart from './FundingBarChart';
@@ -42,21 +42,70 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(3),
       color: theme.palette.text.secondary
+    },
+    chartTitle: {
+      textAlign: 'center',
+      fontWeight: 'bold'
+    },
+    country: {
+      fontSize: '1.25rem'
     }
   })
 );
 
+type CountryFunding = {
+  country: string;
+  mean_funding: number;
+  num: number;
+};
+
 export type SubsectorViewState = {
   country: string;
+  countriesFunding: CountryFunding[];
+  cntAllFunding: number;
+  meanAllFunding: number;
 };
 
 function SubsectorView() {
   const classes = useStyles();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, setState] = useState<SubsectorViewState>({
-    country: 'Unknown'
+    country: 'Unknown',
+    countriesFunding: [],
+    cntAllFunding: 0,
+    meanAllFunding: 0
   });
+
+  useEffect(() => {
+    fetch(`https://ubs-be.herokuapp.com/get_country_data`)
+      .then(res => res.json())
+      .then(data => {
+        const countriesFunding = Object.keys(data).map(country => {
+          return {
+            country,
+            ...data[country]
+          };
+        }) as CountryFunding[];
+
+        const cntAllFunding = countriesFunding.reduce(
+          (prev, cur) => (prev += cur.num),
+          0
+        );
+        const meanAllFunding = countriesFunding.reduce(
+          (prev, cur) => (prev += (cur.mean_funding * cur.num) / cntAllFunding),
+          0
+        );
+
+        setState(state => {
+          return {
+            ...state,
+            countriesFunding,
+            cntAllFunding,
+            meanAllFunding
+          };
+        });
+      });
+  }, []);
 
   return (
     <Page title="Charts" className={classes.root}>
@@ -75,13 +124,10 @@ function SubsectorView() {
           </Grid>
           <Grid item xs={12} lg={4}>
             <Card>
-              <CardHeader title={state.country} />
+              <CardHeader titleTypographyProps={{variant: "h3"}} title={state.country} />
               <CardContent>
-                <Typography>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Error eum itaque iste libero optio cumque velit animi, quasi
-                  voluptatem provident deleniti, architecto quas! Illo nesciunt
-                  nobis possimus ducimus assumenda incidunt?
+                <Typography className={classes.chartTitle}>
+                  Mean Funding by Country
                 </Typography>
                 <StatefulChartWrappper
                   type={FundingBarChart}

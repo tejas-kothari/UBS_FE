@@ -9,8 +9,7 @@ type DatumType = {
 export default abstract class BarChart<StateType> extends StatefulD3Chart<
   StateType
 > {
-
-  static readonly MARGIN = { top: 10, right: 100, bottom: 30, left: 30 };
+  static readonly MARGIN = { top: 30, right: 30, bottom: 70, left: 60 };
   static readonly WIDTH = 460 - BarChart.MARGIN.left - BarChart.MARGIN.right;
   static readonly HEIGHT = 400 - BarChart.MARGIN.top - BarChart.MARGIN.bottom;
 
@@ -47,12 +46,14 @@ export default abstract class BarChart<StateType> extends StatefulD3Chart<
     this.yAxis = this.svg.append('g');
   }
 
-  addBars(data: DatumType[]) {
+  setBars(data: DatumType[]) {
     // Configure the x-axis
     this.x.domain(data.map(d => d.key)); // can use this instead of 1000 to have the max of data: d3.max(data, function(d) { return +d.price })
 
     // Update the x-axis
     this.xAxis
+      .transition()
+      .duration(1000)
       .call(d3.axisBottom(this.x))
       .selectAll('text')
       .attr('transform', 'translate(-10,0)rotate(-45)')
@@ -62,20 +63,49 @@ export default abstract class BarChart<StateType> extends StatefulD3Chart<
     this.y.domain([0, d3.max(data, d => d.value) as number]);
 
     // Update the y-axis
-    this.yAxis.call(d3.axisLeft(this.y));
+    this.yAxis
+      .transition()
+      .duration(1000)
+      .call(d3.axisLeft(this.y).tickFormat(this.compactValue));
 
-    // append the bar rectangles to the svg element
-    // Bars
-    this.svg
-      .selectAll<any, DatumType>('bar')
-      .data<DatumType>(data, (d: DatumType) => d.key)
-      .enter()
-      .append('rect')
+    // JOIN
+    const bars = this.svg
+      .selectAll<any, DatumType>('rect')
+      .data<DatumType>(data, (d: DatumType) => d.key);
+
+    // EXIT
+    bars
+      .exit()
+      .transition()
+      .duration(1000)
+      .style('opacity', 0)
+      .remove();
+
+    // UPDATE
+    bars
+      .transition()
+      .duration(1000)
       .attr('x', (d: DatumType) => this.x(d.key) as number)
       .attr('y', (d: DatumType) => this.y(d.value))
       .attr('width', this.x.bandwidth())
-      .attr('height', d =>  BarChart.HEIGHT - this.y(d.value))
+      .attr('height', d => BarChart.HEIGHT - this.y(d.value));
+
+    // ENTER
+    const newBars = bars
+      .enter()
+      .append('rect')
+      .attr('x', (d: DatumType) => this.x(d.key) as number)
+      .attr('y', d => BarChart.HEIGHT)
+      .attr('width', this.x.bandwidth())
       .attr('fill', '#69b3a2');
+
+    newBars
+      .transition()
+      .duration(1000)
+      .attr('height', d => BarChart.HEIGHT - this.y(d.value))
+      .attr('y', (d: DatumType) => this.y(d.value));
+
+    this.addTooltip<DatumType>(newBars, d => d.value.toString());
   }
 
   abstract updateState(state: StateType): void;
