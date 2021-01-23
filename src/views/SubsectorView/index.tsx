@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type SubsectorViewState = {
+export type SubsectorViewState = {
   country: string;
 };
 
