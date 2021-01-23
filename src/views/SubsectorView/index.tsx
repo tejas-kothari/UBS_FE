@@ -14,6 +14,7 @@ import 'fontsource-roboto';
 import React, { useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
+import FundingBarChart from './FundingBarChart';
 import WorldMapChart from './WorldMapChart';
 
 /*
@@ -82,6 +83,11 @@ function SubsectorView() {
                   voluptatem provident deleniti, architecto quas! Illo nesciunt
                   nobis possimus ducimus assumenda incidunt?
                 </Typography>
+                <StatefulChartWrappper
+                  type={FundingBarChart}
+                  state={state}
+                  setState={setState}
+                />
               </CardContent>
             </Card>
           </Grid>

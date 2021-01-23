@@ -22,9 +22,6 @@ function ChartView() {
     <Page title="Charts" className={classes.root}>
       <Grid container>
         <Grid item xs={12} md={4}>
-          {ChartWrapper<BarChart>(BarChart)}
-        </Grid>
-        <Grid item xs={12} md={4}>
           {ChartWrapper<RingChart>(RingChart)}
         </Grid>
       </Grid>
