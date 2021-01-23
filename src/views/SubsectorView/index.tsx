@@ -114,7 +114,7 @@ function SubsectorView() {
   return (
     <Page title="Charts" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
-        Analysis by country
+        Analysis by Country
       </Typography>
 
       <Grid container alignItems="center" justify="center">

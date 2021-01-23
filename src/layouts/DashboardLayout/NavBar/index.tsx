@@ -38,12 +38,12 @@ const navData = [
       {
         href: '/subsectors',
         icon: WorldIcon,
-        title: 'By countries'
+        title: 'By Country'
       },
       {
         href: '/features',
         icon: KeyIcon,
-        title: 'By features'
+        title: 'By Feature'
       }
     ]
   }
