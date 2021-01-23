@@ -15,6 +15,7 @@ import React, { useEffect, useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
 import FundingBarChart from './FundingBarChart';
+import StartupRingChart from './StartupRingChart';
 import WorldMapChart from './WorldMapChart';
 
 /*
@@ -114,7 +115,7 @@ function SubsectorView() {
       </Typography>
 
       <Paper variant="outlined" className={classes.paper}>
-        <Grid container alignItems="stretch" justify="center">
+        <Grid container alignItems="center" justify="center">
           <Grid item xs={12} lg={8}>
             <StatefulChartWrappper
               type={WorldMapChart}
@@ -124,16 +125,33 @@ function SubsectorView() {
           </Grid>
           <Grid item xs={12} lg={4}>
             <Card>
-              <CardHeader titleTypographyProps={{variant: "h3"}} title={state.country} />
+              <CardHeader
+                titleTypographyProps={{ variant: 'h3' }}
+                title={state.country}
+              />
               <CardContent>
-                <Typography className={classes.chartTitle}>
-                  Mean Funding by Country
-                </Typography>
-                <StatefulChartWrappper
-                  type={FundingBarChart}
-                  state={state}
-                  setState={setState}
-                />
+                <Grid container>
+                  <Grid item xs={12} md={6} lg={12}>
+                    <Typography className={classes.chartTitle}>
+                      Mean Funding by Country
+                    </Typography>
+                    <StatefulChartWrappper
+                      type={FundingBarChart}
+                      state={state}
+                      setState={setState}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={12}>
+                    <Typography className={classes.chartTitle}>
+                      Number of startups by Country
+                    </Typography>
+                    <StatefulChartWrappper
+                      type={StartupRingChart}
+                      state={state}
+                      setState={setState}
+                    />
+                  </Grid>
+                </Grid>
               </CardContent>
             </Card>
           </Grid>

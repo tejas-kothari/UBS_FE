@@ -1,7 +1,7 @@
 import { Grid, makeStyles } from '@material-ui/core';
 import React from 'react';
 import ChartWrapper from '../../chart/ChartWrapper';
-import RingChart from '../../chart/RingChart';
+import RingChart from '../FeaturesView/RingChart';
 import Page from '../../components/Page';
 
 const useStyles = makeStyles(theme => ({

@@ -3,7 +3,7 @@ import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import React from 'react';
 //import BarChart from '../../chart/BarChart';
 import ChartWrapper from '../../chart/ChartWrapper';
-import RingChart from '../../chart/RingChart';
+import RingChart from './RingChart';
 
 import Page from '../../components/Page';
 
