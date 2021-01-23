@@ -11,18 +11,21 @@ export default class FundingBarChart extends BarChart<SubsectorViewState> {
       this.setBars([
         {
           key: state.country,
-          value: selectedCountry?.mean_funding
+          value: selectedCountry?.mean_funding,
+          color: '#d95f02'
         },
         {
           key: 'All countries',
-          value: state.meanAllFunding
+          value: state.meanAllFunding,
+          color: '#1b9e77'
         }
       ]);
     } else {
       this.setBars([
         {
           key: 'All countries',
-          value: state.meanAllFunding
+          value: state.meanAllFunding,
+          color: '#1b9e77'
         }
       ]);
     }

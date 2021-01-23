@@ -4,6 +4,7 @@ import StatefulD3Chart from './new/StatefulD3Chart';
 type DatumType = {
   key: string;
   value: number;
+  color: string;
 };
 
 export default abstract class BarChart<StateType> extends StatefulD3Chart<
@@ -71,7 +72,7 @@ export default abstract class BarChart<StateType> extends StatefulD3Chart<
     // JOIN
     const bars = this.svg
       .selectAll<any, DatumType>('rect')
-      .data<DatumType>(data, (d: DatumType) => d.key);
+      .data<DatumType>(data, d => d.key);
 
     // EXIT
     bars
@@ -85,25 +86,27 @@ export default abstract class BarChart<StateType> extends StatefulD3Chart<
     bars
       .transition()
       .duration(1000)
-      .attr('x', (d: DatumType) => this.x(d.key) as number)
-      .attr('y', (d: DatumType) => this.y(d.value))
+      .attr('x', d => this.x(d.key) as number)
+      .attr('y', d => this.y(d.value))
       .attr('width', this.x.bandwidth())
-      .attr('height', d => BarChart.HEIGHT - this.y(d.value));
+      .attr('height', d => BarChart.HEIGHT - this.y(d.value))
+      .style('opacity', 0.7);
 
     // ENTER
     const newBars = bars
       .enter()
       .append('rect')
-      .attr('x', (d: DatumType) => this.x(d.key) as number)
+      .attr('x', d => this.x(d.key) as number)
       .attr('y', d => BarChart.HEIGHT)
       .attr('width', this.x.bandwidth())
-      .attr('fill', '#69b3a2');
+      .attr('fill', d => d.color)
+      .style('opacity', 0.7);
 
     newBars
       .transition()
       .duration(1000)
       .attr('height', d => BarChart.HEIGHT - this.y(d.value))
-      .attr('y', (d: DatumType) => this.y(d.value));
+      .attr('y', d => this.y(d.value));
 
     this.addTooltip<DatumType>(newBars, d => d.value.toString());
   }

@@ -4,7 +4,6 @@ import {
   CardHeader,
   createStyles,
   makeStyles,
-  Paper,
   Theme
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
@@ -108,55 +107,59 @@ function SubsectorView() {
       });
   }, []);
 
+  const selectedCountry = state.countriesFunding.find(
+    funding => funding.country === state.country
+  );
+
   return (
     <Page title="Charts" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Analysis by country
       </Typography>
 
-      <Paper variant="outlined" className={classes.paper}>
-        <Grid container alignItems="center" justify="center">
-          <Grid item xs={12} lg={8}>
-            <StatefulChartWrappper
-              type={WorldMapChart}
-              state={state}
-              setState={setState}
-            />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Card>
-              <CardHeader
-                titleTypographyProps={{ variant: 'h3' }}
-                title={state.country}
-              />
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={12} md={6} lg={12}>
-                    <Typography className={classes.chartTitle}>
-                      Mean Funding by Country
-                    </Typography>
-                    <StatefulChartWrappper
-                      type={FundingBarChart}
-                      state={state}
-                      setState={setState}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6} lg={12}>
-                    <Typography className={classes.chartTitle}>
-                      Number of startups by Country
-                    </Typography>
-                    <StatefulChartWrappper
-                      type={StartupRingChart}
-                      state={state}
-                      setState={setState}
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
+      <Grid container alignItems="center" justify="center">
+        <Grid item xs={12} lg={8}>
+          <StatefulChartWrappper
+            type={WorldMapChart}
+            state={state}
+            setState={setState}
+          />
         </Grid>
-      </Paper>
+        <Grid item xs={12} xl={4}>
+          <Card>
+            <CardHeader
+              titleTypographyProps={{ variant: 'h3' }}
+              title={
+                state.country + (!selectedCountry ? ' (Data not found!)' : '')
+              }
+            />
+            <CardContent>
+              <Grid container>
+                <Grid item xs={12} md={6} xl={12}>
+                  <Typography className={classes.chartTitle}>
+                    Mean Funding by Country
+                  </Typography>
+                  <StatefulChartWrappper
+                    type={FundingBarChart}
+                    state={state}
+                    setState={setState}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6} xl={12}>
+                  <Typography className={classes.chartTitle}>
+                    Number of startups by Country
+                  </Typography>
+                  <StatefulChartWrappper
+                    type={StartupRingChart}
+                    state={state}
+                    setState={setState}
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Page>
   );
 }

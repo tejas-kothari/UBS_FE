@@ -4,6 +4,7 @@ import StatefulD3Chart from './new/StatefulD3Chart';
 type DatumType = {
   key: string;
   value: number;
+  color: string;
 };
 
 export default abstract class RingChart<StateType> extends StatefulD3Chart<
@@ -56,12 +57,6 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
   }
 
   setRing(data: DatumType[]) {
-    // set the color scale
-    const color = d3
-      .scaleOrdinal()
-      .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
-      .range(d3.schemeDark2);
-
     // Compute the position of each group on the pie:
     const pie = d3
       .pie<DatumType>()
@@ -85,14 +80,14 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .remove();
 
     // UPDATE
-    arcs.attr('d', this.arc).attr('fill', d => color(d.data.key) as string);
+    arcs.attr('d', this.arc);
 
     // ENTER
     arcs
       .enter()
       .append('path')
       .attr('d', this.arc)
-      .attr('fill', d => color(d.data.key) as string)
+      .attr('fill', d => d.data.color)
       .attr('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', 0)
