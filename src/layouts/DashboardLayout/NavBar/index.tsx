@@ -8,60 +8,42 @@ import {
 } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import {
-  BarChart as BarChartIcon,
-  //PieChart as PieChartIcon,
-  Star as StarIcon,
   Globe as WorldIcon,
-  Key as KeyIcon  
+  Key as KeyIcon,
+  List as ListIcon,
+  Star as StarIcon
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
-
-// const user = {
-//   avatar: '/static/images/avatars/avatar_6.png',
-//   jobTitle: 'Senior Developer',
-//   name: 'Katarina Smith'
-// };
 
 const navData = [
   {
     name: 'Companies',
     items: [
-      
       {
-        href: '/companies/featured',
+        href: '/companies/tbc',
         icon: StarIcon,
         title: 'Featured'
       },
-      /*{
-        href: '/portfolio',
-        icon: PieChartIcon,
-        title: 'Portfolio Allocation'
-      }*/
-    ]
-  },
-  {
-    name: 'Trends',
-    items: [
       {
-        href: '/subsectors',
-        icon: WorldIcon,
-        title: 'Subsectors'
-      },
-      {
-        href: '/features',
-        icon: KeyIcon,
-        title: 'Features'
+        href: '/companies/featured',
+        icon: ListIcon,
+        title: 'Full List'
       }
     ]
   },
   {
-    name: 'Demo',
+    name: 'Analysis',
     items: [
       {
-        href: '/chart',
-        icon: BarChartIcon,
-        title: 'Chart Demo'
+        href: '/subsectors',
+        icon: WorldIcon,
+        title: 'By countries'
+      },
+      {
+        href: '/features',
+        icon: KeyIcon,
+        title: 'By features'
       }
     ]
   }
