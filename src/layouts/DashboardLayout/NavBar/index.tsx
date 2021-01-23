@@ -21,12 +21,12 @@ const navData = [
     name: 'Companies',
     items: [
       {
-        href: '/companies/tbc',
+        href: '/companies/featured',
         icon: StarIcon,
         title: 'Featured'
       },
       {
-        href: '/companies/featured',
+        href: '/companies/list',
         icon: ListIcon,
         title: 'Full List'
       }

@@ -1,12 +1,14 @@
+import React from 'react';
 import { Navigate, PartialRouteObject } from 'react-router';
 import DashboardLayout from './layouts/DashboardLayout';
 import ChartView from './views/ChartView';
-//import PortfolioView from './views/PortfolioView';
-import SubsectorView from './views/SubsectorView';
+import CompaniesListView from './views/CompaniesListView';
 import CompanyView from './views/CompanyView/index';
 import FeaturedCompaniesView from './views/FeaturedCompaniesView';
+import FeaturesView from './views/FeaturesView';
+//import PortfolioView from './views/PortfolioView';
+import SubsectorView from './views/SubsectorView';
 import TestView from './views/TestView';
-import FeaturesView from './views/FeaturesView'
 
 const routes = [
   {
@@ -27,7 +29,7 @@ const routes = [
       },
       {
         path: 'subsectors',
-        element: <SubsectorView/>
+        element: <SubsectorView />
       },
       {
         path: 'test',
@@ -46,6 +48,10 @@ const routes = [
       {
         path: ':companyId',
         element: <CompanyView />
+      },
+      {
+        path: 'list',
+        element: <CompaniesListView />
       },
       {
         path: 'featured',
