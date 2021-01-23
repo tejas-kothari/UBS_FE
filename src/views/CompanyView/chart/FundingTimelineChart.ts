@@ -1,10 +1,10 @@
 import TimelineChart from '../../../chart/TimelineChart';
-import { CompanyFundingState } from '../CompanyFunding';
+import { CompanyFundingCardState } from '../CompanyFundingCard';
 
 export default class FundingTimelineChart extends TimelineChart<
-  CompanyFundingState
+  CompanyFundingCardState
 > {
-  updateState(state: CompanyFundingState): void {
+  updateState(state: CompanyFundingCardState): void {
     this.addItems(
       state.companyFunding.map(funding => {
         return {

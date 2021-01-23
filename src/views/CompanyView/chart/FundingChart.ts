@@ -2,9 +2,11 @@ import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
 import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
 import CompanyFunding from '../../../interfaces/company_funding';
-import { CompanyFundingState } from '../CompanyFunding';
+import { CompanyFundingCardState } from '../CompanyFundingCard';
 
-export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
+export default class FundingChart extends StatefulD3Chart<
+  CompanyFundingCardState
+> {
   static readonly MARGIN = { top: 30, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
     450 - FundingChart.MARGIN.left - FundingChart.MARGIN.right;
@@ -24,7 +26,7 @@ export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
 
   constructor(
     element: HTMLElement,
-    setState: React.Dispatch<React.SetStateAction<CompanyFundingState>>,
+    setState: React.Dispatch<React.SetStateAction<CompanyFundingCardState>>,
     forceUpdate: React.DispatchWithoutAction
   ) {
     super(
@@ -86,12 +88,13 @@ export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
     this.line = this.timeline.append('path');
   }
 
-  updateState(state: CompanyFundingState): void {
+  updateState(state: CompanyFundingCardState): void {
     const funding = ([
       {
         announced_on: state.company.founded_on,
         investment_type: 'founded',
-        raised_amount_usd: 0
+        raised_amount_usd: '',
+        investors: {}
       },
       ...state.companyFunding
     ] as CompanyFunding[]).sort(
@@ -176,7 +179,6 @@ export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
       .attr('r', 4)
       .style('fill', '#FF00000')
       .on('click', (event, funding) => {
-        console.log(funding);
         this.setState(state => {
           return {
             ...state,
@@ -192,10 +194,7 @@ export default class FundingChart extends StatefulD3Chart<CompanyFundingState> {
           .split('_')
           .map(str => str.charAt(0).toUpperCase() + str.slice(1))
           .join(' ') +
-        '<br>' +
-        item.announced_on +
-        '<br>USD ' +
-        this.compactValue(item.raised_amount_usd)
+        '<br>Click to view details'
     );
   }
 

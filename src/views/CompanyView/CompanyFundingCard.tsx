@@ -1,65 +1,88 @@
 import {
-  Avatar,
   Card,
   CardContent,
-  Chip,
   Grid,
   makeStyles,
   Typography
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
+import FundingChart from './chart/FundingChart';
+import CompanyFundingDetailsCard from './CompanyFundingDetailsCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex'
+    backgroundColor: theme.palette.background.default,
+    minHeight: '100%',
+    padding: theme.spacing(3)
   },
-  cardContent: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center'
+  paper: {
+    padding: theme.spacing(3),
+    textAlign: 'center',
+    color: theme.palette.text.primary
   },
-  chip: {
-    marginRight: theme.spacing(1)
+  checkboxLabel: {
+    textAlign: 'left'
+  },
+  title: {
+    fontSize: '1.25rem',
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(1)
   }
 }));
 
 type CompanyFundingCardProps = {
-  funding: CompanyFunding;
+  companyFunding: CompanyFunding[];
+  company: Company;
 };
 
-const processFundingRound = (round: string) => {
-  return round
-    .split('_')
-    .map(str => str.charAt(0).toUpperCase() + str.slice(1))
-    .join(' ');
+export type CompanyFundingCardState = {
+  companyFunding: CompanyFunding[];
+  company: Company;
+  activeFunding: CompanyFunding | null;
 };
 
-function CompanyFundingCard({ funding }: CompanyFundingCardProps) {
+function CompanyFundingCard({
+  company,
+  companyFunding
+}: CompanyFundingCardProps) {
   const classes = useStyles();
+  const [state, setState] = useState<CompanyFundingCardState>({
+    company,
+    companyFunding,
+    activeFunding: companyFunding[0]
+  });
 
   return (
-    <Card className={classes.root}>
-      <CardContent className={classes.cardContent}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Typography>
-              {processFundingRound(funding.investment_type)}
+    <Card>
+      <CardContent>
+        <Grid container justify="center" alignItems="center" spacing={1}>
+          <Grid item xs={12}>
+            <Typography variant="body1" align="left" className={classes.title}>
+              Company Funding
             </Typography>
-            <Typography>{funding.announced_on}</Typography>
-            <Typography>USD {funding.raised_amount_usd}</Typography>
           </Grid>
-          <Grid item>
-            <Typography>Lead investors</Typography>
-            {funding.investors && Object.values(funding.investors).map(investor => (
-              <Chip
-                key={investor.uuid}
-                avatar={<Avatar src={investor.logo_url}></Avatar>}
-                label={investor.name}
-                className={classes.chip}
-              />
-            ))}
+          {/* <Grid item xs={12} md={8} xl={8}>
+            <StatefulChartWrappper
+              type={FundingTimelineChart}
+              state={state}
+              setState={setState}
+            />
+          </Grid> */}
+          <Grid item xs={12} md={8}>
+            <StatefulChartWrappper
+              type={FundingChart}
+              state={state}
+              setState={setState}
+            />
           </Grid>
+          {state.activeFunding && (
+            <Grid item xs={12}>
+              <CompanyFundingDetailsCard funding={state.activeFunding} />
+            </Grid>
+          )}
         </Grid>
       </CardContent>
     </Card>
