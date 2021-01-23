@@ -10,7 +10,7 @@ import React, { useEffect } from 'react';
 import {
   Globe as WorldIcon,
   Key as KeyIcon,
-  List as ListIcon,
+  // List as ListIcon,
   Star as StarIcon
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
@@ -21,15 +21,15 @@ const navData = [
     name: 'Companies',
     items: [
       {
-        href: '/companies/featured',
+        href: '/companies/list',
         icon: StarIcon,
         title: 'Featured'
-      },
-      {
-        href: '/companies/list',
-        icon: ListIcon,
-        title: 'Full List'
       }
+      // {
+      //   href: '/companies/list',
+      //   icon: ListIcon,
+      //   title: 'Full List'
+      // }
     ]
   },
   {
