@@ -40,7 +40,8 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
             return 'none';
           }
           return '#000000';
-        }); //boundaries
+        })
+        .style("stroke-width", 0.1); //boundaries
 
       var visited_countries = [
         '752',
