@@ -5,6 +5,8 @@ type DatumType = {
   key: string;
   value: number;
   color: string;
+  onClick?: (datum: DatumType) => void;
+  hideLabel?: boolean;
 };
 
 export default abstract class RingChart<StateType> extends StatefulD3Chart<
@@ -91,6 +93,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .attr('stroke', 'white')
       .style('stroke-width', '2px')
       .style('opacity', 0)
+      .on('click', (event, d) => d.data.onClick && d.data.onClick(d.data))
       .transition()
       .duration(1000)
       .style('opacity', 0.7);
@@ -114,7 +117,8 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
         posC[0] = this.radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
         return [posA, posB, posC].map(pair => pair.join(',')).join(',');
-      });
+      })
+      .attr('opacity', d => (d.data.hideLabel ? 0 : 1));
 
     // Add the polylines between chart and labels:
     const texts = this.svg
@@ -126,6 +130,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .enter()
       .append('text')
       .text(d => d.data.key + ': ' + d.data.value)
+      .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
