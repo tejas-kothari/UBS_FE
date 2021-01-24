@@ -4,6 +4,7 @@ import RingChart from '../../chart/RingChart';
 
 export default class StartupRingChart extends RingChart<RoundViewState> {
   updateState(state: RoundViewState): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const selectedround = state.roundFunding.find(
       funding => funding.round === state.round
     );

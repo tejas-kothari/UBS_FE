@@ -55,10 +55,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         })
         .style('stroke-width', 0.1); //boundaries
 
-      this.addTooltip<any>(
-        this.g.selectAll('path'),
-        d => d.properties.name + ' ' + d.id
-      );
+      this.addTooltip<any>(this.g.selectAll('path'), d => d.properties.name);
     });
   }
 
@@ -99,15 +96,24 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         });
       });
 
-    const countryList = ['344'];
+    const countryList = [
+      '344', // Hong Kong
+      '036', // Australia
+      '840', // United States
+      '702', // Singapore
+      '764' // Thailand
+      // Europe
+    ];
 
     const markers = this.marker
       .selectAll<SVGCircleElement, any>('circle')
       .data<any>(countryList, d => d)
       .enter()
       .append('circle')
-      .attr('r', 2)
-      .attr('fill', '#000000')
+      .attr('r', 4)
+      .attr('fill', '#E60100')
+      .style('stroke', '#000000')
+      .style('stroke-width', 0.5)
       .attr('transform', d => {
         return (
           'translate(' +
