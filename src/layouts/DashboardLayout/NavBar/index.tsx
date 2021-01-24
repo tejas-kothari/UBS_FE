@@ -44,6 +44,11 @@ const navData = [
         href: '/features',
         icon: KeyIcon,
         title: 'By Feature'
+      },
+      {
+        href: '/rounds',
+        icon: KeyIcon,
+        title: 'By Round'
       }
     ]
   }

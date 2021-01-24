@@ -1,0 +1,94 @@
+{
+    “angel”: {
+      “mean_funding”: 1322531.4578313252,
+      “num”: 1245.0
+    },
+    “convertible_note”: {
+      “mean_funding”: 5377418.100694444,
+      “num”: 576.0
+    },
+    “corporate_round”: {
+      “mean_funding”: 40749862.35632184,
+      “num”: 261.0
+    },
+    “debt_financing”: {
+      “mean_funding”: 47147022.08435072,
+      “num”: 901.0
+    },
+    “equity_crowdfunding”: {
+      “mean_funding”: 7523674.9829683695,
+      “num”: 411.0
+    },
+    “grant”: {
+      “mean_funding”: 3612532.6720430106,
+      “num”: 1116.0
+    },
+    “initial_coin_offering”: {
+      “mean_funding”: 21321109.97652582,
+      “num”: 213.0
+    },
+    “non_equity_assistance”: {
+      “mean_funding”: 2756648.533333333,
+      “num”: 195.0
+    },
+    “pre_seed”: {
+      “mean_funding”: 437725.9125248509,
+      “num”: 1509.0
+    },
+    “private_equity”: {
+      “mean_funding”: 93542279.7897898,
+      “num”: 333.0
+    },
+    “product_crowdfunding”: {
+      “mean_funding”: 2681143.118644068,
+      “num”: 59.0
+    },
+    “secondary_market”: {
+      “mean_funding”: 246073558.525,
+      “num”: 40.0
+    },
+    “seed”: {
+      “mean_funding”: 1726256.0275313903,
+      “num”: 8681.0
+    },
+    “series_a”: {
+      “mean_funding”: 12384781.64180399,
+      “num”: 3459.0
+    },
+    “series_b”: {
+      “mean_funding”: 36600503.34656585,
+      “num”: 1587.0
+    },
+    “series_c”: {
+      “mean_funding”: 82197960.09713376,
+      “num”: 628.0
+    },
+    “series_d”: {
+      “mean_funding”: 147123969.70238096,
+      “num”: 252.0
+    },
+    “series_e”: {
+      “mean_funding”: 243697814.2079208,
+      “num”: 101.0
+    },
+    “series_f”: {
+      “mean_funding”: 342823814.175,
+      “num”: 40.0
+    },
+    “series_g”: {
+      “mean_funding”: 501254281.8,
+      “num”: 10.0
+    },
+    “series_h”: {
+      “mean_funding”: 366685575.5,
+      “num”: 4.0
+    },
+    “series_unknown”: {
+      “mean_funding”: 19102736.28896817,
+      “num”: 3644.0
+    },
+    “undisclosed”: {
+      “mean_funding”: 22387673.47094801,
+      “num”: 327.0
+    }
+}
