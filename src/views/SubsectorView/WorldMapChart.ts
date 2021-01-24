@@ -69,7 +69,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
 
     const colorScale = d3
       .scaleThreshold<number, string>()
-      .domain([0, 100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+      .domain([0, 500000, 1000000, 5000000, 10000000, 15000000, 20000000])
       .range(d3.schemeBlues[7]);
 
     this.g
@@ -88,7 +88,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
       .style('stroke-width', function(country: any) {
         if (state.country === regionLocation[country.id]?.name) {
           d3.select(this).raise();
-          return 1;
+          return 0.7;
         }
 
         return 0.1;

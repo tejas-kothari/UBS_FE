@@ -11,9 +11,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
+import ChartWrapper from '../../chart/ChartWrapper';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
 import FundingBarChart from './FundingBarChart';
+import Legend from './Legend';
 import StartupRingChart from './StartupRingChart';
 import WorldMapChart from './WorldMapChart';
 
@@ -125,6 +127,12 @@ function SubsectorView() {
             setState={setState}
           />
         </Grid>
+        
+        <Grid item xs={12} lg={4} alignContent="flex-start">
+        {ChartWrapper<Legend>(Legend)}
+        </Grid>
+
+
         <Grid item xs={12} xl={4}>
           <Card>
             <CardHeader
