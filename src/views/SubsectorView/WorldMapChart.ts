@@ -116,7 +116,6 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
       .selectAll<SVGCircleElement, any>('circle')
       .data<any>(countryList, d => d)
       .style('stroke-width', function(countryId) {
-        console.log(countryId);
         if (state.country === regionLocation[countryId]?.name) {
           d3.select(this).raise();
           return 1;
