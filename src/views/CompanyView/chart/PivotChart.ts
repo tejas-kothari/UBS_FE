@@ -1,10 +1,10 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
 import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
-import Company from '../../../interfaces/company';
+import CompanyFeatures from '../../../interfaces/company_features';
 import { CompanyBenchmarkState } from '../CompanyBenchmark';
 
-type DatumType = Company;
+type DatumType = CompanyFeatures;
 export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
   static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
@@ -77,24 +77,29 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     let data = state.data;
 
     if (state.reset) {
-      data = state.allCompanies.filter(
-        company =>
-          state.category === '' ||
-          company.category_groups_list.indexOf(state.category) !== -1
-      );
-      const maxX = d3.max(data, d => d[state.xAxis]);
-      const maxY = d3.max(data, d => d[state.yAxis]);
+      // TODO: Add back when category is added back
+      // data = state.companyFeatures.filter(
+      //   company =>
+      //     state.category === '' ||
+      //     company.category_groups_list.indexOf(state.category) !== -1
+      // );
+      data = state.companyFeatures;
+
+      const maxX = d3.max(data, d => d[state.xAxis] as number);
+      const maxY = d3.max(data, d => d[state.yAxis] as number);
+      console.log(maxY);
+      console.log(maxY! * 1.1);
 
       // Set X axis
       this.x = d3
         .scaleLinear()
-        .domain([0, maxX! * 1.1])
+        .domain([0, maxX! * 1.5])
         .range([0, PivotChart.WIDTH]);
 
       // Set Y axis
       this.y = d3
         .scaleLinear()
-        .domain([0, maxY! * 1.1])
+        .domain([0, maxY! * 1.5])
         .range([PivotChart.HEIGHT, 0]);
 
       this.setState({
@@ -106,8 +111,8 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
       return;
     }
 
-    // If the data array is empty, stop rendering as it is not yet ready
-    if (state.data.length === 0) {
+    // If the data is still loading, stop rendering as it is not yet ready
+    if (state.data.length === 0 || state.loadData) {
       return;
     }
 
@@ -126,7 +131,7 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     // JOIN
     const dots = this.scatter
       .selectAll<SVGCircleElement, DatumType>('circle')
-      .data<DatumType>(data, (company, i) => company['uuid']);
+      .data<DatumType>(data, (company, i) => company.name);
 
     // EXIT
     dots
@@ -140,18 +145,18 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     dots
       .transition()
       .duration(1000)
-      .attr('cx', (d: DatumType) => this.x(d[state.xAxis]))
-      .attr('cy', (d: DatumType) => this.y(d[state.yAxis]));
+      .attr('cx', (d: DatumType) => this.x(d[state.xAxis] as number))
+      .attr('cy', (d: DatumType) => this.y(d[state.yAxis] as number));
 
     // ENTER
     const newDots = dots
       .enter()
       .append('circle')
-      .attr('cx', (d: DatumType) => this.x(d[state.xAxis]))
-      .attr('cy', (d: DatumType) => this.y(d[state.yAxis]))
+      .attr('cx', (d: DatumType) => this.x(d[state.xAxis] as number))
+      .attr('cy', (d: DatumType) => this.y(d[state.yAxis] as number))
       .attr('r', 7)
       .style('fill', d =>
-        d.uuid === state.company.uuid ? '#E60100' : '#69b3a2'
+        d.name === state.company.name ? '#E60100' : '#69b3a2'
       )
       .style('opacity', 0)
       .style('stroke', 'white');

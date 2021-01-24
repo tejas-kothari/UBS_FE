@@ -3,17 +3,17 @@ import {
   Card,
   CardContent,
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
+  InputLabel,
   makeStyles,
-  Radio,
-  RadioGroup,
+  MenuItem,
+  Select,
   Typography
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
-import Company, { categories } from '../../interfaces/company';
+import Company from '../../interfaces/company';
+import CompanyFeatures from '../../interfaces/company_features';
 import PivotChart from './chart/PivotChart';
 
 const useStyles = makeStyles(theme => ({
@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.primary
   },
-  checkboxLabel: {
-    textAlign: 'left'
+  formControl: {
+    width: '100%'
   },
   title: {
     fontSize: '1.25rem',
@@ -42,11 +42,12 @@ type CompanyBenchmarkProps = {
 };
 
 export type CompanyBenchmarkState = {
-  xAxis: 'rank' | 'total_funding_usd' | 'num_funding_rounds';
-  yAxis: 'rank' | 'total_funding_usd' | 'num_funding_rounds';
+  xAxis: keyof CompanyFeatures;
+  yAxis: keyof CompanyFeatures;
   category: string;
-  data: Company[];
-  allCompanies: Company[];
+  data: CompanyFeatures[];
+  companyFeatures: CompanyFeatures[];
+  loadData: boolean;
   reset: boolean;
   company: Company;
 };
@@ -54,59 +55,56 @@ export type CompanyBenchmarkState = {
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const classes = useStyles();
   const [state, setState] = useState<CompanyBenchmarkState>({
-    xAxis: 'num_funding_rounds',
-    yAxis: 'total_funding_usd',
+    xAxis: 'Number of Founders',
+    yAxis: 'Predicted Funding',
     category: '',
     data: [],
+    loadData: true,
     reset: false,
     company,
-    allCompanies: []
+    companyFeatures: []
   });
 
   useEffect(() => {
-    fetch('https://ubs-be.herokuapp.com/get_startup_list?page=1&rowsPerPage=50')
-      .then(res => res.json())
-      .then(data => {
+    if (!state.loadData) return;
+
+    Promise.all<Response, Response>([
+      fetch(
+        `https://ubs-be.herokuapp.com/get_features?x_axis=${state.xAxis}&y_axis=${state.yAxis}`
+      ),
+      fetch(
+        `https://ubs-be.herokuapp.com/get_startup_features?uuid=${company.uuid}`
+      )
+    ])
+      .then(([res1, res2]) => Promise.all<any, any>([res1.json(), res2.json()]))
+      .then(([companiesFeatures, companyFeatures]) => {
         setState(state => {
           return {
             ...state,
-            allCompanies: [
-              ...(Object.values(data.filteredStartups) as Company[]).filter(
-                _company => _company.uuid !== company.uuid
+            companyFeatures: [
+              ...(Object.values(companiesFeatures) as CompanyFeatures[]).filter(
+                companyFeatures => companyFeatures.name !== company.name
               ),
-              company
+              companyFeatures
             ],
+            loadData: false,
             reset: true
           };
         });
       });
-  }, [company]);
+  }, [state, company]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
     setState({
       ...state,
-      reset: true,
-      [event.target.name]: event.target.value
+      loadData: true,
+      [event.target.name as string]: event.target.value
     });
-  };
-
-  const RadioButton = ({
-    value,
-    label,
-    disabled = false
-  }: {
-    value: string;
-    label: string;
-    disabled?: boolean;
-  }) => {
-    return (
-      <FormControlLabel
-        value={value}
-        control={<Radio />}
-        label={label}
-        disabled={disabled}
-      ></FormControlLabel>
-    );
   };
 
   return (
@@ -125,8 +123,67 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               setState={setState}
             />
           </Grid>
-          <Grid item>
-            <FormControl component="fieldset">
+          <Grid item xs={12} md={6}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="xAxis-label" focused={false}>
+                X-Axis
+              </InputLabel>
+              <Select
+                labelId="xAxis-label"
+                name="xAxis"
+                value={state.xAxis}
+                onChange={handleChange}
+              >
+                {[
+                  'Number of Founders',
+                  'Number of organisations founded previously by current Founders',
+                  'Funding received from organisations founded previously by current Founders',
+                  'Number of executive jobs held by Founders previously',
+                  'Funding received from previously held jobs by current Founders',
+                  'Number of Funding Rounds from previously held jobs by current Founders',
+                  'Number of Bachelors',
+                  "University Rankings from Founders' degrees",
+                  'Number of previous funding rounds',
+                  'Age at Funding - Series Unknown',
+                  'Funding Raised (USD) - Series Unknown',
+                  'Age at Funding - Seed',
+                  'Funding Raised (USD) - Seed',
+                  'Number of Investors - Seed',
+                  'Age at Funding - Series A',
+                  'Funding Raised (USD) - Series A',
+                  'Number of Investors - Series A',
+                  'Funding Raised (USD) - Debt Financing',
+                  'Age at Funding - Series B',
+                  'Funding Raised (USD) - Series B',
+                  'Average organization age at events',
+                  'Organization Age'
+                ].map(xAxis => (
+                  <MenuItem key={xAxis} value={xAxis}>
+                    {xAxis}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <FormControl className={classes.formControl}>
+              <InputLabel id="yAxis-label" focused={false}>
+                Y-Axis
+              </InputLabel>
+              <Select
+                labelId="yAxis-label"
+                name="yAxis"
+                value={state.yAxis}
+                onChange={handleChange}
+              >
+                {['Predicted Funding', 'Total Funding Received'].map(yAxis => (
+                  <MenuItem key={yAxis} value={yAxis}>
+                    {yAxis}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {/* <FormControl component="fieldset">
               <FormLabel component="legend" focused={false}>
                 Category
               </FormLabel>
@@ -148,47 +205,9 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                     ></RadioButton>
                   ))}
               </RadioGroup>
-            </FormControl>
-            <FormControl component="fieldset">
-              <FormLabel component="legend" focused={false}>
-                X-Axis
-              </FormLabel>
-              <RadioGroup
-                name="xAxis"
-                value={state.xAxis}
-                onChange={handleChange}
-              >
-                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
-                <RadioButton
-                  value="total_funding_usd"
-                  label="Total Funding USD"
-                ></RadioButton>
-                <RadioButton
-                  value="num_funding_rounds"
-                  label="Number of funding rounds"
-                ></RadioButton>
-              </RadioGroup>
-            </FormControl>
-            <FormControl component="fieldset">
-              <FormLabel component="legend" focused={false}>
-                Y-Axis
-              </FormLabel>
-              <RadioGroup
-                name="yAxis"
-                value={state.yAxis}
-                onChange={handleChange}
-              >
-                <RadioButton value="rank" label="Crunchbase Rank"></RadioButton>
-                <RadioButton
-                  value="total_funding_usd"
-                  label="Total Funding USD"
-                ></RadioButton>
-                <RadioButton
-                  value="num_funding_rounds"
-                  label="Number of funding rounds"
-                ></RadioButton>
-              </RadioGroup>
-            </FormControl>
+            </FormControl> */}
+          </Grid>
+          <Grid item>
             <Button
               variant="contained"
               onClick={() =>
