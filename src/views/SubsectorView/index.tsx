@@ -112,7 +112,7 @@ function SubsectorView() {
   );
 
   return (
-    <Page title="Charts" className={classes.root}>
+    <Page title="Analysis by Country" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Analysis by Country
       </Typography>
