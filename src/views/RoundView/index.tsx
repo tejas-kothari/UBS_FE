@@ -13,9 +13,8 @@ import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
 import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
-import FundingBarChart from '../SubsectorView/FundingBarChart';
-import StartupRingChart from '../SubsectorView/StartupRingChart';
-import WorldMapChart from '../SubsectorView/WorldMapChart';
+import FundingBarChart from './FundingBarChart';
+import StartupRingChart from './StartupRingChart';
 
 
 
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             fontWeight: 'bold'
         },
-        country: {
+        round: {
             fontSize: '1.25rem'
         }
     })
@@ -70,7 +69,7 @@ function RoundView() {
 
 
     useEffect(() => {
-        fetch(`https://ubs-be.herokuapp.com/get_country_data`)
+        fetch(`https://ubs-be.herokuapp.com/get_round_data`)
             .then(res => res.json())
             .then(data => {
                 const roundFunding = Object.keys(data).map(round => {
@@ -112,8 +111,11 @@ function RoundView() {
 
             <Grid container alignItems="center" justify="center">
                 <Grid item xs={12} lg={8}>
+                    <Typography className={classes.chartTitle}>
+                        Number of startups by Round
+                  </Typography>
                     <StatefulChartWrappper
-                        type={FundingBarChart}
+                        type={StartupRingChart}
                         state={state}
                         setState={setState}
                     />
@@ -128,9 +130,9 @@ function RoundView() {
                         />
                         <CardContent>
                             <Grid container>
-                                <Grid item xs={12} md={6} xl={12}>
+                                <Grid item xs={12} md={12} xl={12}>
                                     <Typography className={classes.chartTitle}>
-                                        Mean Funding by Country
+                                        Mean Funding by Round
                   </Typography>
                                     <StatefulChartWrappper
                                         type={FundingBarChart}
@@ -138,16 +140,7 @@ function RoundView() {
                                         setState={setState}
                                     />
                                 </Grid>
-                                <Grid item xs={12} md={6} xl={12}>
-                                    <Typography className={classes.chartTitle}>
-                                        Number of startups by Country
-                  </Typography>
-                                    <StatefulChartWrappper
-                                        type={StartupRingChart}
-                                        state={state}
-                                        setState={setState}
-                                    />
-                                </Grid>
+                                
                             </Grid>
                         </CardContent>
                     </Card>

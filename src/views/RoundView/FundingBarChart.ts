@@ -1,21 +1,21 @@
-import { SubsectorViewState } from '.';
+import { RoundViewState } from '.';
 import BarChart from '../../chart/BarChart';
 
-export default class FundingBarChart extends BarChart<SubsectorViewState> {
-  updateState(state: SubsectorViewState): void {
-    const selectedCountry = state.countriesFunding.find(
-      funding => funding.round === state.country
+export default class FundingBarChart extends BarChart<RoundViewState> {
+  updateState(state: RoundViewState): void {
+    const selectedround = state.roundFunding.find(
+      funding => funding.round === state.round
     );
 
-    if (selectedCountry) {
+    if (selectedround) {
       this.setBars([
         {
-          key: state.country,
-          value: selectedCountry?.mean_funding,
+          key: state.round,
+          value: selectedround?.mean_funding,
           color: '#d95f02'
         },
         {
-          key: 'All countries',
+          key: 'All rounds',
           value: state.meanAllFunding,
           color: '#1b9e77'
         }
@@ -23,7 +23,7 @@ export default class FundingBarChart extends BarChart<SubsectorViewState> {
     } else {
       this.setBars([
         {
-          key: 'All countries',
+          key: 'All Rounds',
           value: state.meanAllFunding,
           color: '#1b9e77'
         }

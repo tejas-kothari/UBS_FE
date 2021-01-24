@@ -1,33 +1,29 @@
-import { SubsectorViewState } from '.';
+import * as d3 from 'd3';
+import { RoundViewState } from '.';
 import RingChart from '../../chart/RingChart';
 
-export default class StartupRingChart extends RingChart<SubsectorViewState> {
-  updateState(state: SubsectorViewState): void {
-    const selectedCountry = state.countriesFunding.find(
-      funding => funding.country === state.country
+export default class StartupRingChart extends RingChart<RoundViewState> {
+  updateState(state: RoundViewState): void {
+    const selectedround = state.roundFunding.find(
+      funding => funding.round === state.round
     );
 
-    if (selectedCountry) {
-      this.setRing([
-        {
-          key: state.country,
-          value: selectedCountry.num,
-          color: '#d95f02'
-        },
-        {
-          key: 'Other countries',
-          value: state.cntAllFunding - selectedCountry.num,
-          color: '#1b9e77'
-        }
-      ]);
-    } else {
-      this.setRing([
-        {
-          key: 'All countries',
-          value: state.cntAllFunding,
-          color: '#1b9e77'
-        }
-      ]);
-    }
+    var color = d3
+    .scaleOrdinal()
+    .domain(state.roundFunding.map(funding=>funding.round))
+    .range(d3.schemeDark2);
+
+    this.setRing(state.roundFunding.map(funding => {
+      return {
+        key: funding.round,
+        value: funding.mean_funding,
+        color: color(funding.round) as string
+         
+      }
+    }))
+
+
+
   }
 }
+
