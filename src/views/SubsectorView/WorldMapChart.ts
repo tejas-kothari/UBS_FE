@@ -47,13 +47,12 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         .enter()
         .append('path')
         .attr('d', path)
-        .style('stroke', function(country: any) {
+        .style('stroke', (country: any) => {
           if (country.properties.name === 'Antarctica') {
             return 'none';
           }
           return '#000000';
-        })
-        .style('stroke-width', 0.1); //boundaries
+        });
 
       this.addTooltip<any>(this.g.selectAll('path'), d => d.properties.name);
     });
@@ -86,6 +85,14 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
           return colorScale(selectedCountry?.mean_funding as number);
         }
       })
+      .style('stroke-width', function(country: any) {
+        if (state.country === regionLocation[country.id]?.name) {
+          d3.select(this).raise();
+          return 1;
+        }
+
+        return 0.1;
+      }) //boundaries
       .on('click', (event, d: any) => {
         let countryName = regionLocation[d.id]?.name;
         this.setState(state => {
@@ -108,12 +115,20 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
     const markers = this.marker
       .selectAll<SVGCircleElement, any>('circle')
       .data<any>(countryList, d => d)
+      .style('stroke-width', function(countryId) {
+        console.log(countryId);
+        if (state.country === regionLocation[countryId]?.name) {
+          d3.select(this).raise();
+          return 1;
+        }
+
+        return 0.5;
+      })
       .enter()
       .append('circle')
       .attr('r', 4)
       .attr('fill', '#E60100')
       .style('stroke', '#000000')
-      .style('stroke-width', 0.5)
       .attr('transform', d => {
         return (
           'translate(' +
