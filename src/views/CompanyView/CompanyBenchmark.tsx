@@ -156,7 +156,9 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                   'Age at Funding - Series B',
                   'Funding Raised (USD) - Series B',
                   'Average organization age at events',
-                  'Organization Age'
+                  'Organization Age',
+                  'Predicted Funding',
+                  'Total Funding Received'
                 ].map(xAxis => (
                   <MenuItem key={xAxis} value={xAxis}>
                     {xAxis}
