@@ -26,7 +26,13 @@ export default class StartupRingChart extends RingChart<RoundViewState> {
           prev += cur.num;
           return prev;
         }, 0),
-      color: color('Others') as string
+      color: color('Others') as string,
+      onClick: () => this.setState(state => {
+        return {
+          ...state,
+          round: 'Others'
+        }
+      })
     };
 
     this.setRing([
@@ -36,7 +42,13 @@ export default class StartupRingChart extends RingChart<RoundViewState> {
           return {
             key: funding.round,
             value: funding.num,
-            color: color(funding.round) as string
+            color: color(funding.round) as string,
+            onClick: () => this.setState(state => {
+              return {
+                ...state,
+                round: funding.round
+              }
+            })
           };
         }),
       others
