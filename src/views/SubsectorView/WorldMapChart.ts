@@ -116,7 +116,9 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
       '372',
       '428',
       '826',
-      '756'
+      '756', // Switzerland
+      '376', // Israel
+      '410' // South Korea
     ];
 
     const markers = this.marker
