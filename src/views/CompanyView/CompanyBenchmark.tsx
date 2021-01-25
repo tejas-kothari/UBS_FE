@@ -50,6 +50,7 @@ export type CompanyBenchmarkState = {
   loadData: boolean;
   reset: boolean;
   company: Company;
+  companiesComparing: string[];
 };
 
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
@@ -62,37 +63,58 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     loadData: true,
     reset: false,
     company,
-    companyFeatures: []
+    companyFeatures: [],
+    companiesComparing: [
+      company.uuid,
+      ...Object.keys(
+        JSON.parse(window.localStorage.getItem('comparison') || '{}')
+      )
+    ]
   });
+
+  // Startup features of the companies that are marked from comparison in the company list
+  const [featuresComparing, setFeaturesComparing] = useState<CompanyFeatures[]>(
+    []
+  );
+
+  // Load startup features of the companies specified
+  useEffect(() => {
+    if (!state.loadData) return;
+
+    Promise.all(
+      state.companiesComparing.map(uuid =>
+        fetch(`https://ubs-be.herokuapp.com/get_startup_features?uuid=${uuid}`)
+      )
+    )
+      .then(rawJsons => Promise.all(rawJsons.map(rawJson => rawJson.json())))
+      .then(featuresComparing =>
+        setFeaturesComparing(featuresComparing as CompanyFeatures[])
+      );
+  }, [company.uuid, state.companiesComparing, state.loadData]);
 
   useEffect(() => {
     if (!state.loadData) return;
 
-    Promise.all<Response, Response>([
-      fetch(
-        `https://ubs-be.herokuapp.com/get_features?x_axis=${state.xAxis}&y_axis=${state.yAxis}`
-      ),
-      fetch(
-        `https://ubs-be.herokuapp.com/get_startup_features?uuid=${company.uuid}`
-      )
-    ])
-      .then(([res1, res2]) => Promise.all<any, any>([res1.json(), res2.json()]))
-      .then(([companiesFeatures, companyFeatures]) => {
+    fetch(
+      `https://ubs-be.herokuapp.com/get_features?x_axis=${state.xAxis}&y_axis=${state.yAxis}`
+    )
+      .then(res => res.json())
+      .then(companiesFeatures => {
         setState(state => {
           return {
             ...state,
             companyFeatures: [
-              ...(Object.values(companiesFeatures) as CompanyFeatures[]).filter(
-                companyFeatures => companyFeatures.name !== company.name
-              ),
-              companyFeatures
-            ],
+              ...(Object.values(companiesFeatures) as CompanyFeatures[]),
+              ...(featuresComparing as CompanyFeatures[])
+            ].filter((value, index, self) => {
+              return self.map(x => x.org_uuid).indexOf(value.org_uuid) === index;
+            }),
             loadData: false,
             reset: true
           };
         });
       });
-  }, [state, company]);
+  }, [company, featuresComparing, state.loadData, state.xAxis, state.yAxis]);
 
   const handleChange = (
     event: React.ChangeEvent<{

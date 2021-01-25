@@ -1,20 +1,24 @@
 import {
   Card,
+  CardActions,
   CardContent,
   Grid,
+  IconButton,
   makeStyles,
   Tooltip,
   Typography
 } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import CategoryIcon from '@material-ui/icons/Category';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PeopleIcon from '@material-ui/icons/People';
+import RemoveIcon from '@material-ui/icons/Remove';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import Company from '../interfaces/company';
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
@@ -29,7 +33,9 @@ const useStyles = makeStyles(theme => ({
   cardContent: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    color: 'black',
+    flexGrow: 1
   },
   rank: {
     width: 100
@@ -75,138 +81,178 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
     </Typography>
   );
 
-  return (
-    <Card className={classes.root}>
-      <CardContent className={classes.cardContent}>
-        <Grid container spacing={2} alignItems="center">
-          {showRank && (
-            <Grid item className={classes.rank}>
-              <Typography className={classes.title} gutterBottom>
-                {company.rank}.
-              </Typography>
-            </Grid>
-          )}
-          <Grid item>
-            <img
-              className={classes.img}
-              src={company.logo_url}
-              alt={company.name}
-            />
-          </Grid>
-          <Grid item>
+  const [comparing, setComparing] = useState<boolean>(
+    JSON.parse(window.localStorage.getItem('comparison') || '{}')[
+      company.uuid
+    ] === true
+  );
+
+  useEffect(() => {
+    const comparison = JSON.parse(
+      window.localStorage.getItem('comparison') || '{}'
+    );
+
+    if (comparing) {
+      comparison[company.uuid] = true;
+    } else {
+      delete comparison[company.uuid];
+    }
+
+    window.localStorage.setItem('comparison', JSON.stringify(comparison));
+  }, [company.uuid, comparing]);
+
+  const cardContent = (
+    <CardContent className={classes.cardContent}>
+      <Grid container spacing={2} alignItems="center">
+        {showRank && (
+          <Grid item className={classes.rank}>
             <Typography className={classes.title} gutterBottom>
-              {company.name}
+              {company.rank}.
             </Typography>
-            <Grid container spacing={1} className={classes.detailsContainer}>
-              <Grid item xs={6}>
-                <Tooltip
-                  title={'Category: ' + company.category_groups_list}
-                  placement="bottom-start"
+          </Grid>
+        )}
+        <Grid item>
+          <img
+            className={classes.img}
+            src={company.logo_url}
+            alt={company.name}
+          />
+        </Grid>
+        <Grid item>
+          <Typography className={classes.title} gutterBottom>
+            {company.name}
+          </Typography>
+          <Grid container spacing={1} className={classes.detailsContainer}>
+            <Grid item xs={6}>
+              <Tooltip
+                title={'Category: ' + company.category_groups_list}
+                placement="bottom-start"
+              >
+                <Typography
+                  className={classes.details}
+                  noWrap={true}
+                  color="textSecondary"
                 >
-                  <Typography
-                    className={classes.details}
-                    noWrap={true}
-                    color="textSecondary"
-                  >
-                    <CategoryIcon className={classes.icon} />
-                    {company.category_groups_list.split(',')[0] || 'unknown'}
-                  </Typography>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={6}>
-                <Tooltip
-                  title={'Country: ' + company.country}
-                  placement="bottom-start"
+                  <CategoryIcon className={classes.icon} />
+                  {company.category_groups_list.split(',')[0] || 'unknown'}
+                </Typography>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={6}>
+              <Tooltip
+                title={'Country: ' + company.country}
+                placement="bottom-start"
+              >
+                <Typography
+                  className={classes.details}
+                  noWrap={true}
+                  color="textSecondary"
                 >
-                  <Typography
-                    className={classes.details}
-                    noWrap={true}
-                    color="textSecondary"
-                  >
-                    <LocationOnIcon className={classes.icon} />
-                    {company.country || 'unknown'}
-                  </Typography>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={6}>
-                <Tooltip
-                  title={'Number of employees: ' + company.employee_count}
-                  placement="bottom-start"
+                  <LocationOnIcon className={classes.icon} />
+                  {company.country || 'unknown'}
+                </Typography>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={6}>
+              <Tooltip
+                title={'Number of employees: ' + company.employee_count}
+                placement="bottom-start"
+              >
+                <Typography
+                  className={classes.details}
+                  noWrap={true}
+                  color="textSecondary"
                 >
-                  <Typography
-                    className={classes.details}
-                    noWrap={true}
-                    color="textSecondary"
-                  >
-                    <PeopleIcon className={classes.icon} />
-                    {company.employee_count || 'unknown'}
-                  </Typography>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={6}>
-                <Tooltip
-                  title={
-                    'Last funding round: ' +
-                    processFundingRound(company.last_funding_round)
-                  }
-                  placement="bottom-start"
+                  <PeopleIcon className={classes.icon} />
+                  {company.employee_count || 'unknown'}
+                </Typography>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={6}>
+              <Tooltip
+                title={
+                  'Last funding round: ' +
+                  processFundingRound(company.last_funding_round)
+                }
+                placement="bottom-start"
+              >
+                <Typography
+                  className={classes.details}
+                  noWrap={true}
+                  color="textSecondary"
                 >
-                  <Typography
-                    className={classes.details}
-                    noWrap={true}
-                    color="textSecondary"
-                  >
-                    <ShowChartIcon className={classes.icon} />
-                    {processFundingRound(company.last_funding_round) ||
-                      'unknown'}
-                  </Typography>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={6}>
-                <Tooltip
-                  title={
-                    'Total funding: USD ' +
-                      new Intl.NumberFormat('en-US', {
-                        notation: 'compact'
-                      }).format(company.total_funding_usd) || 'unknown'
-                  }
-                  placement="bottom-start"
-                >
-                  <Typography
-                    className={classes.details}
-                    noWrap={true}
-                    color="textSecondary"
-                  >
-                    <AttachMoneyIcon className={classes.icon} />
-                    USD{' '}
-                    {new Intl.NumberFormat('en-US', {
+                  <ShowChartIcon className={classes.icon} />
+                  {processFundingRound(company.last_funding_round) || 'unknown'}
+                </Typography>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={6}>
+              <Tooltip
+                title={
+                  'Total funding: USD ' +
+                    new Intl.NumberFormat('en-US', {
                       notation: 'compact'
-                    }).format(company.total_funding_usd) || 'unknown'}
-                  </Typography>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={6}>
-                {addLink ? (
-                  <a
-                    href={company.homepage_url}
-                    target="_blank"
-                    rel="noreferrer"
+                    }).format(company.total_funding_usd) || 'unknown'
+                }
+                placement="bottom-start"
+              >
+                <Typography
+                  className={classes.details}
+                  noWrap={true}
+                  color="textSecondary"
+                >
+                  <AttachMoneyIcon className={classes.icon} />
+                  USD{' '}
+                  {new Intl.NumberFormat('en-US', {
+                    notation: 'compact'
+                  }).format(company.total_funding_usd) || 'unknown'}
+                </Typography>
+              </Tooltip>
+            </Grid>
+            <Grid item xs={6}>
+              {!addLink ? (
+                <a href={company.homepage_url} target="_blank" rel="noreferrer">
+                  <Tooltip
+                    title="Click to go to company homepage"
+                    placement="bottom-start"
                   >
-                    <Tooltip
-                      title="Click to go to company homepage"
-                      placement="bottom-start"
-                    >
-                      {companyHomepage}
-                    </Tooltip>
-                  </a>
-                ) : (
-                  companyHomepage
-                )}
-              </Grid>
+                    {companyHomepage}
+                  </Tooltip>
+                </a>
+              ) : (
+                companyHomepage
+              )}
             </Grid>
           </Grid>
         </Grid>
-      </CardContent>
+      </Grid>
+    </CardContent>
+  );
+
+  return (
+    <Card className={classes.root}>
+      {addLink ? (
+        <NavLink to={`/companies/${company.uuid}`} style={{ width: '100%' }}>
+          {cardContent}
+        </NavLink>
+      ) : (
+        cardContent
+      )}
+      <CardActions>
+        {comparing ? (
+          <Tooltip title="Remove from comparison">
+            <IconButton aria-label="delete" onClick={() => setComparing(false)}>
+              <RemoveIcon />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title="Add to comparison">
+            <IconButton aria-label="add" onClick={() => setComparing(true)}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+      </CardActions>
     </Card>
   );
 }

@@ -129,7 +129,7 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     // JOIN
     const dots = this.scatter
       .selectAll<SVGCircleElement, DatumType>('circle')
-      .data<DatumType>(data, (company, i) => company.name);
+      .data<DatumType>(data, (company, i) => company.org_uuid);
 
     // EXIT
     dots
@@ -144,7 +144,12 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
       .transition()
       .duration(1000)
       .attr('cx', (d: DatumType) => this.x(d[state.xAxis] as number))
-      .attr('cy', (d: DatumType) => this.y(d[state.yAxis] as number));
+      .attr('cy', (d: DatumType) => this.y(d[state.yAxis] as number))
+      .style('fill', d =>
+        state.companiesComparing.findIndex(uuid => uuid === d.org_uuid) !== -1
+          ? '#E60100'
+          : '#69b3a2'
+      );
 
     // ENTER
     const newDots = dots
@@ -154,7 +159,9 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
       .attr('cy', (d: DatumType) => this.y(d[state.yAxis] as number))
       .attr('r', 7)
       .style('fill', d =>
-        d.name === state.company.name ? '#E60100' : '#69b3a2'
+        state.companiesComparing.findIndex(uuid => uuid === d.org_uuid) !== -1
+          ? '#E60100'
+          : '#69b3a2'
       )
       .style('opacity', 0)
       .style('stroke', 'white')
@@ -165,7 +172,10 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
       .duration(1000)
       .style('opacity', 0.3);
 
-    this.addTooltip<DatumType>(newDots, company => company.name + '<br>Click to view details');
+    this.addTooltip<DatumType>(
+      newDots,
+      company => company.name + '<br>Click to view details'
+    );
   }
 
   brushed(event: D3BrushEvent<DatumType>) {

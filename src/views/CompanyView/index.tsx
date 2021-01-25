@@ -57,12 +57,10 @@ function CompanyView() {
 
   return (
     <Page title={company && company.name} className={classes.root}>
-      <Typography variant="h1">Company View </Typography>
-      <Typography variant="body1">&nbsp;</Typography>
       {company && companyFunding ? (
         <Grid container spacing={3} alignItems="stretch">
           <Grid item xs={12} className={classes.companyCard}>
-            <CompanyCard company={company} showRank={false} addLink={true} />
+            <CompanyCard company={company} showRank={false} addLink={false} />
           </Grid>
           <Grid item xs={8} xl={8}>
             <ComapnyFundingTimeline
