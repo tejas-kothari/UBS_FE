@@ -51,6 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     country: {
       fontSize: '1.25rem'
+    },
+    legend: {
+      width: 500,
+      margin: 'auto'
     }
   })
 );
@@ -126,12 +130,8 @@ function SubsectorView() {
             state={state}
             setState={setState}
           />
+          <div className={classes.legend}>{ChartWrapper<Legend>(Legend)}</div>
         </Grid>
-        
-        <Grid item xs={12} lg={4} alignContent="flex-start">
-        {ChartWrapper<Legend>(Legend)}
-        </Grid>
-
 
         <Grid item xs={12} xl={4}>
           <Card>
