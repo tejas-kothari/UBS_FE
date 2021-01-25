@@ -6,6 +6,13 @@ import { SubsectorViewState } from '.';
 import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
 import RawRegionLocation from './RegionLocation.json';
 
+const regionLocation = RawRegionLocation as {
+  [name: string]: {
+    long: number;
+    lat: number;
+    name: string;
+  };
+};
 export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
   g: d3.Selection<SVGGElement, any, null, undefined>;
   projection: d3.GeoProjection;
@@ -54,19 +61,14 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
           return '#000000';
         });
 
-      this.addTooltip<any>(this.g.selectAll('path'), d => d.properties.name);
+      this.addTooltip<any>(
+        this.g.selectAll('path'),
+        d => regionLocation[d.id].name
+      );
     });
   }
 
   updateState(state: SubsectorViewState) {
-    const regionLocation = RawRegionLocation as {
-      [name: string]: {
-        long: number;
-        lat: number;
-        name: string;
-      };
-    };
-
     const colorScale = d3
       .scaleThreshold<number, string>()
       .domain([0, 500000, 1000000, 5000000, 10000000, 15000000, 20000000])
@@ -78,6 +80,10 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         const selectedCountry = state.countriesFunding.find(
           funding => funding.country === regionLocation[d.id]?.name
         );
+
+        if(selectedCountry === undefined) {
+          console.log(d.properties.name);
+        }
 
         if (selectedCountry === undefined) {
           return '#FFFFFF';

@@ -87,8 +87,6 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
 
       const maxX = d3.max(data, d => d[state.xAxis] as number);
       const maxY = d3.max(data, d => d[state.yAxis] as number);
-      console.log(maxY);
-      console.log(maxY! * 1.1);
 
       // Set X axis
       this.x = d3
