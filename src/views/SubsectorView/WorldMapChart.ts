@@ -63,7 +63,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
 
       this.addTooltip<any>(
         this.g.selectAll('path'),
-        d => regionLocation[d.id].name
+        d => regionLocation[d.id]?.name
       );
     });
   }
@@ -80,10 +80,6 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         const selectedCountry = state.countriesFunding.find(
           funding => funding.country === regionLocation[d.id]?.name
         );
-
-        if(selectedCountry === undefined) {
-          console.log(d.properties.name);
-        }
 
         if (selectedCountry === undefined) {
           return '#FFFFFF';
@@ -154,6 +150,6 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
         });
       });
 
-    this.addTooltip(markers, d => regionLocation[d].name);
+    this.addTooltip(markers, d => regionLocation[d]?.name);
   }
 }
