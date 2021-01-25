@@ -157,14 +157,15 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
         d.name === state.company.name ? '#E60100' : '#69b3a2'
       )
       .style('opacity', 0)
-      .style('stroke', 'white');
+      .style('stroke', 'white')
+      .on('click', (event, d) => window.open(d.org_uuid));
 
     newDots
       .transition()
       .duration(1000)
       .style('opacity', 0.3);
 
-    this.addTooltip<DatumType>(newDots, company => company.name);
+    this.addTooltip<DatumType>(newDots, company => company.name + '<br>Click to view details');
   }
 
   brushed(event: D3BrushEvent<DatumType>) {

@@ -1,5 +1,6 @@
 export default interface CompanyFeatures {
   name: string;
+  org_uuid: string;
   'Number of Founders'?: number;
   'Number of organisations founded previously by current Founders'?: number;
   'Funding received from organisations founded previously by current Founders'?: number;

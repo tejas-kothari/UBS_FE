@@ -47,7 +47,7 @@ function FeaturesView() {
           
         </Grid> */}
 
-        <Grid item xs={12} md={12} alignContent='center'>
+        <Grid item xs={12} md={12}>
           <Paper variant="outlined" className={classes.paper}>
             <Typography variant="h5" className={classes.title} align={'left'}>
               Relative importance of Features
