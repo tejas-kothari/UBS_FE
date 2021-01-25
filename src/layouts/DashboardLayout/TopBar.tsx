@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
   avatar: {
     width: 60,
     height: 60
+  },
+  menuBtn: {
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -59,7 +62,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }: TopBarProps) => {
           </IconButton>
         </Hidden> */}
         <Hidden lgUp>
-          <IconButton color="inherit" onClick={onMobileNavOpen}>
+          <IconButton color="secondary" onClick={onMobileNavOpen} className={classes.menuBtn}>
             <MenuIcon />
           </IconButton>
         </Hidden>
