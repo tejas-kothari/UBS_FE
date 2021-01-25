@@ -53,7 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.25rem'
     },
     legend: {
-      width: 500,
+      maxWidth: 500,
+      width: '100%',
       margin: 'auto'
     }
   })
