@@ -10,8 +10,8 @@ import React, { useEffect } from 'react';
 import {
   Globe as WorldIcon,
   Key as KeyIcon,
-  // List as ListIcon,
-  Star as StarIcon
+  Star as StarIcon, 
+  RefreshCcw as RoundIcon
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
@@ -47,7 +47,7 @@ const navData = [
       },
       {
         href: '/rounds',
-        icon: KeyIcon,
+        icon: RoundIcon,
         title: 'By Round'
       }
     ]
