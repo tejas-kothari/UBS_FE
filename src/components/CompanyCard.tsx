@@ -38,9 +38,13 @@ const useStyles = makeStyles(theme => ({
     verticalAlign: 'middle',
     marginRight: theme.spacing(1)
   },
-  details: {
+  detailsContainer: {
     maxWidth: 600,
     width: '100%'
+  },
+  details: {
+    display: 'flex',
+    alignItems: 'center'
   },
   img: {
     width: 120,
@@ -65,7 +69,7 @@ const processFundingRound = (round: string) => {
 function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
   const classes = useStyles();
   const companyHomepage = (
-    <Typography component="span" noWrap={true} color="textSecondary">
+    <Typography noWrap={true} color="textSecondary">
       <LanguageIcon className={classes.icon} />
       {company.homepage_url || 'unknown'}
     </Typography>
@@ -77,11 +81,7 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
         <Grid container spacing={2} alignItems="center">
           {showRank && (
             <Grid item className={classes.rank}>
-              <Typography
-                component="span"
-                className={classes.title}
-                gutterBottom
-              >
+              <Typography className={classes.title} gutterBottom>
                 {company.rank}.
               </Typography>
             </Grid>
@@ -94,14 +94,17 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
             />
           </Grid>
           <Grid item>
-            <Typography component="span" className={classes.title} gutterBottom>
+            <Typography className={classes.title} gutterBottom>
               {company.name}
             </Typography>
-            <Grid container spacing={1} className={classes.details}>
+            <Grid container spacing={1} className={classes.detailsContainer}>
               <Grid item xs={6}>
-                <Tooltip title={'Category: ' + company.category_groups_list}>
+                <Tooltip
+                  title={'Category: ' + company.category_groups_list}
+                  placement="bottom-start"
+                >
                   <Typography
-                    component="span"
+                    className={classes.details}
                     noWrap={true}
                     color="textSecondary"
                   >
@@ -111,9 +114,12 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
                 </Tooltip>
               </Grid>
               <Grid item xs={6}>
-                <Tooltip title={'Country: ' + company.country}>
+                <Tooltip
+                  title={'Country: ' + company.country}
+                  placement="bottom-start"
+                >
                   <Typography
-                    component="span"
+                    className={classes.details}
                     noWrap={true}
                     color="textSecondary"
                   >
@@ -125,9 +131,10 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
               <Grid item xs={6}>
                 <Tooltip
                   title={'Number of employees: ' + company.employee_count}
+                  placement="bottom-start"
                 >
                   <Typography
-                    component="span"
+                    className={classes.details}
                     noWrap={true}
                     color="textSecondary"
                   >
@@ -142,9 +149,10 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
                     'Last funding round: ' +
                     processFundingRound(company.last_funding_round)
                   }
+                  placement="bottom-start"
                 >
                   <Typography
-                    component="span"
+                    className={classes.details}
                     noWrap={true}
                     color="textSecondary"
                   >
@@ -162,9 +170,10 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
                         notation: 'compact'
                       }).format(company.total_funding_usd) || 'unknown'
                   }
+                  placement="bottom-start"
                 >
                   <Typography
-                    component="span"
+                    className={classes.details}
                     noWrap={true}
                     color="textSecondary"
                   >
@@ -183,7 +192,10 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <Tooltip title="Click to go to company homepage">
+                    <Tooltip
+                      title="Click to go to company homepage"
+                      placement="bottom-start"
+                    >
                       {companyHomepage}
                     </Tooltip>
                   </a>
