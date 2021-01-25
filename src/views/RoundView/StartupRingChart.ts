@@ -9,22 +9,37 @@ export default class StartupRingChart extends RingChart<RoundViewState> {
       funding => funding.round === state.round
     );
 
+    if (state.roundFunding.length === 0) return;
+
     var color = d3
-    .scaleOrdinal()
-    .domain(state.roundFunding.map(funding=>funding.round))
-    .range(d3.schemeDark2);
+      .scaleOrdinal()
+      .domain([...state.roundFunding.map(funding => funding.round), 'Others'])
+      .range(d3.schemeDark2);
 
-    this.setRing(state.roundFunding.map(funding => {
-      return {
-        key: funding.round,
-        value: funding.mean_funding,
-        color: color(funding.round) as string
-         
-      }
-    }))
+    const threshold = 1000;
+    const roundFunding = state.roundFunding;
+    const others = {
+      key: 'Others',
+      value: roundFunding
+        .filter(round => round.num < threshold)
+        .reduce((prev, cur) => {
+          prev += cur.num;
+          return prev;
+        }, 0),
+      color: color('Others') as string
+    };
 
-
-
+    this.setRing([
+      ...roundFunding
+        .filter(round => round.num >= threshold)
+        .map(funding => {
+          return {
+            key: funding.round,
+            value: funding.num,
+            color: color(funding.round) as string
+          };
+        }),
+      others
+    ]);
   }
 }
-

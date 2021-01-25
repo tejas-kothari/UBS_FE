@@ -59,6 +59,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
   }
 
   setRing(data: DatumType[]) {
+    console.log(data);
     // Compute the position of each group on the pie:
     const pie = d3
       .pie<DatumType>()
