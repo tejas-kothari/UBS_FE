@@ -21,6 +21,7 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Company from '../interfaces/company';
+import { withStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
@@ -63,6 +64,16 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'contain'
   }
 }));
+const GreenTextTypography = withStyles({
+  root: {
+    color: "#228C22"
+  }
+})(Typography);
+const RedTextTypography = withStyles({
+  root: {
+    color: "#B53737"
+  }
+})(Typography);
 
 type CompanyCardProps = {
   company: Company;
@@ -110,14 +121,20 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
     <CardContent className={classes.cardContent}>
       <Grid container spacing={2} alignItems="center">
         {showRank && (
-          <Grid item className={classes.rank}>
+          <Grid item className={classes.rank} alignContent="flex-start">
             <Typography className={classes.title} gutterBottom>
               {company.rank}.
             </Typography>
-            <Typography className={classes.diff} gutterBottom>
+            {company.diff > 0 ? 
+            <GreenTextTypography className={classes.diff}  >
               {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
               {Math.abs(company.diff).toFixed(1)}%
-            </Typography>
+            </GreenTextTypography>
+             : <RedTextTypography className={classes.diff} gutterBottom >
+             {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+             {Math.abs(company.diff).toFixed(1)}%
+           </RedTextTypography>}
+            
           </Grid>
         )}
         <Grid item>
