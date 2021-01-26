@@ -18,7 +18,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PeopleIcon from '@material-ui/icons/People';
 import RemoveIcon from '@material-ui/icons/Remove';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
-import { withStyles } from '@material-ui/styles';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Company, { categories as hitechCategories } from '../interfaces/company';

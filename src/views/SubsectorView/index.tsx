@@ -143,7 +143,7 @@ function SubsectorView() {
               }
             />
             <CardContent>
-              <Grid container>
+              <Grid container justify="center">
                 <Grid item xs={12} md={6} xl={12}>
                   <Typography className={classes.chartTitle}>
                     Mean Funding by Country
@@ -154,7 +154,7 @@ function SubsectorView() {
                     setState={setState}
                   />
                 </Grid>
-                <Grid item xs={12} md={6} xl={12}>
+                <Grid item xs={12}>
                   <Typography className={classes.chartTitle}>
                     Number of startups by Country
                   </Typography>
