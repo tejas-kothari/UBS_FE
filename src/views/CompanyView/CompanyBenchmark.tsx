@@ -85,7 +85,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
       .then(featuresComparing =>
         // Fetch baseline values for the benchmark 
         fetch(
-          `https://ubs-be.herokuapp.com/get_features?x_axis=${state.xAxis}&y_axis=${state.yAxis}`
+          `https://ubs-be.herokuapp.com/get_features?uuid=${company.uuid}&x_axis=${state.xAxis}&y_axis=${state.yAxis}`
         )
           .then(res => res.json())
           .then(companiesFeatures => {
