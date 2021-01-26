@@ -10,40 +10,40 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 180,
+    minWidth: 150,
    
   },
 });
 
-function createData(name: string, calories: number) {
-  return { name, calories};
+function createData(key: string, value: any) {
+  return { key, value};
 }
 
 const rows = [
-  createData('Age at Funding - Seed', 0.0),
-  createData('Age at Funding - Series A', 237),
-  createData('Age at Funding - Series B', 262),
-  createData('Age at Funding - Series Unknown', 305),
-  createData('Average organization age at events', 356),
-  createData('Funding Raised (USD) - Debt Financing', 356),
-  createData('Funding Raised (USD) - Seed', 356),
-  createData('Funding Raised (USD) - Series A', 356),
-  createData('Funding Raised (USD) - Series B', 356),
-  createData('Funding Raised (USD) - Series Unknown', 356),
-  createData('Funding received from organisations founded previously by current Founders', 356),
-  createData('Funding received from previously held jobs by current Founders', 356),
-  createData('Number of Bachelors', 356),
-  createData('Number of Founders', 356),
-  createData('Number of Funding Rounds from previously held jobs by current Founders', 356),
-  createData('Number of Investors - Seed', 356),
-  createData('Number of Investors - Series A', 356),
-  createData('Number of executive jobs held by Founders previously', 356),
-  createData('Number of organisations founded previously by current Founders', 356),
-  createData('Number of previous funding rounds', 356),
-  createData('Organization Age', 356),
-  createData('Predicted Funding', 356),
-  createData('Total Funding Received', 356),
-  createData('University Rankings from Founders’ degrees', 356),
+  createData('Age at Funding - Seed', 0.0/12 + 'years'),
+  createData('Age at Funding - Series A', 29.0/12 + 'years'),
+  createData('Age at Funding - Series B', 52.5/12 + 'years'),
+  createData('Age at Funding - Series Unknown', 0.0/12 + 'years'),
+  createData('Average organization age at events', 65.22351588328303/12 + 'years'),
+  createData('Funding Raised (USD) - Debt Financing', '$'+ 0.0),
+  createData('Funding Raised (USD) - Seed', '$'+ 0.0),
+  createData('Funding Raised (USD) - Series A', '$'+ 6000000.0),
+  createData('Funding Raised (USD) - Series B', '$'+ 42500000.0),
+  createData('Funding Raised (USD) - Series Unknown', '$'+ 0.0),
+  createData('Funding received from organisations founded previously by current Founders', '$'+ 0.0),
+  createData('Funding received from previously held jobs by current Founders', '$'+ 0.0),
+  createData('Number of Bachelors', 0.0),
+  createData('Number of Founders', 2.0),
+  createData('Number of Funding Rounds from previously held jobs by current Founders', 0.0),
+  createData('Number of Investors - Seed', 0.0),
+  createData('Number of Investors - Series A', 1.0),
+  createData('Number of executive jobs held by Founders previously', 2.0),
+  createData('Number of organisations founded previously by current Founders', 0.0),
+  createData('Number of previous funding rounds', 5.0),
+  createData('Organization Age', 108.28969794040944/12 + 'years'),
+  createData('Predicted Funding', '$'+ 161456031.26083332),
+  createData('Total Funding Received', '$'+ 161500000.0),
+  createData('University Rankings from Founders’ degrees', 1.0),
 
 ];
 
@@ -51,7 +51,7 @@ export default function BasicTable() {
   const classes = useStyles();
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: 657 }}>
+    <TableContainer component={Paper} style={{ maxHeight: 657  }}>
       <Table className={classes.table} aria-label="simple table" stickyHeader>
         <TableHead >
           <TableRow>
@@ -62,11 +62,11 @@ export default function BasicTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.key}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.key}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
+              <TableCell align="right">{row.value}</TableCell>
               
             </TableRow>
           ))}
