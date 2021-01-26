@@ -9,7 +9,7 @@ import {
 import React, { useEffect } from 'react';
 import {
   Globe as WorldIcon,
-  Key as KeyIcon,
+  
   Star as StarIcon, 
   RefreshCcw as RoundIcon
 } from 'react-feather';
@@ -40,11 +40,11 @@ const navData = [
         icon: WorldIcon,
         title: 'By Country'
       },
-      {
+      /*{
         href: '/features',
         icon: KeyIcon,
         title: 'By Feature'
-      },
+      },*/
       {
         href: '/rounds',
         icon: RoundIcon,
