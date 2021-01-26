@@ -12,7 +12,7 @@ type DatumType = {
 export default abstract class RingChart<StateType> extends StatefulD3Chart<
   StateType
 > {
-  static readonly MARGIN = { top: 0, right: 0, bottom: 0, left: 10 };
+  static readonly MARGIN = { top: 0, right: 0, bottom: 0, left: 40 };
   static readonly WIDTH = 800 - RingChart.MARGIN.left - RingChart.MARGIN.right;
   static readonly HEIGHT = 400 - RingChart.MARGIN.top - RingChart.MARGIN.bottom;
 
