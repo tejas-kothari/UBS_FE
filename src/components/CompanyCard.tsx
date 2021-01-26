@@ -126,7 +126,7 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
               {company.rank}.
             </Typography>
             {company.diff > 0 ? 
-            <GreenTextTypography className={classes.diff}  >
+            <GreenTextTypography className={classes.diff} variant="h1" >
               {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
               {Math.abs(company.diff).toFixed(1)}%
             </GreenTextTypography>

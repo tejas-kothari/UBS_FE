@@ -69,7 +69,7 @@ function FeaturesView() {
                 })
               }
             >
-              Model 1
+              Model 1<br/>0-10M
             </Button>
             <Button
               onClick={() =>
@@ -78,7 +78,7 @@ function FeaturesView() {
                 })
               }
             >
-              Model 2
+              Model 2<br/>10M-65M
             </Button>
             <Button
               onClick={() =>
@@ -87,7 +87,7 @@ function FeaturesView() {
                 })
               }
             >
-              Model 3
+              Model 3<br/>65M-1.7B
             </Button>
           </Grid>
         </Grid>
