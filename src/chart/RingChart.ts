@@ -129,6 +129,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
     texts
       .enter()
       .append('text')
+      // eslint-disable-next-line no-useless-concat
       .text(d => d.data.key + ': ' + d.data.value +'('+ d3.format(".2f")(d.data.value/16335*100) +'%' + ')')
       .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
       .attr('transform', d => {
