@@ -15,6 +15,8 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PeopleIcon from '@material-ui/icons/People';
 import RemoveIcon from '@material-ui/icons/Remove';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -27,6 +29,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.25rem',
     fontWeight: 'bold'
   },
+  diff: {
+    fontSize: '1rem'
+  },
   spacer: {
     flexGrow: 1
   },
@@ -38,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   rank: {
-    width: 100
+    width: 120
   },
   icon: {
     verticalAlign: 'middle',
@@ -108,6 +113,10 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
           <Grid item className={classes.rank}>
             <Typography className={classes.title} gutterBottom>
               {company.rank}.
+            </Typography>
+            <Typography className={classes.diff} gutterBottom>
+              {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+              {Math.abs(company.diff).toFixed(1)}%
             </Typography>
           </Grid>
         )}

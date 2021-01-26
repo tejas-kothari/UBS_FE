@@ -52,6 +52,7 @@ export default interface Company {
   series_j_raised_amount_usd_sum: number;
   event_appearance_total_count: number;
   acquisition_total_count: number;
+  diff: number;
 }
 
 const phases = [
