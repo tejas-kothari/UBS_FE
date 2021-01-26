@@ -58,17 +58,17 @@ function CompanyView() {
   return (
     <Page title={company && company.name} className={classes.root}>
       {company && companyFunding ? (
-        <Grid container spacing={3} alignItems="stretch">
+        <Grid container spacing={3}>
           <Grid item xs={12} className={classes.companyCard}>
             <CompanyCard company={company} showRank={false} addLink={false} />
           </Grid>
-          <Grid item xs={8} xl={8}>
+          <Grid item xs={12} lg={8} xl={4}>
             <ComapnyFundingTimeline
               company={company}
               companyFunding={companyFunding}
             />
           </Grid>
-          <Grid item xs={4} xl={4}>
+          <Grid item xs={12} lg={4} xl={2}>
             <BasicTable/>
           </Grid>
           <Grid item xs={12} xl={6}>
