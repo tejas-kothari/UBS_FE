@@ -9,19 +9,20 @@ import {
   Typography
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import CategoryIcon from '@material-ui/icons/Category';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import PeopleIcon from '@material-ui/icons/People';
 import RemoveIcon from '@material-ui/icons/Remove';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
+import { withStyles } from '@material-ui/styles';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Company, { categories as hitechCategories } from '../interfaces/company';
-import { withStyles } from '@material-ui/styles';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex'
@@ -62,18 +63,14 @@ const useStyles = makeStyles(theme => ({
     width: 120,
     height: 120,
     objectFit: 'contain'
-  }
-}));
-const GreenTextTypography = withStyles({
-  root: {
+  },
+  greenDiff: {
     color: '#228C22'
-  }
-})(Typography);
-const RedTextTypography = withStyles({
-  root: {
+  },
+  redDiff: {
     color: '#B53737'
   }
-})(Typography);
+}));
 
 type CompanyCardProps = {
   company: Company;
@@ -125,17 +122,15 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
             <Typography className={classes.title} gutterBottom>
               {company.rank}.
             </Typography>
-            {company.diff > 0 ? (
-              <GreenTextTypography className={classes.diff}>
-                {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+            <div
+              className={company.diff > 0 ? classes.greenDiff : classes.redDiff}
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+              <Typography className={classes.diff}>
                 {Math.abs(company.diff).toFixed(1)}%
-              </GreenTextTypography>
-            ) : (
-              <RedTextTypography className={classes.diff} gutterBottom>
-                {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-                {Math.abs(company.diff).toFixed(1)}%
-              </RedTextTypography>
-            )}
+              </Typography>
+            </div>
           </Grid>
         )}
         <Grid item>
