@@ -34,6 +34,7 @@ export default function BasicTable({
         <TableBody>
           {Object.entries(companyFeatures)
             .filter(([key, value]) => key !== 'name' && key !== 'org_uuid')
+            .sort(([key1, value1], [key2, value2]) => value2 - value1)
             .map(([key, value]) => (
               <TableRow key={key}>
                 <TableCell component="th" scope="row">
