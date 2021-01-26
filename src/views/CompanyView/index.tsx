@@ -7,10 +7,11 @@ import { useParams } from 'react-router-dom';
 import CompanyCard from '../../components/CompanyCard';
 import Page from '../../components/Page';
 import Company from '../../interfaces/company';
+import CompanyFeatures from '../../interfaces/company_features';
 import CompanyFunding from '../../interfaces/company_funding';
+import BasicTable from './BasicTable';
 import CompanyBenchmark from './CompanyBenchmark';
 import ComapnyFundingTimeline from './CompanyFundingCard';
-import BasicTable from './BasicTable'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +43,7 @@ function CompanyView() {
   const { companyId } = useParams();
   const [company, setCompany] = useState<Company>();
   const [companyFunding, setCompanyFunding] = useState<CompanyFunding[]>();
+  const [companyFeatures, setCompanyFeatures] = useState<CompanyFeatures>();
 
   useEffect(() => {
     fetch('https://ubs-be.herokuapp.com/get_startup?uuid=' + companyId)
@@ -51,6 +53,10 @@ function CompanyView() {
     fetch('https://ubs-be.herokuapp.com/get_startup_funding?uuid=' + companyId)
       .then(res => res.json())
       .then(data => setCompanyFunding(Object.values(data) as CompanyFunding[]));
+
+    fetch(`https://ubs-be.herokuapp.com/get_startup_features?uuid=${companyId}`)
+      .then(res => res.json())
+      .then(data => setCompanyFeatures(data as CompanyFeatures));
   }, [companyId]);
 
   // console.log(companyFunding);
@@ -62,16 +68,19 @@ function CompanyView() {
           <Grid item xs={12} className={classes.companyCard}>
             <CompanyCard company={company} showRank={false} addLink={false} />
           </Grid>
-          <Grid item xs={12} lg={8} xl={4}>
+          <Grid item xs={12} lg={8}>
             <ComapnyFundingTimeline
               company={company}
               companyFunding={companyFunding}
             />
           </Grid>
-          <Grid item xs={12} lg={4} xl={2}>
-            <BasicTable/>
+          <Grid item xs={12} lg={4}>
+            {companyFeatures && (
+              <BasicTable companyFeatures={companyFeatures} />
+            )}
           </Grid>
-          <Grid item xs={12} xl={6}>
+          l
+          <Grid item xs={12}>
             <CompanyBenchmark company={company} />
           </Grid>
         </Grid>
