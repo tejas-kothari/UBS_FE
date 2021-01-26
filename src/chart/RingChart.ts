@@ -13,8 +13,8 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
   StateType
 > {
   static readonly MARGIN = { top: 0, right: 0, bottom: 0, left: 40 };
-  static readonly WIDTH = 800 - RingChart.MARGIN.left - RingChart.MARGIN.right;
-  static readonly HEIGHT = 400 - RingChart.MARGIN.top - RingChart.MARGIN.bottom;
+  static readonly WIDTH = 1600 - RingChart.MARGIN.left - RingChart.MARGIN.right;
+  static readonly HEIGHT = 800 - RingChart.MARGIN.top - RingChart.MARGIN.bottom;
 
   arc: d3.Arc<SVGPathElement, d3.PieArcDatum<DatumType>>;
   outerArc: d3.Arc<SVGPathElement, d3.PieArcDatum<DatumType>>;
@@ -104,6 +104,15 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .data<d3.PieArcDatum<DatumType>>(data_ready, d => d.data.key);
 
     polylines.exit().remove();
+    polylines.attr('points', d => {
+      var posA = this.arc.centroid(d); // line insertion in the slice
+      var posB = this.outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
+      var posC = this.outerArc.centroid(d); // Label position = almost the same as posB
+      var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
+      posC[0] = this.radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+      return [posA, posB, posC].map(pair => pair.join(',')).join(',');
+    });
+
     polylines
       .enter()
       .append('polyline')
@@ -125,12 +134,40 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .selectAll<SVGTextElement, d3.PieArcDatum<DatumType>>('text')
       .data<d3.PieArcDatum<DatumType>>(data_ready, d => d.data.key);
 
+    const sum = data.reduce((prev, cur) => {
+      return prev + cur.value;
+    }, 0);
+
     texts.exit().remove();
+    texts
+      .text(
+        d =>
+          `${d.data.key}: ${d.data.value.toFixed(2)} (${(
+            (d.data.value / sum) *
+            100
+          ).toFixed(2)}%)`
+      )
+      .attr('transform', d => {
+        var pos = this.outerArc.centroid(d);
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+        pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+        return 'translate(' + pos + ')';
+      })
+      .style('text-anchor', d => {
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
+        return midangle < Math.PI ? 'start' : 'end';
+      });
+
     texts
       .enter()
       .append('text')
-      // eslint-disable-next-line no-useless-concat
-      .text(d => d.data.key + ': ' + d.data.value +'('+ d3.format(".2f")(d.data.value/16335*100) +'%' + ')')
+      .text(
+        d =>
+          `${d.data.key}: ${d.data.value.toFixed(2)} (${(
+            (d.data.value / sum) *
+            100
+          ).toFixed(2)}%)`
+      )
       .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);

@@ -1,11 +1,9 @@
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
-//import { Timeline } from '@material-ui/lab';
-import React from 'react';
-//import BarChart from '../../chart/BarChart';
-import ChartWrapper from '../../chart/ChartWrapper';
-import RingChart from './RingChart';
-
+import { Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
 import Page from '../../components/Page';
+import data from './data.json';
+import FeaturesRingChart from './FeaturesRingChart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,36 +26,72 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     textAlign: 'center',
     color: theme.palette.text.primary
-  },
+  }
 }));
+
+export type FeaturesViewState = {
+  selectedModel: string;
+  data: any;
+};
 
 function FeaturesView() {
   const classes = useStyles();
+
+  const [state, setState] = useState<FeaturesViewState>({
+    selectedModel: 'model2',
+    data
+  });
 
   return (
     <Page title="Charts" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Features Identified
       </Typography>
-      <Grid container>
-
-        {/* <Grid item xs={12} md={4}>
-          
-            {ChartWrapper<BarChart>(BarChart)}
-          
-        </Grid> */}
-
-        <Grid item xs={12} md={12}>
-          <Paper variant="outlined" className={classes.paper}>
+      <Paper variant="outlined" className={classes.paper}>
+        <Grid container>
+          <Grid item xs={12} md={12}>
             <Typography variant="h5" className={classes.title} align={'left'}>
               Relative importance of Features
             </Typography>
             <Grid>
-            {ChartWrapper<RingChart>(RingChart)}
+              <StatefulChartWrappper
+                type={FeaturesRingChart}
+                state={state}
+                setState={setState}
+              />
             </Grid>
-          </Paper >
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              onClick={() =>
+                setState(state => {
+                  return { ...state, selectedModel: 'model1' };
+                })
+              }
+            >
+              Model 1
+            </Button>
+            <Button
+              onClick={() =>
+                setState(state => {
+                  return { ...state, selectedModel: 'model2' };
+                })
+              }
+            >
+              Model 2
+            </Button>
+            <Button
+              onClick={() =>
+                setState(state => {
+                  return { ...state, selectedModel: 'model3' };
+                })
+              }
+            >
+              Model 3
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
+      </Paper>
     </Page>
   );
 }
