@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
     textAlign: 'center',
     color: theme.palette.text.primary
+  },
+  button: {
+    marginRight: theme.spacing(1)
   }
 }));
 
@@ -45,14 +48,14 @@ function FeaturesView() {
   return (
     <Page title="Charts" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
-        Features Identified
+        Features Importance
       </Typography>
       <Paper variant="outlined" className={classes.paper}>
         <Grid container>
           <Grid item xs={12} md={12}>
-            <Typography variant="h5" className={classes.title} align={'left'}>
+            {/* <Typography variant="h5" className={classes.title} align={'left'}>
               Relative importance of Features
-            </Typography>
+            </Typography> */}
             <Grid>
               <StatefulChartWrappper
                 type={FeaturesRingChart}
@@ -63,31 +66,43 @@ function FeaturesView() {
           </Grid>
           <Grid item xs={12}>
             <Button
+              variant="contained"
+              className={classes.button}
+              color={state.selectedModel === 'model1' ? 'primary' : 'default'}
               onClick={() =>
                 setState(state => {
                   return { ...state, selectedModel: 'model1' };
                 })
               }
             >
-              Model 1<br/>0-10M
+              Model 1<br />
+              0-10M
             </Button>
             <Button
+              variant="contained"
+              className={classes.button}
+              color={state.selectedModel === 'model2' ? 'primary' : 'default'}
               onClick={() =>
                 setState(state => {
                   return { ...state, selectedModel: 'model2' };
                 })
               }
             >
-              Model 2<br/>10M-65M
+              Model 2<br />
+              10M-65M
             </Button>
             <Button
+              variant="contained"
+              className={classes.button}
+              color={state.selectedModel === 'model3' ? 'primary' : 'default'}
               onClick={() =>
                 setState(state => {
                   return { ...state, selectedModel: 'model3' };
                 })
               }
             >
-              Model 3<br/>65M-1.7B
+              Model 3<br />
+              65M-1.7B
             </Button>
           </Grid>
         </Grid>

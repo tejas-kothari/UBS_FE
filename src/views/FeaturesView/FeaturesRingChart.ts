@@ -4,7 +4,9 @@ import RingChart from '../../chart/RingChart';
 
 export default class FeaturesRingChart extends RingChart<FeaturesViewState> {
   updateState(state: FeaturesViewState): void {
-    const data = state.data[state.selectedModel];
+    const data = Object.entries<number>(state.data[state.selectedModel]).sort(
+      ([key1, value1], [key2, value2]) => value1 - value2
+    );
 
     const color = d3
       .scaleOrdinal()
@@ -14,14 +16,14 @@ export default class FeaturesRingChart extends RingChart<FeaturesViewState> {
     const threshold = 6;
     const others = {
       key: 'Others',
-      value: Object.entries(data)
+      value: data
         .filter((val, index) => index < threshold)
         .reduce((prev, [key, value]) => prev + (value as number), 0),
       color: color('Others') as string
     };
 
     this.setRing([
-      ...Object.entries(data)
+      ...data
         .filter((val, index) => index < threshold)
         .map(([key, value]) => {
           return {
