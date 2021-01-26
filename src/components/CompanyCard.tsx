@@ -20,7 +20,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Company from '../interfaces/company';
+import Company, { categories as hitechCategories } from '../interfaces/company';
 import { withStyles } from '@material-ui/styles';
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,12 +66,12 @@ const useStyles = makeStyles(theme => ({
 }));
 const GreenTextTypography = withStyles({
   root: {
-    color: "#228C22"
+    color: '#228C22'
   }
 })(Typography);
 const RedTextTypography = withStyles({
   root: {
-    color: "#B53737"
+    color: '#B53737'
   }
 })(Typography);
 
@@ -125,16 +125,17 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
             <Typography className={classes.title} gutterBottom>
               {company.rank}.
             </Typography>
-            {company.diff > 0 ? 
-            <GreenTextTypography className={classes.diff}  >
-              {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-              {Math.abs(company.diff).toFixed(1)}%
-            </GreenTextTypography>
-             : <RedTextTypography className={classes.diff} gutterBottom >
-             {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-             {Math.abs(company.diff).toFixed(1)}%
-           </RedTextTypography>}
-            
+            {company.diff > 0 ? (
+              <GreenTextTypography className={classes.diff}>
+                {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+                {Math.abs(company.diff).toFixed(1)}%
+              </GreenTextTypography>
+            ) : (
+              <RedTextTypography className={classes.diff} gutterBottom>
+                {company.diff > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+                {Math.abs(company.diff).toFixed(1)}%
+              </RedTextTypography>
+            )}
           </Grid>
         )}
         <Grid item>
@@ -160,7 +161,11 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
                   color="textSecondary"
                 >
                   <CategoryIcon className={classes.icon} />
-                  {company.category_groups_list.split(',')[0] || 'unknown'}
+                  {company.category_groups_list
+                    .split(',')
+                    .filter(
+                      category => hitechCategories.indexOf(category) !== -1
+                    )[0] || 'unknown'}
                 </Typography>
               </Tooltip>
             </Grid>
