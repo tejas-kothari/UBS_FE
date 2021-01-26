@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   makeStyles,
   TablePagination,
@@ -137,6 +138,17 @@ function CompaniesListView() {
           values={selects.sizes}
         />
         <SearchField search={search} setSearch={setSearch} />
+        <Grid item style={{ display: 'flex' }}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              window.localStorage.setItem('comparison', '{}');
+              window.location.reload();
+            }}
+          >
+            Reset comparison
+          </Button>
+        </Grid>
       </Grid>
 
       {loading ? (
