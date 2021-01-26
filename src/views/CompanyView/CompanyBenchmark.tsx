@@ -56,8 +56,8 @@ export type CompanyBenchmarkState = {
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const classes = useStyles();
   const [state, setState] = useState<CompanyBenchmarkState>({
-    xAxis: 'Number of Founders',
-    yAxis: 'Predicted Funding',
+    xAxis: 'Predicted Funding',
+    yAxis: 'Total Funding Received',
     category: '',
     data: [],
     loadData: true,
@@ -75,7 +75,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   useEffect(() => {
     if (!state.loadData) return;
 
-  // Fetch startup features of the companies selected for comparison
+    // Fetch startup features of the companies selected for comparison
     Promise.all(
       state.companiesComparing.map(uuid =>
         fetch(`https://ubs-be.herokuapp.com/get_startup_features?uuid=${uuid}`)
@@ -83,7 +83,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     )
       .then(rawJsons => Promise.all(rawJsons.map(rawJson => rawJson.json())))
       .then(featuresComparing =>
-        // Fetch baseline values for the benchmark 
+        // Fetch baseline values for the benchmark
         fetch(
           `https://ubs-be.herokuapp.com/get_features?uuid=${company.uuid}&x_axis=${state.xAxis}&y_axis=${state.yAxis}`
         )
@@ -93,8 +93,8 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               return {
                 ...state,
                 companyFeatures: [
-                  ...(Object.values(companiesFeatures) as CompanyFeatures[]),
-                  ...(featuresComparing as CompanyFeatures[])
+                  ...(featuresComparing as CompanyFeatures[]),
+                  ...(Object.values(companiesFeatures) as CompanyFeatures[])
                 ].filter((value, index, self) => {
                   return (
                     self.map(x => x.org_uuid).indexOf(value.org_uuid) === index
@@ -127,6 +127,8 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     });
   };
 
+  console.log(state.companyFeatures[0]);
+
   return (
     <Card>
       <CardContent>
@@ -154,36 +156,14 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.xAxis}
                 onChange={handleChange}
               >
-                {[
-                  'Number of Founders',
-                  'Number of organisations founded previously by current Founders',
-                  'Funding received from organisations founded previously by current Founders',
-                  'Number of executive jobs held by Founders previously',
-                  'Funding received from previously held jobs by current Founders',
-                  'Number of Funding Rounds from previously held jobs by current Founders',
-                  'Number of Bachelors',
-                  "University Rankings from Founders' degrees",
-                  'Number of previous funding rounds',
-                  'Age at Funding - Series Unknown',
-                  'Funding Raised (USD) - Series Unknown',
-                  'Age at Funding - Seed',
-                  'Funding Raised (USD) - Seed',
-                  'Number of Investors - Seed',
-                  'Age at Funding - Series A',
-                  'Funding Raised (USD) - Series A',
-                  'Number of Investors - Series A',
-                  'Funding Raised (USD) - Debt Financing',
-                  'Age at Funding - Series B',
-                  'Funding Raised (USD) - Series B',
-                  'Average organization age at events',
-                  'Organization Age',
-                  'Predicted Funding',
-                  'Total Funding Received'
-                ].map(xAxis => (
-                  <MenuItem key={xAxis} value={xAxis}>
-                    {xAxis}
-                  </MenuItem>
-                ))}
+                {state.companyFeatures[0] &&
+                  Object.keys(state.companyFeatures[0])
+                    .filter(key => key !== 'name' && key !== 'org_uuid')
+                    .map(xAxis => (
+                      <MenuItem key={xAxis} value={xAxis}>
+                        {xAxis}
+                      </MenuItem>
+                    ))}
               </Select>
             </FormControl>
           </Grid>
