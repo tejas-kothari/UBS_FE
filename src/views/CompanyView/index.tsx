@@ -79,7 +79,6 @@ function CompanyView() {
               <BasicTable companyFeatures={companyFeatures} />
             )}
           </Grid>
-          l
           <Grid item xs={12}>
             <CompanyBenchmark company={company} />
           </Grid>
