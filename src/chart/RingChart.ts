@@ -153,6 +153,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
+      .style("font", "35px arial")
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
@@ -175,10 +176,13 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
+      
+      .style("font", "35px arial")
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
       });
+      
   }
 
   abstract updateState(state: StateType): void;
