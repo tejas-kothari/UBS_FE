@@ -2,7 +2,9 @@ import {
   Button,
   Card,
   CardContent,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   makeStyles,
@@ -51,6 +53,7 @@ export type CompanyBenchmarkState = {
   reset: boolean;
   company: Company;
   companiesComparing: string[];
+  showZero: boolean;
 };
 
 function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
@@ -69,7 +72,8 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
       ...Object.keys(
         JSON.parse(window.localStorage.getItem('comparison') || '{}')
       )
-    ]
+    ],
+    showZero: false
   });
 
   useEffect(() => {
@@ -85,7 +89,11 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
       .then(featuresComparing =>
         // Fetch baseline values for the benchmark
         fetch(
-          `https://ubs-be.herokuapp.com/get_features?uuid=${company.uuid}&x_axis=${state.xAxis}&y_axis=${state.yAxis}`
+          `https://ubs-be.herokuapp.com/get_features?uuid=${
+            company.uuid
+          }&x_axis=${state.xAxis}&y_axis=${state.yAxis}&show_zero=${
+            state.showZero ? 'True' : 'False'
+          }`
         )
           .then(res => res.json())
           .then(companiesFeatures => {
@@ -111,7 +119,8 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     state.companiesComparing,
     state.loadData,
     state.xAxis,
-    state.yAxis
+    state.yAxis,
+    state.showZero
   ]);
 
   const handleChange = (
@@ -127,7 +136,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     });
   };
 
-  console.log(state.companyFeatures[0]);
+  console.log(state);
 
   return (
     <Card>
@@ -145,7 +154,9 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               setState={setState}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+        </Grid>
+        <Grid container justify="center" spacing={1}>
+          <Grid item xs={12} md={4}>
             <FormControl className={classes.formControl}>
               <InputLabel id="xAxis-label" focused={false}>
                 X-Axis
@@ -167,7 +178,7 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <FormControl className={classes.formControl}>
               <InputLabel id="yAxis-label" focused={false}>
                 Y-Axis
@@ -185,30 +196,29 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 ))}
               </Select>
             </FormControl>
-            {/* <FormControl component="fieldset">
-              <FormLabel component="legend" focused={false}>
-                Category
-              </FormLabel>
-              <RadioGroup
-                name="category"
-                value={state.category}
-                onChange={handleChange}
-              >
-                <RadioButton value="" label="All"></RadioButton>
-                {company.category_groups_list
-                  .split(',')
-                  .filter(category => categories.indexOf(category) !== -1)
-                  .map(category => (
-                    <RadioButton
-                      key={category}
-                      value={category}
-                      label={category}
-                      disabled={false}
-                    ></RadioButton>
-                  ))}
-              </RadioGroup>
-            </FormControl> */}
           </Grid>
+          <Grid item>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.showZero}
+                  onChange={event =>
+                    setState(state => {
+                      return {
+                        ...state,
+                        loadData: true,
+                        showZero: event.target.checked
+                      };
+                    })
+                  }
+                  name="showZero"
+                />
+              }
+              label="Show Zero"
+            />
+          </Grid>
+        </Grid>
+        <Grid container justify="center" spacing={1}>
           <Grid item>
             <Button
               variant="contained"

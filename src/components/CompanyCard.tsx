@@ -117,7 +117,7 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
     <CardContent className={classes.cardContent}>
       <Grid container spacing={2} alignItems="center">
         {showRank && (
-          <Grid item className={classes.rank} alignContent="flex-start">
+          <Grid item className={classes.rank}>
             <Typography className={classes.title} gutterBottom>
               {company.rank}.
             </Typography>
