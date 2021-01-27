@@ -43,7 +43,7 @@ const routes = [
       },
       {
         path: '/',
-        element: <Navigate to="/companies/featured" />
+        element: <Navigate to="/companies/list" />
       }
     ]
   },
