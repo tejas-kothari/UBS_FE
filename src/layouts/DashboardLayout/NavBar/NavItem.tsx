@@ -1,10 +1,8 @@
+import { Button, ListItem, makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
+import { To } from 'history';
 import React from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { Button, ListItem, makeStyles } from '@material-ui/core';
-import { Icon } from 'react-feather';
-import { To } from 'history';
 
 const useStyles = makeStyles(theme => ({
   item: {
@@ -15,9 +13,9 @@ const useStyles = makeStyles(theme => ({
   button: {
     color: theme.palette.text.secondary,
     fontWeight: theme.typography.fontWeightMedium,
-    justifyContent: 'flex-start',
+    alignItems: 'end',
     letterSpacing: 0,
-    padding: '10px 8px',
+    // padding: '10px 8px',
     textTransform: 'none',
     width: '100%'
   },
@@ -41,18 +39,12 @@ const useStyles = makeStyles(theme => ({
 type NavItemProps = {
   className?: string | undefined;
   href: To;
-  icon: Icon;
+  icon: any;
   title: string | undefined;
   [x: string]: any;
 };
 
-const NavItem = ({
-  className,
-  href,
-  icon: Icon,
-  title,
-  ...rest
-}: NavItemProps) => {
+const NavItem = ({ className, href, icon, title, ...rest }: NavItemProps) => {
   const classes = useStyles();
 
   return (
@@ -67,18 +59,11 @@ const NavItem = ({
         component={RouterLink}
         to={href}
       >
-        {Icon && <Icon className={classes.icon} size="20" />}
+        <span className={classes.icon}>{icon}</span>
         <span className={classes.title}>{title}</span>
       </Button>
     </ListItem>
   );
-};
-
-NavItem.propTypes = {
-  className: PropTypes.string,
-  href: PropTypes.string,
-  icon: PropTypes.elementType,
-  title: PropTypes.string
 };
 
 export default NavItem;

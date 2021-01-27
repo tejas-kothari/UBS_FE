@@ -6,14 +6,11 @@ import {
   makeStyles,
   Typography
 } from '@material-ui/core';
+import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
+import LanguageIcon from '@material-ui/icons/Language';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import React, { useEffect } from 'react';
-import {
-  Globe as WorldIcon,
-  Star as StarIcon,
-  RefreshCcw as RoundIcon,
-  Key as KeyIcon,
-  Heart as HeartIcon
-} from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
@@ -23,12 +20,12 @@ const navData = [
     items: [
       {
         href: '/companies/list',
-        icon: StarIcon,
+        icon: <StarBorderIcon />,
         title: 'Featured'
       },
       {
         href: '/companies/compare',
-        icon: HeartIcon,
+        icon: <CompareArrowsIcon />,
         title: 'Comparison'
       }
     ]
@@ -38,19 +35,19 @@ const navData = [
     items: [
       {
         href: '/subsectors',
-        icon: WorldIcon,
+        icon: <LanguageIcon />,
         title: 'By Country'
       },
       {
         href: '/features',
-        icon: KeyIcon,
+        icon: <VpnKeyIcon />,
         title: 'By Feature'
-      },
-      {
-        href: '/rounds',
-        icon: RoundIcon,
-        title: 'By Round'
       }
+      // {
+      //   href: '/rounds',
+      //   icon: RoundIcon,
+      //   title: 'By Round'
+      // }
     ]
   }
 ];
