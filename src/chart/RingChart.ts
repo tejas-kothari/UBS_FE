@@ -59,6 +59,50 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
   }
 
   setRing(data: DatumType[]) {
+    function wrap(
+      text: d3.Selection<
+        SVGTextElement,
+        d3.PieArcDatum<DatumType>,
+        SVGGElement,
+        any
+      >,
+      width: number
+    ) {
+      text.each(function() {
+        let text = d3.select(this),
+          words = text
+            .text()
+            .split(/\s+/)
+            .reverse(),
+          word,
+          line = [] as string[],
+          lineHeight = 1.1, // ems
+          y = text.attr('y'),
+          dy = 0,
+          tspan = text
+            .text(null)
+            .append('tspan')
+            .attr('x', 0)
+            .attr('y', y)
+            .attr('dy', dy + 'em');
+        while ((word = words.pop())) {
+          line.push(word);
+          tspan.text(line.join(' '));
+          const tspanNode = tspan.node();
+          if (tspanNode !== null && tspanNode.getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(' '));
+            line = [word];
+            tspan = text
+              .append('tspan')
+              .attr('x', 0)
+              .attr('y', y)
+              .attr('dy', lineHeight + 'em')
+              .text(word);
+          }
+        }
+      });
+    }
     // Compute the position of each group on the pie:
     const pie = d3
       .pie<DatumType>()
@@ -153,11 +197,12 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      .style("font", "35px arial")
+      // .style("font", "35px arial")
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
-      });
+      })
+      .call(wrap, 200);
 
     texts
       .enter()
@@ -176,13 +221,13 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      
-      .style("font", "35px arial")
+      .call(wrap, 200)
+
+      // .style("font", "35px arial")
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
       });
-      
   }
 
   abstract updateState(state: StateType): void;
