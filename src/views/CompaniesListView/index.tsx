@@ -23,15 +23,14 @@ const useStyles = makeStyles(theme => ({
     minHeight: '100%',
     padding: theme.spacing(3)
   },
-  formControl: {
-    minWidth: 150,
-    backgroundColor: theme.palette.background.paper
-  },
   title: {
     marginBottom: theme.spacing(1)
   },
   selects: {
     marginBottom: theme.spacing(3)
+  },
+  button: {
+    width: 250
   }
 }));
 
@@ -141,6 +140,7 @@ function CompaniesListView() {
         <Grid item style={{ display: 'flex' }}>
           <Button
             variant="contained"
+            className={classes.button}
             onClick={() => {
               window.localStorage.setItem('comparison', '{}');
               window.location.reload();
