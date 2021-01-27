@@ -64,13 +64,6 @@ function CompanyFundingCard({
               Company Funding
             </Typography>
           </Grid>
-          {/* <Grid item xs={12} md={8} xl={8}>
-            <StatefulChartWrappper
-              type={FundingTimelineChart}
-              state={state}
-              setState={setState}
-            />
-          </Grid> */}
           <Grid item xs={12} md={8}>
             <StatefulChartWrappper
               type={FundingChart}

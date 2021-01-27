@@ -11,7 +11,8 @@ import {
   Globe as WorldIcon,
   Star as StarIcon,
   RefreshCcw as RoundIcon,
-  Key as KeyIcon
+  Key as KeyIcon,
+  Heart as HeartIcon
 } from 'react-feather';
 import { useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
@@ -24,12 +25,12 @@ const navData = [
         href: '/companies/list',
         icon: StarIcon,
         title: 'Featured'
+      },
+      {
+        href: '/companies/compare',
+        icon: HeartIcon,
+        title: 'Comparison'
       }
-      // {
-      //   href: '/companies/list',
-      //   icon: ListIcon,
-      //   title: 'Full List'
-      // }
     ]
   },
   {

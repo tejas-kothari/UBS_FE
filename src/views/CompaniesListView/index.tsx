@@ -52,7 +52,6 @@ function CompaniesListView() {
   const [filterCountry, setFilterCountry] = useState<string[]>([]);
   const [filterPhase, setFilterPhase] = useState<string[]>([]);
   const [filterSize, setFilterSize] = useState<string[]>([]);
-  // const [filterInvestor, setFilterInvestor] = useState<string[]>([]);
   const [search, setSearch] = useState<string>('');
 
   const [page, setPage] = useState<number>(0);

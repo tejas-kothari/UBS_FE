@@ -4,7 +4,7 @@ import DashboardLayout from './layouts/DashboardLayout';
 import ChartView from './views/ChartView';
 import CompaniesListView from './views/CompaniesListView';
 import CompanyView from './views/CompanyView/index';
-import FeaturedCompaniesView from './views/FeaturedCompaniesView';
+import ComparingCompaniesView from './views/ComparingCompaniesView';
 import FeaturesView from './views/FeaturesView';
 //import FeaturesView from './views/FeaturesView';
 import RoundView from './views/RoundView';
@@ -60,8 +60,8 @@ const routes = [
         element: <CompaniesListView />
       },
       {
-        path: 'featured',
-        element: <FeaturedCompaniesView />
+        path: 'compare',
+        element: <ComparingCompaniesView />
       }
     ]
   }

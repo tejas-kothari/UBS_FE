@@ -96,7 +96,7 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
   const [comparing, setComparing] = useState<boolean>(
     JSON.parse(window.localStorage.getItem('comparison') || '{}')[
       company.uuid
-    ] === true
+    ] !== undefined
   );
 
   useEffect(() => {
@@ -105,13 +105,14 @@ function CompanyCard({ company, showRank, addLink }: CompanyCardProps) {
     );
 
     if (comparing) {
-      comparison[company.uuid] = true;
+      comparison[company.uuid] = company;
     } else {
       delete comparison[company.uuid];
     }
 
     window.localStorage.setItem('comparison', JSON.stringify(comparison));
-  }, [company.uuid, comparing]);
+    // window.location.reload();
+  }, [company, comparing]);
 
   const cardContent = (
     <CardContent className={classes.cardContent}>
