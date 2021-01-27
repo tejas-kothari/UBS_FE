@@ -12,6 +12,7 @@ import CompanyFunding from '../../interfaces/company_funding';
 import BasicTable from './BasicTable';
 import CompanyBenchmark from './CompanyBenchmark';
 import ComapnyFundingTimeline from './CompanyFundingCard';
+import CompanyShap from './CompanyShap';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -78,6 +79,9 @@ function CompanyView() {
             {companyFeatures && (
               <BasicTable companyFeatures={companyFeatures} />
             )}
+          </Grid>
+          <Grid item xs={12}>
+            <CompanyShap company={company} />
           </Grid>
           <Grid item xs={12}>
             <CompanyBenchmark company={company} />
