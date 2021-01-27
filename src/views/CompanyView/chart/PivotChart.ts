@@ -149,7 +149,19 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
         state.companiesComparing.findIndex(uuid => uuid === d.org_uuid) !== -1
           ? '#E60100'
           : '#69b3a2'
-      );
+      )
+      .style('opacity', function(d) {
+        const highlighted = state.companiesComparing.findIndex(
+          uuid => uuid === d.org_uuid
+        ) !== -1;
+
+        if(highlighted) {
+          d3.select(this).raise();
+          return 0.7;
+        } else {
+          return 0.3;
+        }
+      });
 
     // ENTER
     const newDots = dots
@@ -170,7 +182,18 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     newDots
       .transition()
       .duration(1000)
-      .style('opacity', 0.3);
+      .style('opacity', function(d) {
+        const highlighted = state.companiesComparing.findIndex(
+          uuid => uuid === d.org_uuid
+        ) !== -1;
+
+        if(highlighted) {
+          d3.select(this).raise();
+          return 0.7;
+        } else {
+          return 0.3;
+        }
+      });
 
     this.addTooltip<DatumType>(
       newDots,
