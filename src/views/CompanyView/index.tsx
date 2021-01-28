@@ -60,12 +60,9 @@ function CompanyView() {
       .then(data => setCompanyFeatures(data as CompanyFeatures));
   }, [companyId]);
 
-  // console.log(companyFunding);
-  if (!companyFeatures) return <Typography>Loading...</Typography>;
-
   return (
     <Page title={company && company.name} className={classes.root}>
-      {company && companyFunding ? (
+      {company && companyFunding && companyFeatures ? (
         <Grid container spacing={3}>
           <Grid item xs={12} className={classes.companyCard}>
             <CompanyCard company={company} showRank={true} addLink={false} />
