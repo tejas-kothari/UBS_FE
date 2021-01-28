@@ -8,7 +8,7 @@ type DatumType = CompanyFeatures;
 export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
   static readonly MARGIN = { top: 10, right: 30, bottom: 30, left: 100 };
   static readonly WIDTH =
-    450 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
+    600 - PivotChart.MARGIN.left - PivotChart.MARGIN.right;
   static readonly HEIGHT =
     450 - PivotChart.MARGIN.top - PivotChart.MARGIN.bottom;
 
