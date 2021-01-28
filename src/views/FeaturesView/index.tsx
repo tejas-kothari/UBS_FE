@@ -76,7 +76,7 @@ function FeaturesView() {
               }
             >
               Model 1<br />
-              0-10M
+              700-1M
             </Button>
             <Button
               variant="contained"
@@ -89,7 +89,7 @@ function FeaturesView() {
               }
             >
               Model 2<br />
-              10M-65M
+              1M-6.5M
             </Button>
             <Button
               variant="contained"
@@ -102,7 +102,7 @@ function FeaturesView() {
               }
             >
               Model 3<br />
-              65M-1.7B
+              6.5M-1.7B
             </Button>
           </Grid>
         </Grid>
