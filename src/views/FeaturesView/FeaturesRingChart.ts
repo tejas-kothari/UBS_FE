@@ -8,12 +8,15 @@ export default class FeaturesRingChart extends RingChart<FeaturesViewState> {
       ([key1, value1], [key2, value2]) => value2 - value1
     );
 
+    const threshold = 6;
     const color = d3
       .scaleOrdinal()
-      .domain([...Object.keys(data), 'Others'])
+      .domain([
+        ...Object.keys(data.filter((val, index) => index < threshold)),
+        'Others'
+      ])
       .range(d3.schemeDark2);
 
-    const threshold = 6;
     const others = {
       key: 'Others',
       value: data

@@ -126,7 +126,10 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .remove();
 
     // UPDATE
-    arcs.attr('d', this.arc);
+    arcs
+      .transition()
+      .duration(1000)
+      .attr('d', this.arc);
 
     // ENTER
     arcs
