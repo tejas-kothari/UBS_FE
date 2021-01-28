@@ -61,6 +61,7 @@ function CompanyView() {
   }, [companyId]);
 
   // console.log(companyFunding);
+  if (!companyFeatures) return <Typography>Loading...</Typography>;
 
   return (
     <Page title={company && company.name} className={classes.root}>
@@ -81,7 +82,7 @@ function CompanyView() {
             )}
           </Grid>
           <Grid item xs={12}>
-            <CompanyShap company={company} />
+            <CompanyShap company={company} companyFeatures={companyFeatures} />
           </Grid>
           <Grid item xs={12}>
             <CompanyBenchmark company={company} />

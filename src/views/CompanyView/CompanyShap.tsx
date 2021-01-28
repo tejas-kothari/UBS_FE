@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import Company from '../../interfaces/company';
+import CompanyFeatures from '../../interfaces/company_features';
 import AdditiveForceVisualizer from '../../shap/AdditiveForceVisualizer';
 
 const useStyles = makeStyles(theme => ({
@@ -20,9 +21,10 @@ const useStyles = makeStyles(theme => ({
 
 type CompanyShapProps = {
   company: Company;
+  companyFeatures: CompanyFeatures;
 };
 
-function CompanyShap({ company }: CompanyShapProps) {
+function CompanyShap({ company, companyFeatures }: CompanyShapProps) {
   const classes = useStyles();
   const [props, setProps] = useState<any>({
     outNames: ['f(x)'],
@@ -113,7 +115,7 @@ function CompanyShap({ company }: CompanyShapProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} style={{ overflowX: 'auto' }}>
-            <AdditiveForceVisualizer {...props} />
+            <AdditiveForceVisualizer {...props} funding={companyFeatures['Predicted Funding']} labelMargin={20} />
           </Grid>
         </Grid>
       </CardContent>

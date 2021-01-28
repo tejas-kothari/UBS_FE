@@ -253,9 +253,9 @@ class AdditiveForceVisualizer extends React.Component {
       .attr('fill', d => (d.effect > 0 ? this.colors[0] : this.colors[1]))
       .on('mouseover', (event, d) => {
         if (
-          // scale(Math.abs(d.effect)) < scale(totalEffect) / 50 ||
-          // scale(Math.abs(d.effect)) < 10
-          true
+          scale(Math.abs(d.effect)) < scale(totalEffect) / 50 ||
+          scale(Math.abs(d.effect)) < 10
+          // true
         ) {
           let x = scale(d.x) + scaleOffset;
           let w = scale(Math.abs(d.effect));
@@ -480,14 +480,12 @@ class AdditiveForceVisualizer extends React.Component {
       .attr('opacity', 1);
 
     this.joinPointLabelOutline
-      .attr('x', scale(joinPoint) + scaleOffset)
+      .attr('x', this.scaleCentered(0))
       .attr('y', -5 + topOffset)
-      .attr('color', '#fff')
       .attr('text-anchor', 'middle')
       .attr('font-weight', 'bold')
-      .attr('stroke', '#fff')
-      .attr('stroke-width', 6)
-      .text(format(',.2f')(this.invLinkFunction(joinPoint - totalNegEffects)))
+      .attr('fill', '#000')
+      .text(format(',.2f')(3004441.216997495))
       .attr('opacity', 1);
     // console.log(
     //   'joinPoint',
@@ -502,7 +500,7 @@ class AdditiveForceVisualizer extends React.Component {
       .attr('text-anchor', 'middle')
       .attr('font-weight', 'bold')
       .attr('fill', '#000')
-      .text(format(',.2f')(this.invLinkFunction(joinPoint - totalNegEffects)))
+      .text(format(',.2f')(this.props.funding))
       .attr('opacity', 1);
 
     this.joinPointTitle
@@ -511,7 +509,7 @@ class AdditiveForceVisualizer extends React.Component {
       .attr('text-anchor', 'middle')
       .attr('font-size', '12')
       .attr('fill', '#000')
-      .text(this.props.outNames[0])
+      .text('prediction')
       .attr('opacity', 0.5);
 
     if (!this.props.hideBars) {
@@ -556,7 +554,7 @@ class AdditiveForceVisualizer extends React.Component {
         .attr('text-anchor', 'middle')
         .attr('font-size', '12')
         .attr('fill', '#000')
-        .text('base value')
+        .text('average value')
         .attr('opacity', 0.5);
     }
   }
@@ -584,6 +582,9 @@ class AdditiveForceVisualizer extends React.Component {
             opacity: 0.4;
           }
           .force-bar-axis paths {
+            display: none;
+          }
+          .force-bar-axis text {
             display: none;
           }
           .tick line {
