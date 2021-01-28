@@ -129,7 +129,8 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
     arcs
       .transition()
       .duration(1000)
-      .attr('d', this.arc);
+      .attr('d', this.arc)
+      .attr('fill', d => d.data.color);
 
     // ENTER
     arcs
@@ -151,14 +152,17 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .data<d3.PieArcDatum<DatumType>>(data_ready, d => d.data.key);
 
     polylines.exit().remove();
-    polylines.attr('points', d => {
-      var posA = this.arc.centroid(d); // line insertion in the slice
-      var posB = this.outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
-      var posC = this.outerArc.centroid(d); // Label position = almost the same as posB
-      var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
-      posC[0] = this.radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-      return [posA, posB, posC].map(pair => pair.join(',')).join(',');
-    });
+    polylines
+      .transition()
+      .duration(1000)
+      .attr('points', d => {
+        var posA = this.arc.centroid(d); // line insertion in the slice
+        var posB = this.outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
+        var posC = this.outerArc.centroid(d); // Label position = almost the same as posB
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
+        posC[0] = this.radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+        return [posA, posB, posC].map(pair => pair.join(',')).join(',');
+      });
 
     polylines
       .enter()
@@ -195,6 +199,9 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
               100
             ).toFixed(2)}%)`
       )
+      .call(wrap, 300)
+      .transition()
+      .duration(1000)
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
@@ -206,8 +213,7 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
-      })
-      .call(wrap, 300);
+      });
 
     texts
       .enter()
@@ -220,20 +226,18 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
               100
             ).toFixed(2)}%)`
       )
-      // .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      .call(wrap, 300)
-
       .style('font', '20px arial')
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
-      });
+      })
+      .call(wrap, 300);
   }
 
   abstract updateState(state: StateType): void;
