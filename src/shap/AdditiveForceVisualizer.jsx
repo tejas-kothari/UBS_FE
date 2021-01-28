@@ -252,13 +252,11 @@ class AdditiveForceVisualizer extends React.Component {
       })
       .attr('fill', d => (d.effect > 0 ? this.colors[0] : this.colors[1]))
       .on('mouseover', (event, d) => {
-        console.log(d);
         if (
           // scale(Math.abs(d.effect)) < scale(totalEffect) / 50 ||
           // scale(Math.abs(d.effect)) < 10
           true
         ) {
-          console.log(d);
           let x = scale(d.x) + scaleOffset;
           let w = scale(Math.abs(d.effect));
           this.hoverLabel
@@ -491,13 +489,13 @@ class AdditiveForceVisualizer extends React.Component {
       .attr('stroke-width', 6)
       .text(format(',.2f')(this.invLinkFunction(joinPoint - totalNegEffects)))
       .attr('opacity', 1);
-    console.log(
-      'joinPoint',
-      joinPoint,
-      scaleOffset,
-      topOffset,
-      totalNegEffects
-    );
+    // console.log(
+    //   'joinPoint',
+    //   joinPoint,
+    //   scaleOffset,
+    //   topOffset,
+    //   totalNegEffects
+    // );
     this.joinPointLabel
       .attr('x', scale(joinPoint) + scaleOffset)
       .attr('y', -5 + topOffset)
