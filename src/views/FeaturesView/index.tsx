@@ -46,7 +46,7 @@ function FeaturesView() {
   });
 
   return (
-    <Page title="Charts" className={classes.root}>
+    <Page title="Analysis by Feature" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
         Features Importance
       </Typography>

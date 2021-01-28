@@ -25,9 +25,9 @@ function ComparingCompaniesView() {
   );
 
   return (
-    <Page title="Featured Companies" className={classes.root}>
+    <Page title="Companies Comparison" className={classes.root}>
       <Typography variant="h1" className={classes.title}>
-        Companies comparison
+        Companies Comparison
       </Typography>
       <Button
         variant="contained"
