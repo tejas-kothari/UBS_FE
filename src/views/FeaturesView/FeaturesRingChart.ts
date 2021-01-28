@@ -19,7 +19,8 @@ export default class FeaturesRingChart extends RingChart<FeaturesViewState> {
       value: data
         .filter((val, index) => index >= threshold)
         .reduce((prev, [key, value]) => prev + (value as number), 0),
-      color: color('Others') as string
+      color: color('Others') as string,
+      hideLabel: true
     };
 
     this.setRing([
@@ -29,7 +30,8 @@ export default class FeaturesRingChart extends RingChart<FeaturesViewState> {
           return {
             key,
             value: value as number,
-            color: color(key) as string
+            color: color(key) as string,
+            hideLabel: true
           };
         }),
       others

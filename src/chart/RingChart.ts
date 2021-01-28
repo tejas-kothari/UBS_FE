@@ -170,8 +170,8 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2; // we need the angle to see if the X position will be at the extreme right or extreme left
         posC[0] = this.radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
         return [posA, posB, posC].map(pair => pair.join(',')).join(',');
-      })
-      .attr('opacity', d => (d.data.hideLabel ? 0 : 1));
+      });
+    // .attr('opacity', d => (d.data.hideLabel ? 0 : 1));
 
     // Add the polylines between chart and labels:
     const texts = this.svg
@@ -184,12 +184,13 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
 
     texts.exit().remove();
     texts
-      .text(
-        d =>
-          `${d.data.key}: ${d.data.value.toFixed(2)} (${(
-            (d.data.value / sum) *
-            100
-          ).toFixed(2)}%)`
+      .text(d =>
+        d.data.hideLabel
+          ? `${d.data.key}: ${((d.data.value / sum) * 100).toFixed(2)}%`
+          : `${d.data.key}: ${d.data.value.toFixed(2)} (${(
+              (d.data.value / sum) *
+              100
+            ).toFixed(2)}%)`
       )
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);
@@ -197,34 +198,35 @@ export default abstract class RingChart<StateType> extends StatefulD3Chart<
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      .style("font", "20px arial")
+      .style('font', '20px arial')
       // .style("font", "35px arial")
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
       })
-      .call(wrap, 250);
+      .call(wrap, 300);
 
     texts
       .enter()
       .append('text')
-      .text(
-        d =>
-          `${d.data.key}: ${d.data.value.toFixed(2)} (${(
-            (d.data.value / sum) *
-            100
-          ).toFixed(2)}%)`
+      .text(d =>
+        d.data.hideLabel
+          ? `${d.data.key}: ${((d.data.value / sum) * 100).toFixed(2)}%`
+          : `${d.data.key}: ${d.data.value.toFixed(2)} (${(
+              (d.data.value / sum) *
+              100
+            ).toFixed(2)}%)`
       )
-      .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
+      // .attr('opacity', d => (d.data.hideLabel ? 0 : 1))
       .attr('transform', d => {
         var pos = this.outerArc.centroid(d);
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         pos[0] = this.radius * 0.99 * (midangle < Math.PI ? 1 : -1);
         return 'translate(' + pos + ')';
       })
-      .call(wrap, 250)
+      .call(wrap, 300)
 
-      .style("font", "20px arial")
+      .style('font', '20px arial')
       .style('text-anchor', d => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? 'start' : 'end';
