@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import {
   Card,
   CardContent,
@@ -5,7 +6,7 @@ import {
   makeStyles,
   Typography
 } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Company from '../../interfaces/company';
 import AdditiveForceVisualizer from '../../shap/AdditiveForceVisualizer';
 
@@ -23,7 +24,7 @@ type CompanyShapProps = {
 
 function CompanyShap({ company }: CompanyShapProps) {
   const classes = useStyles();
-  const props = {
+  const [props, setProps] = useState<any>({
     outNames: ['f(x)'],
     baseValue: 1234,
     outValue: 8617560.94 - 1234,
@@ -87,7 +88,20 @@ function CompanyShap({ company }: CompanyShapProps) {
       { effect: -0.1159932272, value: 0 }
     ],
     plot_cmap: 'RdBu'
-  };
+  });
+
+  useEffect(() => {
+    fetch(`https://ubs-be.herokuapp.com/get_startup_shap?uuid=${company.uuid}`)
+      .then(res => res.json())
+      .then(data => {
+        if (Object.keys(data).length !== 0) {
+          data['featureNames'] = eval(data['featureNames']);
+          eval(`data['features'] = ` + data['features']);
+          eval(`data['outNames'] = ` + data['outNames']);
+          setProps(data);
+        }
+      });
+  }, [company.uuid]);
 
   return (
     <Card>
@@ -95,7 +109,7 @@ function CompanyShap({ company }: CompanyShapProps) {
         <Grid container justify="center" alignItems="center" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="body1" align="left" className={classes.title}>
-              Company SHAP {company.uuid}
+              Features Contribution
             </Typography>
           </Grid>
           <Grid item xs={12} style={{ overflowX: 'auto' }}>

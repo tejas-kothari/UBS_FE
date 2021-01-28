@@ -136,8 +136,6 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
     });
   };
 
-  console.log(state);
-
   return (
     <Card>
       <CardContent>
