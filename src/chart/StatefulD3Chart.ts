@@ -1,14 +1,11 @@
 import * as d3 from 'd3';
-import { ChartMargins } from '../D3Chart';
 
 export default abstract class StatefulD3Chart<StateType> {
   protected svg: d3.Selection<SVGGElement, any, null, undefined>;
 
   constructor(
     element: HTMLElement,
-    protected setState: React.Dispatch<
-      React.SetStateAction<StateType>
-    >,
+    protected setState: React.Dispatch<React.SetStateAction<StateType>>,
     protected forceUpdate: React.DispatchWithoutAction,
     margin: ChartMargins,
     width: number,
@@ -68,4 +65,11 @@ export default abstract class StatefulD3Chart<StateType> {
     new Intl.NumberFormat('en-US', {
       notation: 'compact'
     }).format(value as number);
+}
+
+export interface ChartMargins {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
 }

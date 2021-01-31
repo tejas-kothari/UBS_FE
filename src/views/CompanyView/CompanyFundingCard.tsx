@@ -6,7 +6,7 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import StatefulChartWrappper from '../../chart/StatefulChartWrapper';
 import Company from '../../interfaces/company';
 import CompanyFunding from '../../interfaces/company_funding';
 import FundingChart from './chart/FundingChart';

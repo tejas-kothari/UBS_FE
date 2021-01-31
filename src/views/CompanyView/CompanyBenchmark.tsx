@@ -13,7 +13,7 @@ import {
   Typography
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import StatefulChartWrappper from '../../chart/StatefulChartWrapper';
 import Company from '../../interfaces/company';
 import CompanyFeatures from '../../interfaces/company_features';
 import PivotChart from './chart/PivotChart';

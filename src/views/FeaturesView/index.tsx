@@ -1,6 +1,6 @@
 import { Button, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
-import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import StatefulChartWrappper from '../../chart/StatefulChartWrapper';
 import Page from '../../components/Page';
 import data from './data.json';
 import FeaturesRingChart from './FeaturesRingChart';

@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
 import ChartWrapper from '../../chart/ChartWrapper';
-import StatefulChartWrappper from '../../chart/new/StatefulChartWrapper';
+import StatefulChartWrappper from '../../chart/StatefulChartWrapper';
 import Page from '../../components/Page';
 import FundingBarChart from './FundingBarChart';
 import Legend from './Legend';

@@ -43,11 +43,6 @@ const navData = [
         icon: <VpnKeyIcon />,
         title: 'By Feature'
       }
-      // {
-      //   href: '/rounds',
-      //   icon: RoundIcon,
-      //   title: 'By Round'
-      // }
     ]
   }
 ];
@@ -89,21 +84,6 @@ const NavBar = ({ onMobileClose, openMobile }: NavBarProps) => {
 
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
-      {/* <Box alignItems="center" display="flex" flexDirection="column" p={2}>
-        <Avatar
-          className={classes.avatar}
-          component={RouterLink}
-          src={user.avatar}
-          to="/app/account"
-        />
-        <Typography color="textPrimary" variant="h5">
-          {user.name}
-        </Typography>
-        <Typography color="textSecondary" variant="body2">
-          {user.jobTitle}
-        </Typography>
-      </Box>
-      <Divider /> */}
       <Box p={2}>
         <List>
           {navData.map(nav => (

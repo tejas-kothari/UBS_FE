@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
-import StatefulD3Chart from '../../../chart/new/StatefulD3Chart';
+import StatefulD3Chart from '../../../chart/StatefulD3Chart';
 import CompanyFeatures from '../../../interfaces/company_features';
 import { CompanyBenchmarkState } from '../CompanyBenchmark';
 

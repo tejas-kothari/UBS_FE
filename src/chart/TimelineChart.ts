@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { D3BrushEvent } from 'd3';
-import StatefulD3Chart from './new/StatefulD3Chart';
+import StatefulD3Chart from './StatefulD3Chart';
 
 type TimelineItem = {
   name: string;

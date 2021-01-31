@@ -3,7 +3,7 @@ import { FeatureCollection, GeoJsonProperties } from 'geojson';
 import * as topojson from 'topojson';
 import { Objects, Topology } from 'topojson-specification';
 import { SubsectorViewState } from '.';
-import StatefulD3Chart from '../../chart/new/StatefulD3Chart';
+import StatefulD3Chart from '../../chart/StatefulD3Chart';
 import RawRegionLocation from './RegionLocation.json';
 
 const regionLocation = RawRegionLocation as {
