@@ -8,6 +8,7 @@ export default class Legend extends D3Chart {
       width = 500 - margin.left - margin.right,
       height = 60 - margin.top - margin.bottom;
 
+    // assign thershold value to color
     const color = d3
       .scaleThreshold<number, string>()
       .domain([0, 500000, 1000000, 5000000, 10000000, 15000000, 20000000])
@@ -15,11 +16,13 @@ export default class Legend extends D3Chart {
     super(element, classes, margin, width, height);
     const length = color.range().length;
 
+
     const x = d3
       .scaleLinear()
       .domain([1, length - 1])
       .rangeRound([width / length, (width * (length - 1)) / length]);
 
+    // join rectangles
     const g = this.svg.append('g');
     g.selectAll('rect')
       .data(color.range())
@@ -29,6 +32,7 @@ export default class Legend extends D3Chart {
       .attr('width', (d, i) => x(i + 1) - x(i))
       .attr('fill', d => d);
 
+    //label
     g.append('text')
       .attr('y', -6)
       .attr('fill', 'currentColor')

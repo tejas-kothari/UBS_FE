@@ -6,6 +6,7 @@ import { SubsectorViewState } from '.';
 import StatefulD3Chart from '../../chart/StatefulD3Chart';
 import RawRegionLocation from './RegionLocation.json';
 
+
 const regionLocation = RawRegionLocation as {
   [name: string]: {
     long: number;
@@ -38,7 +39,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
 
     const path = d3.geoPath().projection(this.projection);
 
-    // load and display the World
+    // Make the map
     d3.json(
       'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
     ).then(rawTopology => {
@@ -67,7 +68,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
       );
     });
   }
-
+  //set state for selecting countries
   updateState(state: SubsectorViewState) {
     const colorScale = d3
       .scaleThreshold<number, string>()
@@ -121,6 +122,7 @@ export default class WorldMapChart extends StatefulD3Chart<SubsectorViewState> {
       '410' // South Korea
     ];
 
+    //Plot countries in data
     const markers = this.marker
       .selectAll<SVGCircleElement, any>('circle')
       .data<any>(countryList, d => d)

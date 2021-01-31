@@ -68,7 +68,7 @@ function FeaturesView() {
             <Button
               variant="contained"
               className={classes.button}
-              color={state.selectedModel === 'model1' ? 'primary' : 'default'}
+              color={state.selectedModel === 'model1' ? 'primary' : 'default'} //add buttons
               onClick={() =>
                 setState(state => {
                   return { ...state, selectedModel: 'model1' };

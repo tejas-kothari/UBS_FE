@@ -7,7 +7,6 @@ import {
   Theme
 } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-//import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import 'fontsource-roboto';
 import React, { useEffect, useState } from 'react';
@@ -19,16 +18,6 @@ import Legend from './Legend';
 import StartupRingChart from './StartupRingChart';
 import WorldMapChart from './WorldMapChart';
 
-/*
-const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.default,
-    minHeight: '100%',
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3)
-  }
-}));
-*/
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
