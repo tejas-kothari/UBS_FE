@@ -20,6 +20,8 @@ const useStyles = makeStyles(theme => ({
 
 function ComparingCompaniesView() {
   const classes = useStyles();
+
+  // Get the comparison list in local storage
   const companies = Object.values<Company>(
     JSON.parse(window.localStorage.getItem('comparison') || '{}')
   );
@@ -33,7 +35,9 @@ function ComparingCompaniesView() {
         variant="contained"
         className={classes.button}
         onClick={() => {
+          // Reset the comparison list in local storage
           window.localStorage.setItem('comparison', '{}');
+          // Reload the page to reflect the changes
           window.location.reload();
         }}
       >

@@ -36,25 +36,35 @@ const useStyles = makeStyles(theme => ({
 
 function CompaniesListView() {
   const classes = useStyles();
+
+  // Total number of startups in the database
   const [totalNumStartups, setTotalNumStartups] = useState<number>(0);
+  // List of companies that will be displayed
   const [companies, setCompanies] = useState<Company[]>([]);
+  // True when loading
   const [loading, setLoading] = useState<boolean>(true);
 
   const selects = {
     phases,
     sizes,
     categories,
-    countries,
-    investor: ['Investor A']
+    countries
   };
 
+  // Filter for category
   const [filterCategory, setFilterCategory] = useState<string[]>([]);
+  // Filter for country
   const [filterCountry, setFilterCountry] = useState<string[]>([]);
+  // Filter for phase (last funding round)
   const [filterPhase, setFilterPhase] = useState<string[]>([]);
+  // Filter for size
   const [filterSize, setFilterSize] = useState<string[]>([]);
+  // Search field
   const [search, setSearch] = useState<string>('');
 
+  // Page of the pagination
   const [page, setPage] = useState<number>(0);
+  // Rows per page of the pagination
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
   useEffect(() => {

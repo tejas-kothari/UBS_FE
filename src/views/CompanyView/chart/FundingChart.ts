@@ -108,8 +108,8 @@ export default class FundingChart extends StatefulD3Chart<
       .duration(1000)
       .call(d3.axisBottom(this.x).ticks(5));
 
+    // Update y-axis
     const xDomain = this.x.domain();
-    // Update y-axis scale
     this.y.domain([
       0,
       (d3.max(
@@ -186,7 +186,7 @@ export default class FundingChart extends StatefulD3Chart<
           };
         });
       });
-
+      
     this.addTooltip<CompanyFunding>(
       newItems,
       item =>

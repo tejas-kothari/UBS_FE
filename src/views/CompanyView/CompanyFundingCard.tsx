@@ -34,13 +34,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type CompanyFundingCardProps = {
+  // List of company funding milestones
   companyFunding: CompanyFunding[];
+  // Reference to the company
   company: Company;
 };
 
 export type CompanyFundingCardState = {
+  // List of company funding milestones
   companyFunding: CompanyFunding[];
+  // Reference to the company
   company: Company;
+  // Reference to the funding selected
   activeFunding: CompanyFunding | null;
 };
 

@@ -77,12 +77,6 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
     let data = state.data;
 
     if (state.reset) {
-      // TODO: Add back when category is added back
-      // data = state.companyFeatures.filter(
-      //   company =>
-      //     state.category === '' ||
-      //     company.category_groups_list.indexOf(state.category) !== -1
-      // );
       data = state.companyFeatures;
 
       const maxX = d3.max(data, d => d[state.xAxis] as number);
@@ -100,6 +94,7 @@ export default class PivotChart extends StatefulD3Chart<CompanyBenchmarkState> {
         .domain([0, maxY! * 1.5])
         .range([PivotChart.HEIGHT, 0]);
 
+      // Update 
       this.setState({
         ...state,
         reset: false,

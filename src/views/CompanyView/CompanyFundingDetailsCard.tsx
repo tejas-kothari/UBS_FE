@@ -46,6 +46,7 @@ type CompanyFundingDetailsCardProps = {
   funding: CompanyFunding;
 };
 
+// Process funding round from snake case to 
 const processFundingRound = (round: string) => {
   return round
     .split('_')

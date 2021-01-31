@@ -15,11 +15,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type CustomSelectProps = {
+  // Label of the select dropdown
   label: string;
+  // ID of the select element
   id: string;
+  // Values of the dropdown
   values: string[];
+  // Value that is currently selected
   value: string[];
+  // Event Listener that is called when the selected values change
   handleChange: React.Dispatch<React.SetStateAction<string[]>>;
+  // Function that is called after handleChange
   updateCompanies: () => void;
 };
 
@@ -37,7 +43,6 @@ function CustomSelect({
     <Grid item>
       <Autocomplete
         id={`featured-companies-${id}-autocomplete`}
-        // style={{ width: 300 }}
         options={values}
         className={classes.formControl}
         autoHighlight

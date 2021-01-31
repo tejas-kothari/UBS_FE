@@ -2,7 +2,9 @@ import { Grid, makeStyles, TextField } from '@material-ui/core';
 import React from 'react';
 
 type SearchFieldProps = {
+  // String for search
   search: string;
+  // Method to set the search string
   setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
 
