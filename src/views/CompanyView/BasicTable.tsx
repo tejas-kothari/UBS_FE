@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 });
 
 export default function BasicTable({
+  // Company features for display
   companyFeatures
 }: {
   companyFeatures: CompanyFeatures;

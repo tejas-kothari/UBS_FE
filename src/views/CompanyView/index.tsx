@@ -32,18 +32,19 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.25rem',
     fontWeight: 'bold',
     marginBottom: theme.spacing(1)
-  },
-  companyCard: {
-    // marginBottom: theme.spacing(3)
   }
 }));
 
 function CompanyView() {
   const classes = useStyles();
 
+  // Get company id from the params
   const { companyId } = useParams();
+  // Stateful value of the company object
   const [company, setCompany] = useState<Company>();
+  // Stateful value of the company funding object
   const [companyFunding, setCompanyFunding] = useState<CompanyFunding[]>();
+  // Stateful value of the company features object
   const [companyFeatures, setCompanyFeatures] = useState<CompanyFeatures>();
 
   useEffect(() => {
@@ -64,7 +65,7 @@ function CompanyView() {
     <Page title={company && company.name} className={classes.root}>
       {company && companyFunding && companyFeatures ? (
         <Grid container spacing={3}>
-          <Grid item xs={12} className={classes.companyCard}>
+          <Grid item xs={12}>
             <CompanyCard company={company} showRank={true} addLink={false} />
           </Grid>
           <Grid item xs={12} lg={8}>

@@ -26,6 +26,8 @@ type CompanyShapProps = {
 
 function CompanyShap({ company, companyFeatures }: CompanyShapProps) {
   const classes = useStyles();
+
+  // Base values for props
   const [props, setProps] = useState<any>({
     outNames: ['f(x)'],
     baseValue: 1234,
@@ -97,6 +99,7 @@ function CompanyShap({ company, companyFeatures }: CompanyShapProps) {
       .then(res => res.json())
       .then(data => {
         if (Object.keys(data).length !== 0) {
+          // Set the prop data from endpoint data
           data['featureNames'] = eval(data['featureNames']);
           eval(`data['features'] = ` + data['features']);
           eval(`data['outNames'] = ` + data['outNames']);
@@ -115,7 +118,11 @@ function CompanyShap({ company, companyFeatures }: CompanyShapProps) {
             </Typography>
           </Grid>
           <Grid item xs={12} style={{ overflowX: 'auto' }}>
-            <AdditiveForceVisualizer {...props} funding={companyFeatures['Predicted Funding']} labelMargin={20} />
+            <AdditiveForceVisualizer
+              {...props}
+              funding={companyFeatures['Predicted Funding']}
+              labelMargin={20}
+            />
           </Grid>
         </Grid>
       </CardContent>

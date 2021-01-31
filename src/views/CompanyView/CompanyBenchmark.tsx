@@ -40,19 +40,28 @@ const useStyles = makeStyles(theme => ({
 }));
 
 type CompanyBenchmarkProps = {
+  // Reference to the company
   company: Company;
 };
 
 export type CompanyBenchmarkState = {
+  // Value type of the x-axis
   xAxis: keyof CompanyFeatures;
+  // Value type of the y-axis
   yAxis: keyof CompanyFeatures;
-  category: string;
+  // List of companies that should be shown
   data: CompanyFeatures[];
+  // List of all companies
   companyFeatures: CompanyFeatures[];
+  // If true, the system should reload the data
   loadData: boolean;
+  // If true, the system should reset the x-axis and y-axis
   reset: boolean;
+  // Reference to the company
   company: Company;
+  // List of companies in the comparison list
   companiesComparing: string[];
+  // If true, the system should have data that is zero
   showZero: boolean;
 };
 
@@ -61,7 +70,6 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
   const [state, setState] = useState<CompanyBenchmarkState>({
     xAxis: 'Predicted Funding',
     yAxis: 'Total Funding Received',
-    category: '',
     data: [],
     loadData: true,
     reset: false,
@@ -101,9 +109,11 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
               return {
                 ...state,
                 companyFeatures: [
+                  // Merge the company features of the baseline companies and those from the comparison list
                   ...(featuresComparing as CompanyFeatures[]),
                   ...(Object.values(companiesFeatures) as CompanyFeatures[])
                 ].filter((value, index, self) => {
+                  // Remove all duplicates
                   return (
                     self.map(x => x.org_uuid).indexOf(value.org_uuid) === index
                   );
@@ -165,7 +175,9 @@ function CompanyBenchmark({ company }: CompanyBenchmarkProps) {
                 value={state.xAxis}
                 onChange={handleChange}
               >
+                
                 {state.companyFeatures[0] &&
+                  // Only show keys that do not have string values (i.e. name, org_uuid)
                   Object.keys(state.companyFeatures[0])
                     .filter(key => key !== 'name' && key !== 'org_uuid')
                     .map(xAxis => (
